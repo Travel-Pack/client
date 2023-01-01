@@ -5,16 +5,10 @@ import { store } from "./app/store"
 import reportWebVitals from "./reportWebVitals"
 import App from "./App"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import router from "./routes"
 
 const container = document.getElementById("root")
 const root = createRoot(container)
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-])
 
 root.render(
   <Provider store={store}>
