@@ -1,6 +1,6 @@
 export function DestinationReview() {
   return (
-    <section className="m-10">
+    <section className="m-10 max-w-screen-2xl mx-auto">
       <h1 className="font-bold font-caveat text-6xl">Gili Lawa Darat Island, East Nusa Tenggara</h1>
       <h1 className="font-bold font-caveat my-10 text-6xl">Overall</h1>
       <div className="flex items-center mb-5">

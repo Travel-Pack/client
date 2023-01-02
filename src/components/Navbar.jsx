@@ -1,14 +1,38 @@
+import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 
 export default function Navbar() {
+  const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset
+      const visible = prevScrollpos > currentScrollPos
+      setPrevScrollpos(currentScrollPos)
+      setVisible(visible)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [prevScrollpos])
+
   return (
     <div>
-      <div className="flex">
-        <h1>
+      <div className={`flex bg-white bg-opacity-90 items-center justify-between fixed w-full px-20 shadow-sm backdrop-blur-sm duration-200 h-[70px] ${visible ? 'top-0' : '-top-[70px]'}`}>
+        <NavLink to={"/"} className="text-2xl">
           Travel <span className="font-bold">Pack</span>
-        </h1>
-        <div>
-          <NavLink>Home</NavLink>
+        </NavLink>
+        <div className="flex justify-center gap-10">
+          <div>
+            <NavLink to={"/"}>Home</NavLink>
+          </div>
+        </div>
+        <div className="flex justify-center gap-2">
+          <NavLink to={"/register"}>Register</NavLink>
         </div>
       </div>
     </div>

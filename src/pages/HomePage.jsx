@@ -1,21 +1,22 @@
-import Cards from "../components/Cards"
+import Cards from "../components/HomeSection/Cards";
+
 
 export function HomePage() {
   return (
     <div>
-      <div className="flex-col flex h-screen items-center justify-evenly">
+      <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>
           <h1 className="text-center font-bold text-5xl">Travel Pack</h1>
           <h1 className="text-3xl font-light">
             Join Global community to list all worth destination in the world
           </h1>
-          <button className="bg-yellow-300 py-2 px-9 block mx-auto mt-2 lowercase">
+          <button className="bg-yellow-main py-2 px-9 block mx-auto mt-2 lowercase">
             Learn More
           </button>
         </div>
       </div>
       <div className="flex-col flex h-screen">
-        <div className="bg-yellow-300 flex items-center justify-center pb-5 pt-10 gap-14">
+        <div className="bg-yellow-main flex items-center justify-center py-10 gap-14">
           <div className="flex items-center">
             <svg
               fill="#000000"
@@ -53,25 +54,25 @@ export function HomePage() {
             <input
               type="text"
               placeholder="Where to?"
-              className="bg-transparent border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
+              className="bg-transparent border-0 border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
             />
           </div>
           <div>
             <input
               type="text"
               placeholder="Province?"
-              className="bg-transparent border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
+              className="bg-transparent border-0 border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
             />
           </div>
           <div>
             <input
               type="text"
               placeholder="City?"
-              className="bg-transparent border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
+              className="bg-transparent border-0 border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
             />
           </div>
           <div>
-            <button className="bg-zinc-900 text-yellow-50 px-7 py-2 active:scale-95 duration-200">
+            <button className="bg-zinc-900 text-yellow-50 px-14 py-2.5 active:scale-95 duration-200">
               find now
             </button>
           </div>

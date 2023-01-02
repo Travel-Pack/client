@@ -7,12 +7,40 @@ import { DestinationInformation } from "../components/DestinationDetailPage/Dest
 import { DestinationReview } from "../components/DestinationDetailPage/DestinationReview"
 import { DestinationCovid } from "../components/DestinationDetailPage/DestinationCovid"
 import ErrorPage from "../pages/ErrorPage"
+import App from "../App"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
+      {
+        path: "destination/:destinationName",
+        element: <DestinationDetailPage />,
+        children: [
+          {
+            path: "",
+            element: <DestinationInformation />,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: "review",
+            element: <DestinationReview />,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: "covid",
+            element: <DestinationCovid />,
+            errorElement: <ErrorPage />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/login",
@@ -23,27 +51,6 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterPage />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/destination/:destinationName/",
-    element: <DestinationDetailPage />,
-    children: [
-      {
-        path: "information",
-        element: <DestinationInformation />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "review",
-        element: <DestinationReview />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "covid",
-        element: <DestinationCovid />,
-        errorElement: <ErrorPage />,
-      },
-    ],
   },
 ])
 
