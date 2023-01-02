@@ -12,7 +12,7 @@ export function DestinationDetailPage() {
             </h2>
             <div className="mt-14 sm:mt-6">
               <div className="flex justify-between" id="NavDetail">
-                <NavLink to="information" className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-bold hover:bg-white w-32 py-2 text-center text-white hover:text-black">Information</NavLink>
+                <NavLink to={""} className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-bold hover:bg-white w-32 py-2 text-center text-white hover:text-black">Information</NavLink>
                 <NavLink to="review" className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-bold hover:bg-white w-32 py-2 text-center text-white hover:text-black">Review</NavLink>
                 <NavLink to="covid" className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-bold hover:bg-white w-32 py-2 text-center text-white hover:text-black">Covid
                   Stats</NavLink>

@@ -5,7 +5,7 @@ export function DestinationInformation() {
   return (
     <div>
       {/*Information section*/}
-      <section className="m-10">
+      <section className="py-10 max-w-screen-2xl mx-auto">
         <h1 className="font-bold font-caveat text-6xl">Gili Lawa Darat Island, East Nusa Tenggara</h1>
         <p className="text-justify mt-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit pharetra,
           pulvinar lacus non, rutrum magna. Vestibulum quis elit lacinia, dignissim elit iaculis, efficitur massa. Ut
@@ -34,13 +34,13 @@ export function DestinationInformation() {
             </div>
             <div className="carousel-inner relative w-full overflow-hidden">
               <div className="carousel-item active relative float-left w-full">
-                <img src="https://images.unsplash.com/photo-1602486493959-78e7be266a62?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2535&q=80" className="block w-full h-[540px] object-cover" alt="Destination-Photo" />
+                <img src="https://images.unsplash.com/photo-1602486493959-78e7be266a62?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2535&q=80" className="block w-full h-[540px] object-cover" alt="Destination" />
               </div>
               <div className="carousel-item relative float-left w-full">
-                <img src="https://images.unsplash.com/photo-1550033588-6f3e54613d6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" className="block w-full h-[540px] object-cover" alt="Destination-Photo" />
+                <img src="https://images.unsplash.com/photo-1550033588-6f3e54613d6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" className="block w-full h-[540px] object-cover" alt="Destination" />
               </div>
               <div className="carousel-item relative float-left w-full">
-                <img src="https://images.unsplash.com/photo-1576035739460-d6f6423dbf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1728&q=80" className="block w-full h-[540px] object-cover" alt="Destination-Photo" />
+                <img src="https://images.unsplash.com/photo-1576035739460-d6f6423dbf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1728&q=80" className="block w-full h-[540px] object-cover" alt="Destination" />
               </div>
             </div>
             <button className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
