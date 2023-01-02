@@ -4,8 +4,10 @@ import { Provider } from "react-redux"
 import { store } from "./app/store"
 import reportWebVitals from "./reportWebVitals"
 import App from "./App"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { RouterProvider } from "react-router-dom"
 import router from "./routes"
+import './index.css'
+import 'tw-elements';
 
 const container = document.getElementById("root")
 const root = createRoot(container)
