@@ -21,14 +21,14 @@ export function RegisterPage() {
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
           <div className="hidden lg:relative lg:block lg:p-12">
-            <a className="block text-white" href="/">
+            <NavLink to={"/"} className="block text-white" href="/">
               <span className="sr-only">Home</span>
               <img
                 src="/assets/travelPack.png"
                 alt="travelPack-Logo"
                 className="h-24 sm:h-24 bg-white rounded-full p-2"
               />
-            </a>
+            </NavLink>
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
               Let's go TravelPacking!
             </h2>

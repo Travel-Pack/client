@@ -7,8 +7,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundColor: {
-        "yellow-main": "#ffe500",
+      colors: {
+        yelloku: "#ffe500",
       },
     },
   },
