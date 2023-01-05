@@ -1,3 +1,4 @@
+import { Carousel } from "flowbite-react"
 import Cards from "../components/HomeSection/Cards"
 import Compass from "../components/svg/Compass"
 
@@ -6,13 +7,13 @@ export function HomePage() {
     <div>
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>
-          <h1 className="text-center font-bold text-5xl text-white">
+          <h1 className="text-center font-bold text-7xl text-white">
             Travel Pack
           </h1>
-          <h1 className="text-3xl font-light text-white">
-            Join Global community to list all worth destination in the world
+          <h1 className="text-5xl font-light text-white">
+            Join Global community to list all worth destination in Nusantara
           </h1>
-          <button className="bg-yelloku py-2 px-9 block mx-auto mt-2 lowercase">
+          <button className="bg-yelloku py-3 px-11 block mx-auto mt-2 lowercase tracking-wider">
             Learn More
           </button>
         </div>
@@ -47,16 +48,98 @@ export function HomePage() {
             </button>
           </div>
         </div>
-        <div className="container mx-auto my-5">
-          <h1 className="text-4xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
-            Amazing <span className="font-light">Destinations And Fun Adventures</span>
-            Waiting For You
-          </h1>
+        <div className="container mx-auto my-4">
+          <div className="max-w-3xl">
+            <div className="py-10">
+              <h1 className="text-5xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
+                Choose The
+                <span className="font-light">Destinations Just Right</span>
+                For Your Vacation
+              </h1>
+              <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
+                dolorem placeat atque ad! Eaque, ratione totam? Ad placeat
+                laborum
+              </p>
+            </div>
+          </div>
         </div>
-        <Cards />
+        <Cards type="city" />
+        <div className="container mx-auto my-4">
+          <div className="max-w-3xl">
+            <div className="py-10">
+              <h1 className="text-5xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
+                Amazing{" "}
+                <span className="font-light">
+                  Destinations And Fun Adventures{" "}
+                </span>
+                Waiting For You
+              </h1>
+              <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
+                dolorem placeat atque ad! Eaque, ratione totam? Ad placeat
+                laborum
+              </p>
+            </div>
+          </div>
+        </div>
+        <Cards type="destination" />
       </div>
 
-      <section id="destination" className="flex flex-col"></section>
+      <section id="quote" className="flex mt-24">
+        <div className="bg-yelloku w-1/2 flex justify-center items-center">
+          <div className="text-7xl font-lucky-guy py-32 px-48 text-center">
+            Theres <br /> Users reviews so far!
+          </div>
+        </div>
+        <div className="w-1/2 bg-black py-3 px-24 text-white">
+          <Carousel slideInterval={5000}>
+            <div className="bg-opacity-20">
+              <h1 className="text-lg mb-4">⭐⭐⭐⭐⭐</h1>
+              <p className="text-3xl mb-10">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Architecto harum minima voluptatem ducimus eligendi nesciunt
+                molestias laudantium, est ad?{" "}
+              </p>
+              <h3 className="text-xl">By Donal Batman</h3>
+            </div>
+            <div className="bg-opacity-20">
+              <h1 className="text-lg mb-4">⭐⭐⭐⭐⭐</h1>
+              <p className="text-3xl mb-10">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Architecto harum minima voluptatem ducimus eligendi nesciunt
+                molestias laudantium, est ad?{" "}
+              </p>
+              <h3 className="text-xl">By Donal Batman</h3>
+            </div>
+            <div className="bg-opacity-20">
+              <h1 className="text-lg mb-4">⭐⭐⭐⭐⭐</h1>
+              <p className="text-3xl mb-10">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Architecto harum minima voluptatem ducimus eligendi nesciunt
+                molestias laudantium, est ad?{" "}
+              </p>
+              <h3 className="text-xl">By Donal Batman</h3>
+            </div>
+          </Carousel>
+        </div>
+      </section>
+
+      <div className="container mx-auto my-4">
+        <div className="max-w-3xl">
+          <div className="py-10">
+            <h1 className="text-5xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
+              Lets go
+              <span className="font-light"> Book the Destination wanted </span>
+              right now!
+            </h1>
+            <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
+              dolorem placeat atque ad! Eaque, ratione totam? Ad placeat laborum
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

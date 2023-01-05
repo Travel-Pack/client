@@ -4,7 +4,7 @@ export function DestinationDetailPage() {
 
   return (
     <div>
-      <section className="overflow-hidden bg-[url(https://images.unsplash.com/photo-1576035739451-40088e802245?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)] bg-cover bg-bottom bg-no-repeat h-80">
+      <section className="overflow-hidden bg-[url(https://images.unsplash.com/photo-1576035739451-40088e802245?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)] bg-cover bg-bottom bg-no-repeat h-80 mt-20">
         <div className="p-8 md:p-12 lg:px-16 lg:py-24">
           <div className="max-w-lg text-center sm:text-left">
             <h2 className="font-caramel text-xl font-bold text-white sm:text-7xl md:text-7xl">
