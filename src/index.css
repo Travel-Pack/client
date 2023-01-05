@@ -8,9 +8,64 @@
   font-family: "Luckiest Guy", "cursive";
 }
 
-.line-clamp {
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+
+  /* Center slide text vertically */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  background-color: white;
+  padding: 1px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-bottom: 17px;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+}
+.append-buttons {
+  text-align: center;
+}
+
+.append-buttons button {
+  display: inline-block;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border: 1px solid black;
+  font-weight: 300;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.append-buttons button:hover{
+  background-color: white;
+  color: black;
+  transition-duration: 300ms ease-in-out;
 }
