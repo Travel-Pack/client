@@ -8,11 +8,12 @@ import { DestinationInformation } from "../components/DestinationDetailPage/Dest
 import { DestinationReview } from "../components/DestinationDetailPage/DestinationReview"
 import { DestinationCovid } from "../components/DestinationDetailPage/DestinationCovid"
 import ErrorPage from "../pages/ErrorPage"
-import TravelStep from "../pages/TravelStep"
+import FindTravel from "../pages/FindTravel"
 import MyTravelStep from "../pages/MyTravelStep"
 import Forum from "../pages/Forum"
 import ForumDetail from "../pages/ForumDetail"
 import TravelItenerary from "../pages/TravelItenerary"
+import TravelStep from "../pages/TravelStep"
 
 const router = createBrowserRouter([
   {
@@ -46,22 +47,27 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "find-travel",
+        element: <FindTravel />,
+        errorElement: <ErrorPage />,
+      },
+      {
         path: "travel-step",
         element: <TravelStep />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/travelItenerary",
+        path: "travelItenerary",
         element: <TravelItenerary />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/my-travel-step",
+        path: "my-travel-step",
         element: <MyTravelStep />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/forum",
+        path: "forum",
         element: <Forum />,
         errorElement: <ErrorPage />,
       },
@@ -83,7 +89,5 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
 ])
-
-
 
 export default router
