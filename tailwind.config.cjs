@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         yelloku: "#ffe500",
       },
+      
     },
   },
   plugins: [require("flowbite/plugin")],

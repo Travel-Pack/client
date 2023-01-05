@@ -1,8 +1,13 @@
 import { Carousel } from "flowbite-react"
+import { useNavigate } from "react-router-dom"
 import Cards from "../components/HomeSection/Cards"
 import Compass from "../components/svg/Compass"
 
 export function HomePage() {
+  const nav = useNavigate()
+  function navToStep(){
+    nav("/travelItenerary")
+  }
   return (
     <div>
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
@@ -53,7 +58,7 @@ export function HomePage() {
             <div className="py-10">
               <h1 className="text-5xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
                 Choose The
-                <span className="font-light">Destinations Just Right</span>
+                <span className="font-light"> Destinations Just Right </span>
                 For Your Vacation
               </h1>
               <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
@@ -133,10 +138,9 @@ export function HomePage() {
               <span className="font-light"> Book the Destination wanted </span>
               right now!
             </h1>
-            <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
-              dolorem placeat atque ad! Eaque, ratione totam? Ad placeat laborum
-            </p>
+            <button onClick={navToStep} className="bg-yelloku text-lg font-medium py-2.5 px-16 block mt-5 lowercase tracking-wider">
+              Go to Book
+            </button>
           </div>
         </div>
       </div>
