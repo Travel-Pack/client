@@ -8,8 +8,10 @@ function App() {
     <div className="App">
       <Navbar />
       <ScrollRestoration />
+
       <Outlet />
-      <Footer />
+
+      <Footer/>
     </div>
   )
 }

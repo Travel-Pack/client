@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals"
 import { RouterProvider } from "react-router-dom"
 import router from "./routes"
 import './index.css'
-import 'tw-elements';
+// import 'tw-elements';
 
 const container = document.getElementById("root")
 const root = createRoot(container)

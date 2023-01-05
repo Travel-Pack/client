@@ -8,6 +8,11 @@ import { DestinationReview } from "../components/DestinationDetailPage/Destinati
 import { DestinationCovid } from "../components/DestinationDetailPage/DestinationCovid"
 import ErrorPage from "../pages/ErrorPage"
 import App from "../App"
+import TravelStep from "../pages/TravelStep"
+import MyTravelStep from "../pages/MyTravelStep"
+import Forum from "../pages/Forum"
+import ForumDetail from "../pages/ForumDetail"
+import TravelItenerary from "../pages/TravelItenerary"
 
 const router = createBrowserRouter([
   {
@@ -39,6 +44,31 @@ const router = createBrowserRouter([
             errorElement: <ErrorPage />,
           },
         ],
+      },
+      {
+        path: "travel-step",
+        element: <TravelStep />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/travelItenerary",
+        element: <TravelItenerary />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/my-travel-step",
+        element: <MyTravelStep />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/forum",
+        element: <Forum />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "forum/1",
+        element: <ForumDetail />,
+        errorElement: <ErrorPage />,
       },
     ],
   },
