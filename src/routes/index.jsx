@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom"
+import App from "../App"
 import { HomePage } from "../pages/HomePage"
 import { LoginPage } from "../pages/LoginPage"
 import { RegisterPage } from "../pages/RegisterPage"
@@ -7,7 +8,6 @@ import { DestinationInformation } from "../components/DestinationDetailPage/Dest
 import { DestinationReview } from "../components/DestinationDetailPage/DestinationReview"
 import { DestinationCovid } from "../components/DestinationDetailPage/DestinationCovid"
 import ErrorPage from "../pages/ErrorPage"
-import App from "../App"
 import TravelStep from "../pages/TravelStep"
 import MyTravelStep from "../pages/MyTravelStep"
 import Forum from "../pages/Forum"
@@ -83,5 +83,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
 ])
+
+
 
 export default router

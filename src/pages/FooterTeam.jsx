@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function FooterTeam() {
   return (
     <div className="flex bg-black text-white py-16 px-14 gap-28 text-sm">
       <div className="flex flex-col gap-7 w-1/5">
