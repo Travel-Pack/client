@@ -30,6 +30,12 @@ export default function Navbar() {
           <div>
             <NavLink to={"/"}>Home</NavLink>
           </div>
+          <div>
+            <NavLink to={"/travel-step"}>Travel Step</NavLink>
+          </div>
+          <div>
+            <NavLink to={"forum"}>Forum</NavLink>
+          </div>
         </div>
         <div className="flex justify-center gap-2">
           <NavLink to={"/register"}>Register</NavLink>
