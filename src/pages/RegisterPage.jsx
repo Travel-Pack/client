@@ -126,7 +126,7 @@ export function RegisterPage() {
                 />
               </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button onClick={handleRegister} className="inline-block shrink-0 rounded-md border border-yellow-300 bg-yellow-300 px-12 py-3 text-sm font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
+                <button onClick={handleRegister} className="inline-block shrink-0 rounded-md bg-yelloku px-12 py-3 text-sm font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
                   Create an account
                 </button>
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">

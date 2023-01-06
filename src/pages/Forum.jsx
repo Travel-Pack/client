@@ -5,18 +5,45 @@ export default function Forum() {
   function navigateToDetail() {
     nav(`/forum/${1}`)
   }
+
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   return (
     <div className="flex-col flex gap-5 mt-20">
-      <div onClick={navigateToDetail} className="cursor-pointer max-w-7xl mx-auto">
-        <h1>Topic</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum ab animi,
-          perspiciatis illum placeat ratione expedita ea dicta, sed assumenda itaque, quia
-          hic. Minus, voluptate aliquid repellat dolores fugit quia. Natus consectetur
-          maiores necessitatibus explicabo et suscipit repudiandae placeat temporibus
-          sequi quod mollitia, esse nam obcaecati, eos excepturi soluta modi deserunt
-          voluptatibus quia qui culpa eligendi quis. Animi, itaque labore.
-        </p>
+      <section id="forumHero" className="bg-yelloku py-10">
+        <div className="container mx-auto">
+          <h1 className="text-3xl font-bold mb-3">List of Destinations</h1>
+          <div className="search items-center gap-5 flex">
+            <label htmlFor="searchDesti" className="text-xl">
+              Search Destination:
+            </label>
+            <input
+              type="text"
+              name="searchDest"
+              id="searchDest"
+              className="border-0 border-b-4 bg-transparent w-1/2"
+              placeholder="Nusa Dua"
+            />
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto">
+        <div className="grid grid-cols-4 gap-3">
+          {arr.map((el) => {
+            return (
+              <div
+                key={el}
+                onClick={navigateToDetail}
+                className="aspect-square cursor-pointer">
+                <img
+                  src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg?w=1800&t=st=1672981795~exp=1672982395~hmac=4cb88347a08dabb475b46b9165ee9e46861d90348b5a2c26d93e49b3823ca809"
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
