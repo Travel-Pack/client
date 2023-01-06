@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom"
 export default function Navbar() {
   const [prevScrollpos, setPrevScrollpos] = useState(window.scrollY)
   const [visible, setVisible] = useState(true)
+  const [active, isActive] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +30,7 @@ export default function Navbar() {
         <NavLink to={"/"} className="text-2xl">
           Travel <span className="font-bold">Pack</span>
         </NavLink>
-        <div className="flex justify-center gap-10">
+        <div className="flex justify-center gap-10" id="navbarLink">
           <div>
             <NavLink className="font-medium hover:border-b-4 border-yelloku duration-400" to={"/"}>
               Home

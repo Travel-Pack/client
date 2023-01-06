@@ -10,13 +10,13 @@ import "swiper/css/navigation"
 // install Virtual module
 SwiperCore.use([Virtual, Navigation, Pagination])
 
-export default function App() {
+export default function SwiperCard() {
   const [swiperRef, setSwiperRef] = useState(null)
-  const appendNumber = useRef(500)
+  const appendNumber = useRef(50)
   const prependNumber = useRef(1)
   // Create array with 500 slides
   const [slides, setSlides] = useState(
-    Array.from({ length: 500 }).map((_, index) => `Slide ${index + 1}`)
+    Array.from({ length: 50 }).map((_, index) => `Slide ${index + 1}`)
   )
 
   const prepend = () => {
@@ -42,7 +42,7 @@ export default function App() {
   }
 
   return (
-    <div className="w-full py-2 h-fit bg-yelloku shadow-md mb-5 select-none">
+    <div className="w-full py-2 h-fit shadow-md mb-5 select-none">
       <Swiper
         onSwiper={setSwiperRef}
         slidesPerView={3}
