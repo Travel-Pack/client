@@ -42,7 +42,7 @@ export default function App() {
   }
 
   return (
-    <div className="w-full p-2 bg-transparent border-sky-900 border shadow-md mb-5 select-none">
+    <div className="w-full py-2 h-fit bg-yelloku shadow-md mb-5 select-none">
       <Swiper
         onSwiper={setSwiperRef}
         slidesPerView={3}
@@ -64,24 +64,6 @@ export default function App() {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      <p className="append-buttons">
-        <button onClick={() => prepend()} className="prepend-2-slides">
-          Prepend 2 Slides
-        </button>
-        <button onClick={() => slideTo(1)} className="prepend-slide">
-          Slide 1
-        </button>
-        <button onClick={() => slideTo(250)} className="slide-250">
-          Slide 250
-        </button>
-        <button onClick={() => slideTo(500)} className="slide-500">
-          Slide 500
-        </button>
-        <button onClick={() => append()} className="append-slides">
-          Append Slide
-        </button>
-      </p>
     </div>
   )
 }
