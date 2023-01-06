@@ -1,81 +1,87 @@
-import { useState } from "react"
+import axios from 'axios';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_HIGHLIGHTED_DESTINATION } from './actionType';
+const baseUrl = "http://localhost:3000";
 
-export const baseUrl = "http://localhost:3000"
-
-export function setData(payload) {
-  return {
-    type: "DATA_BUILDER",
-    payload,
-  }
-}
-
-export function fetchData() {
+export function fetchCities() {
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(`${baseUrl}/contacts`, {
+      const {data} = await axios({
         method: "GET",
+        url: `${baseUrl}/cities`
       })
-
-      const data = await response.json()
-      if (!response.ok) throw response.statusText
-
-      dispatch(setData(data))
+      dispatch({
+        type: FETCH_CITIES,
+        payload: data
+      })
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-export function getDataById(id) {
+export function fetchCity(slug) {
   return async (dispatch, getState) => {
     try {
-      const { contactReducer } = getState()
-      const response = await fetch(`${baseUrl}/contacts/${id}`, {
+      const {data} = await axios({
         method: "GET",
+        url: `${baseUrl}/cities/${slug}`
       })
-      const data = await response.json()
-
-      if (!response.ok) throw response.statusText
-
-      dispatch(setData(data))
+      dispatch({
+        type: FETCH_CITY,
+        payload: data
+      })
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-export function deleteData(id) {
+export function fetchHighlightedDestination() {
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(`${baseUrl}/contacts/${id}`, {
-        method: "DELETE",
+      const {data} = await axios({
+        method: "GET",
+        url: `${baseUrl}/destinations/highlighted`
       })
-
-      const data = await response.json()
-
-      dispatch(fetchData())
+      dispatch({
+        type: FETCH_HIGHLIGHTED_DESTINATION,
+        payload: data
+      })
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-export function addData(payload) {
+export function fetchDestination(slug) {
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(`${baseUrl}/contacts`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      const {data} = await axios({
+        method: "GET",
+        url: `${baseUrl}/destinations/${slug}`
       })
+      dispatch({
+        type: FETCH_DESTINATION,
+        payload: data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
-      if (!response.ok) throw response.statusText
-      const data = await response.json()
-
-      dispatch(fetchData(data))
+export function fetchTravelSteps() {
+  return async (dispatch, getState) => {
+    try {
+      const {data} = await axios({
+        method: "GET",
+        url: `${baseUrl}/travelSteps`,
+        headers: localStorage.access_token
+      })
+      dispatch({
+        type: FETCH_DESTINATION,
+        payload: data
+      })
     } catch (error) {
       console.log(error)
     }
