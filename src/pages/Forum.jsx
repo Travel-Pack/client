@@ -11,7 +11,7 @@ export default function Forum() {
     <div className="flex-col flex gap-5 mt-20">
       <section id="forumHero" className="bg-yelloku py-10">
         <div className="container mx-auto">
-          <h1 className="text-3xl font-bold mb-3">List of Destinations</h1>
+          <h1 className="text-3xl font-bold mb-3">List of Topics</h1>
           <div className="search items-center gap-5 flex">
             <label htmlFor="searchDesti" className="text-xl">
               Search Destination:

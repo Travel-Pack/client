@@ -9,6 +9,19 @@ export default function TravelStep() {
     e.preventDefault()
     nav("/travelItenerary")
   }
+
+  /* budget section di "highlight"
+  perlu hightlight untuk destination allocation */
+  /* fitur member : bisa menggunakan alokasi destination (jika premium)
+  Landing langsung diarahkan ke desired budget(middle)
+  tambahin alokasi hotel
+  2 slider (kiri buat hotel & kanan buat travelingnya) 
+  city & desination perlu dibedakan karena destinasi dapat banyak tambahkan border di city jika sudah dipilih (hide yng lain)
+  destination sudah dipiklih terus di kasih ui lagi
+
+  
+  generate()
+  subtotal didapat dari desi*/
   return (
     <div className="mt-20 flex ease-in-out">
       <div className="w-1/4 min-h-max ease-in-out relative">
