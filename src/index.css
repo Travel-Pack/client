@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caramel&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -92,4 +92,20 @@
   background-color: white;
   color: black;
   transition-duration: 300ms ease-in-out;
+}
+
+.font-caramel{
+  font-family: 'Caramel', 'cursive';
+}
+
+.font-nunito{
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.font-caveat{
+  font-family: 'Caveat', 'cursive';
+}
+
+#map {
+  height: 400px;
 }
