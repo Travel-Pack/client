@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +9,30 @@
 
 .font-lucky-guy {
   font-family: "Luckiest Guy", "cursive";
+}
+
+.font-caramel {
+  font-family: "Caramel", "cursive";
+}
+
+.font-nunito {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.font-caveat {
+  font-family: "Caveat", "cursive";
+}
+
+#map {
+  height: 600px;
+}
+
+#NavDetail > .active {
+  text-decoration: underline;
+  text-decoration-thickness: 8px;
+  text-decoration-color: yellow;
+  background-color: white;
+  color: black !important;
 }
 
 .swiper {
@@ -16,7 +43,6 @@
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-
 
   /* Center slide text vertically */
   display: -webkit-box;
@@ -34,13 +60,11 @@
 }
 
 .swiper-slide img {
-  background-color: white;
-  padding: 1px;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  margin-bottom: 17px;
+  margin-bottom: 50px;
 }
 
 .swiper {
@@ -64,7 +88,7 @@
   font-size: 16px;
 }
 
-.append-buttons button:hover{
+.append-buttons button:hover {
   background-color: white;
   color: black;
   transition-duration: 300ms ease-in-out;
