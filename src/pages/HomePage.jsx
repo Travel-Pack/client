@@ -2,10 +2,11 @@ import { Carousel } from "flowbite-react"
 import { useNavigate } from "react-router-dom"
 import Cards from "../components/HomeSection/Cards"
 import Compass from "../components/svg/Compass"
+import FooterTeam from "./FooterTeam"
 
 export function HomePage() {
   const nav = useNavigate()
-  function navToStep(){
+  function navToStep() {
     nav("/travelItenerary")
   }
   return (
@@ -138,12 +139,16 @@ export function HomePage() {
               <span className="font-light"> Book the Destination wanted </span>
               right now!
             </h1>
-            <button onClick={navToStep} className="bg-yelloku text-lg font-medium py-2.5 px-16 block mt-5 lowercase tracking-wider">
+            <button
+              onClick={navToStep}
+              className="bg-yelloku text-lg font-medium py-2.5 px-16 block mt-5 lowercase tracking-wider">
               Go to Book
             </button>
           </div>
         </div>
       </div>
+
+      <FooterTeam />
     </div>
   )
 }
