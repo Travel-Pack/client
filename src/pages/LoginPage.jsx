@@ -90,7 +90,7 @@ export function LoginPage() {
             </p>
             <button
               type="submit"
-              className="ml-3 inline-block rounded-lg bg-yellow-300 px-5 py-3 text-sm font-medium">
+              className="ml-3 inline-block rounded-md bg-yelloku px-5 py-3 text-sm font-medium">
               Sign in
             </button>
           </div>

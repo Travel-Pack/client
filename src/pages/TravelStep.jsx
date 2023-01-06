@@ -1,11 +1,13 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import SwiperCar from "../components/Swiper/SwiperCar"
 
 export default function TravelStep() {
   const [sliderVal, setSliderVal] = useState(0)
-
-  function handleSort() {
-    console.log("blabla")
+  const nav = useNavigate()
+  function handleSubmit(e) {
+    e.preventDefault()
+    nav("/travelItenerary")
   }
   return (
     <div className="mt-20 flex gap-10 bg-yelloku duration-500 ease-in-out">
@@ -16,10 +18,13 @@ export default function TravelStep() {
           className="w-full h-full object-cover brightness-50"
         />
         <h1 className="text-5xl text-white font-bold mb-5 absolute inset-x-1/4 top-10">
-          Preparing the next <br /><span className="font-light">Travel</span>
+          Preparing the next <br />
+          <span className="font-light">Travel</span>
         </h1>
       </div>
-      <div className="w-3/4 mx-auto px-16 py-10 duration-500 ease-in-out">
+      <form
+        className="w-3/4 mx-auto px-16 py-10 duration-500 ease-in-out"
+        onSubmit={(e) => handleSubmit(e)}>
         <div className="flex items-center gap-10">
           <label htmlFor="inputBudget" className="text-xl font-medium">
             Desired Budget :{" "}
@@ -67,10 +72,10 @@ export default function TravelStep() {
           />
         </div>
 
-        <button className="w-full text-white bg-black py-3 max-w-6xl mx-auto mt-10 block">
+        <button type="submit" className="w-full text-white bg-black py-3 max-w-6xl mx-auto mt-10 block">
           Generate
         </button>
-      </div>
+      </form>
     </div>
   )
 }
