@@ -19,7 +19,7 @@ const cityImg = [
 ]
 
 export default function TravelStep() {
-  const [sliderDestination, setSliderDestination] = useState(0)
+  const [sliderDestination, setSliderDestination] = useState(50)
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
@@ -55,11 +55,9 @@ export default function TravelStep() {
   }
   return (
     <div className="overflow-hidden">
-      <div className="flex ease-in-out h-screen">
+      <div className="flex flex-col 2xl:flex-row ease-in-out h-screen">
         <div
-          className={`duration-100 ease-in-out relative ${
-            topText ? "w-1/4" : "w-full"
-          }`}>
+          className={`duration-100 ease-in-out relative ${topText ? "w-1/4" : "w-full"}`}>
           <div className="h-full">
             <img
               src="https://images.unsplash.com/photo-1611918126831-0a8352d6196f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
@@ -71,45 +69,41 @@ export default function TravelStep() {
             onClick={() => {
               setTopText(false), setShowDest(false)
             }}
-            className={`absolute top-24 border-white pb-5 cursor-pointer ${
-              topText ? "text-4xl left-10" : "text-6xl inset-1/3 text-center"
+            className={`absolute top-24 border-white pb-5 ${
+              topText ? "text-lg 2xl:text-4xl left-10" : "text-lg 2xl:text-6xl inset-1/3 text-center"
             }`}>
-            <h1 className="text-white font-semibold">Preparing</h1>
+            <h1 className="text-white font-semibold cursor-pointer ">Preparing</h1>
             <div className="border-b-2 pb-5 border-white">
-              <h1 className="text-white font-semibold">
+              <h1 className="text-white font-semibold cursor-pointer ">
                 <span className="font-light">the next</span> Travel
               </h1>
             </div>
           </div>
           <div
-            className={`flex flex-col text-center absolute inset-y-1/3 bg-black h-fit bg-opacity-60 py-16 px-5 ${
-              topText ? "inset-x-5 gap-4" : "inset-x-1/3 gap-7 "
+            className={`flex flex-col w-full 2xl:w-auto text-center absolute inset-y-[30%] 2xl:inset-y-1/3 bg-black h-fit bg-opacity-60 py-16 px-5 ${
+              topText ? "2xl:inset-x-5 gap-4" : "2xl:inset-x-1/3 gap-7 "
             }`}>
             <div>
-              <label
-                htmlFor="inputBudget"
-                className="text-2xl background text-white">
+              <label htmlFor="inputBudget" className="2xl:text-2xl background text-white">
                 Desired Budget :
               </label>
               <input
                 type="text"
                 id="inputBudget"
-                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium text-2xl placeholder:text-xl"
+                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium 2xl:text-2xl placeholder:text-xl"
                 placeholder="2500"
               />
             </div>
 
             <div>
-              <label
-                htmlFor="inputBudget"
-                className="text-2xl background text-white">
+              <label htmlFor="inputBudget" className="2xl:text-2xl background text-white">
                 Total Destination :
               </label>
               <input
                 type="text"
                 id="inputBudget"
-                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium text-2xl placeholder:text-xl"
-                placeholder="2500"
+                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium 2xl:text-2xl placeholder:text-xl"
+                placeholder="2"
               />
             </div>
 
@@ -121,13 +115,8 @@ export default function TravelStep() {
                 Destination
               </label>
               <div className="flex justitfy-between w-full text-white">
-                <h1 className="flex-1">
-                  Destination :{" "}
-                  {sliderDestination ? 100 - sliderDestination + "%" : ""}
-                </h1>
-                <h1 className="flex-1">
-                  Hotel : {sliderDestination ? sliderDestination + "%" : ""}
-                </h1>
+                <h1 className="flex-1">Destination : {100 - sliderDestination + "%"}</h1>
+                <h1 className="flex-1">Hotel : {sliderDestination + "%"}</h1>
               </div>
               <input
                 id="rangeDest"
@@ -151,9 +140,7 @@ export default function TravelStep() {
               </button>
             )}
             {showDest ? (
-              <h1 className="text-2xl font-medium text-white">
-                Destination in Jakarta
-              </h1>
+              <h1 className="text-2xl font-medium text-white">Destination in Jakarta</h1>
             ) : (
               ""
             )}
@@ -165,21 +152,14 @@ export default function TravelStep() {
           }`}>
           <div
             className={`${
-              showDest
-                ? "w-0 hidden"
-                : "w-full block overflow-y-auto max-h-screen"
+              showDest ? "w-0 hidden" : "w-full block overflow-y-auto max-h-screen"
             }`}
             id="scrollStyle">
             <div className="flex flex-wrap gap-2 justify-center mt-20">
               {cityImg.map((el) => {
                 return (
                   <div className="max-w-xs aspect-square" onClick={displayDest}>
-                    <img
-                      src={el}
-                      alt=""
-                      className="w-full h-full"
-                      onLoad={() => setLoading(false)}
-                    />
+                    <img src={el} alt="" className="w-full h-full" />
                   </div>
                 )
               })}
@@ -193,9 +173,7 @@ export default function TravelStep() {
                 <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
                   {cityImg.map((el) => {
                     return (
-                      <div
-                        className="max-w-xs aspect-square"
-                        onClick={selectDest}>
+                      <div className="max-w-xs aspect-square" onClick={selectDest}>
                         <img src={el} alt="" className="w-full h-full" />
                       </div>
                     )
