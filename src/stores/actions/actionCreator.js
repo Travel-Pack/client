@@ -116,3 +116,24 @@ export function registerUser(registerData){
       })
   }
 }
+
+export function loginUser(loginData){
+  return (dispatch, getState)=>{
+    const {email, password} = loginData;
+    if(!password || !email){
+      throw({msg: "Data cannot be empty"})
+    }
+    return axios({
+      method: "POST",
+      url: `${baseUrl}/users/login`,
+      data: { email, password }
+    })
+      .then(res=>{
+        localStorage.setItem("access_token", res.data.access_token);
+      })
+      .catch(error=>{
+        //ganti ke swal
+        console.log(error);
+      })
+  }
+}
