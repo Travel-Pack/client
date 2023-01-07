@@ -32,7 +32,7 @@ export default function Cards({ type }) {
   }, [])
   if (type === "city") {
     return (
-      <div className="grid px-2 mt-3 grid-cols-2 2xl:grid-cols-4 gap-2">
+      <div className="grid px-2 mt-3 grid-cols-2 xl:grid-cols-4 gap-2">
         {cityImg.map((el) => {
           return (
             <div
@@ -51,7 +51,7 @@ export default function Cards({ type }) {
   }
   if (type === "destination") {
     return (
-      <div className="grid px-2 mt-3 2xl:grid-cols-3">
+      <div className="grid px-2 mt-3 xl:grid-cols-3">
         <div
           className=" duration-300 ease-out overflow-hidden cursor-pointer"
           onClick={handleNavDestination}>

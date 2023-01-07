@@ -17,7 +17,7 @@ export default function TravelCards() {
 
   const item = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   return (
-    <div className="flex gap-6 flex-wrap w-4/5">
+    <div className="flex gap-6 flex-wrap w-full xl:w-4/5">
       {item.map((el) => {
         return (
           <div className="bg-white shadow-md flex flex-col cursor-pointer justify-between max-w-[450px] max-h-[470px] mb-5 overflow-hidden active:scale-95 duration-200" key={el}>

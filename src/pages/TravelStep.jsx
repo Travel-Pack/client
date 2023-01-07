@@ -55,7 +55,7 @@ export default function TravelStep() {
   }
   return (
     <div className="overflow-hidden">
-      <div className="flex flex-col 2xl:flex-row ease-in-out h-screen">
+      <div className="flex flex-col xl:flex-row ease-in-out h-screen">
         <div
           className={`duration-100 ease-in-out relative ${topText ? "w-1/4" : "w-full"}`}>
           <div className="h-full">
@@ -70,7 +70,7 @@ export default function TravelStep() {
               setTopText(false), setShowDest(false)
             }}
             className={`absolute top-24 border-white pb-5 ${
-              topText ? "text-lg 2xl:text-4xl left-10" : "text-lg 2xl:text-6xl inset-1/3 text-center"
+              topText ? "text-lg xl:text-4xl left-10" : "text-lg xl:text-6xl inset-1/3 text-center"
             }`}>
             <h1 className="text-white font-semibold cursor-pointer ">Preparing</h1>
             <div className="border-b-2 pb-5 border-white">
@@ -80,29 +80,29 @@ export default function TravelStep() {
             </div>
           </div>
           <div
-            className={`flex flex-col w-full 2xl:w-auto text-center absolute inset-y-[30%] 2xl:inset-y-1/3 bg-black h-fit bg-opacity-60 py-16 px-5 ${
-              topText ? "2xl:inset-x-5 gap-4" : "2xl:inset-x-1/3 gap-7 "
+            className={`flex flex-col w-full xl:w-auto text-center absolute inset-y-[30%] xl:inset-y-1/3 bg-black h-fit bg-opacity-60 py-16 px-5 ${
+              topText ? "xl:inset-x-5 gap-4" : "xl:inset-x-1/3 gap-7 "
             }`}>
             <div>
-              <label htmlFor="inputBudget" className="2xl:text-2xl background text-white">
+              <label htmlFor="inputBudget" className="xl:text-2xl background text-white">
                 Desired Budget :
               </label>
               <input
                 type="text"
                 id="inputBudget"
-                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium 2xl:text-2xl placeholder:text-xl"
+                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                 placeholder="2500"
               />
             </div>
 
             <div>
-              <label htmlFor="inputBudget" className="2xl:text-2xl background text-white">
+              <label htmlFor="inputBudget" className="xl:text-2xl background text-white">
                 Total Destination :
               </label>
               <input
                 type="text"
                 id="inputBudget"
-                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium 2xl:text-2xl placeholder:text-xl"
+                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                 placeholder="2"
               />
             </div>
@@ -158,7 +158,7 @@ export default function TravelStep() {
             <div className="flex flex-wrap gap-2 justify-center mt-20">
               {cityImg.map((el) => {
                 return (
-                  <div className="max-w-xs aspect-square" onClick={displayDest}>
+                  <div className="max-w-xs aspect-square" onClick={displayDest} >
                     <img src={el} alt="" className="w-full h-full" />
                   </div>
                 )

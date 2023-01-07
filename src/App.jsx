@@ -1,15 +1,11 @@
 import { Outlet, ScrollRestoration } from "react-router-dom"
-import Navbar from "./components/Navbar"
-import Footer from "./pages/FooterTeam"
-
+import NavbarTravel from "./components/NavbarTravel"
 export default function App() {
-
   return (
     <div className="App">
-      <Navbar />
+      <NavbarTravel />
       <ScrollRestoration />
       <Outlet />
-      
     </div>
   )
 }
