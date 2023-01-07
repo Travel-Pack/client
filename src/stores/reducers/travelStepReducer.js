@@ -7,7 +7,7 @@ const initiateState = {
 export default function travelStepsReducer(state = initiateState, action) {
   switch (action.type) {
     case FETCH_TRAVELSTEPS:
-      return { ...initiateState, cities: action.payload }
+      return { ...state, travelSteps: action.payload }
     default:
       return state
   }

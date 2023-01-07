@@ -8,9 +8,9 @@ const initiateState = {
 export default function destinationsReducer(state = initiateState, action) {
   switch (action.type) {
     case FETCH_HIGHLIGHTED_DESTINATION:
-      return { ...initiateState, highlightedDestinations: action.payload }
+      return { ...state, highlightedDestinations: action.payload }
     case FETCH_DESTINATION:
-      return { ...initiateState, destination: action.payload }
+      return { ...state, destination: action.payload }
     default:
       return state
   }
