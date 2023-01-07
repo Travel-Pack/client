@@ -93,17 +93,26 @@ export function fetchTravelSteps() {
 
 export function registerUser(registerData){
   return (dispatch, getState)=>{
-    try {
-      const {fullName, phoneNumber, email, password, passwordConfirmation} = registerData;
-      if(password !== passwordConfirmation){
-        throw({msg: "Password not match"})
-      }
-      return axios({
-        method: "POST",
-        url: `${baseUrl}/users`
-      })
-    } catch (error) {
-      console.log(error);
+    const {fullName, phoneNumber, email, password, passwordConfirmation} = registerData;
+    if(password !== passwordConfirmation){
+      throw({msg: "Password not match"})
     }
+    return axios({
+      method: "POST",
+      url: `${baseUrl}/users`,
+      data: {
+        fullName, phoneNumber, email, password,
+        isPremium: false,
+        role: "Customer"
+      }
+    })
+      .then(res=>{
+        //ganti ke swal
+        console.log(res);
+      })
+      .catch(error=>{
+        //ganti ke swal
+        console.log(error);
+      })
   }
 }
