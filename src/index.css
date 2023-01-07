@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caramel&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -98,16 +98,16 @@
   transition-duration: 300ms ease-in-out;
 }
 
-.font-caramel{
-  font-family: 'Caramel', 'cursive';
+.font-caramel {
+  font-family: "Caramel", "cursive";
 }
 
-.font-nunito{
-  font-family: 'Nunito Sans', sans-serif;
+.font-nunito {
+  font-family: "Nunito Sans", sans-serif;
 }
 
-.font-caveat{
-  font-family: 'Caveat', 'cursive';
+.font-caveat {
+  font-family: "Caveat", "cursive";
 }
 
 #map {
@@ -115,20 +115,31 @@
 }
 
 /* scollbar Style */
-#scrollStyle::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+#scrollStyle::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
 }
 
-#scrollStyle::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: #F5F5F5;
+#scrollStyle::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
 }
 
-#scrollStyle::-webkit-scrollbar-thumb
-{
-	background-color: #000000;
-	border: 2px solid #555555;
+#scrollStyle::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border: 2px solid #555555;
+}
+
+#preloader,
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#preloader {
+  z-index: 9999;
 }
