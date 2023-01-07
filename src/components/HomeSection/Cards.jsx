@@ -6,7 +6,7 @@ export default function Cards({ type }) {
 
   function handleNavCity() {
     /* ganti params! */
-    nav(`/destination/gili`)
+    nav(`/find-byCity/${1}`)
   }
   function handleNavDestination() {
     /* ganti params! */

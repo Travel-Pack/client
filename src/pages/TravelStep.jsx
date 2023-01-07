@@ -2,9 +2,24 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import SwiperCard from "../components/Swiper/SwiperCard"
 
+const cityImg = [
+  "https://img.freepik.com/premium-photo/monas-monument-jakarta-indonesia_134785-10762.jpg?w=1800",
+  "https://statik.tempo.co/data/2020/04/18/id_931835/931835_720.jpg",
+  "https://images.unsplash.com/photo-1615608178738-37d47d27c13d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
+  "https://images.unsplash.com/photo-1615608273520-ce1dda209c29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
+  "https://images.unsplash.com/photo-1615556075244-9dd09e1934fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+  "https://images.unsplash.com/photo-1627071690191-2a5f5f482eab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2066&q=80",
+  "https://images.unsplash.com/photo-1626710916458-4307c35d48e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
+  "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+  "https://images.unsplash.com/photo-1614088459293-5669fadc3448?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
+  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+  "https://images.unsplash.com/photo-1624495833746-d7415f9149af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+]
+
 export default function TravelStep() {
   const [sliderDestination, setSliderDestination] = useState(0)
-  const [sliderHotel, setSliderHotel] = useState(0)
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
@@ -25,21 +40,6 @@ export default function TravelStep() {
   
   generate()
   subtotal didapat dari desi*/
-  const cityImg = [
-    "https://img.freepik.com/premium-photo/monas-monument-jakarta-indonesia_134785-10762.jpg?w=1800",
-    "https://statik.tempo.co/data/2020/04/18/id_931835/931835_720.jpg",
-    "https://images.unsplash.com/photo-1615608178738-37d47d27c13d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-    "https://images.unsplash.com/photo-1615608273520-ce1dda209c29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-    "https://images.unsplash.com/photo-1615556075244-9dd09e1934fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    "https://images.unsplash.com/photo-1627071690191-2a5f5f482eab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2066&q=80",
-    "https://images.unsplash.com/photo-1626710916458-4307c35d48e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-    "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    "https://images.unsplash.com/photo-1614088459293-5669fadc3448?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-    "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1624495833746-d7415f9149af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-  ]
 
   function showCity() {
     setTopText(!topText)
@@ -54,7 +54,7 @@ export default function TravelStep() {
     console.log()
   }
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <div className="flex ease-in-out h-screen">
         <div
           className={`duration-100 ease-in-out relative ${
@@ -116,30 +116,27 @@ export default function TravelStep() {
             <h1 className="block mb-1 font-medium text-xl text-white mx-auto">
               Allocation
             </h1>
-            <div className="flex gap-16">
-              <div className="flex flex-col w-1/2 gap-2">
-                <label htmlFor="rangeDest" className="text-white text-lg">
-                  Destination {sliderDestination ? sliderDestination + "%" : ""}
-                </label>
-                <input
-                  id="rangeDest"
-                  type="range"
-                  onChange={(e) => setSliderDestination(e.target.value)}
-                  className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
-                />
+            <div className="flex flex-col gap-2">
+              <label htmlFor="rangeDest" className="text-white text-lg">
+                Destination
+              </label>
+              <div className="flex justitfy-between w-full text-white">
+                <h1 className="flex-1">
+                  Destination :{" "}
+                  {sliderDestination ? 100 - sliderDestination + "%" : ""}
+                </h1>
+                <h1 className="flex-1">
+                  Hotel : {sliderDestination ? sliderDestination + "%" : ""}
+                </h1>
               </div>
-              <div className="flex flex-col w-1/2 gap-2">
-                <label htmlFor="rangeHotel" className="text-white text-lg">
-                  Hotel {sliderHotel ? sliderHotel + "%" : ""}
-                </label>
-                <input
-                  id="rangeHotel"
-                  type="range"
-                  onChange={(e) => setSliderHotel(e.target.value)}
-                  className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
+              <input
+                id="rangeDest"
+                type="range"
+                onChange={(e) => setSliderDestination(e.target.value)}
+                className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
+              />
             </div>
+
             {topText ? (
               <div>
                 <button className="text-xl bg-yelloku w-full mx-auto text-black py-1.5 active:scale-95 duration-200">
@@ -177,7 +174,12 @@ export default function TravelStep() {
               {cityImg.map((el) => {
                 return (
                   <div className="max-w-xs aspect-square" onClick={displayDest}>
-                    <img src={el} alt="" className="w-full h-full" />
+                    <img
+                      src={el}
+                      alt=""
+                      className="w-full h-full"
+                      onLoad={() => setLoading(false)}
+                    />
                   </div>
                 )
               })}
