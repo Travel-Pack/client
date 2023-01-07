@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom"
 import SwiperCard from "../components/Swiper/SwiperCard"
 
 export default function TravelStep() {
-  const [sliderVal, setSliderVal] = useState(0)
+  const [sliderDestination, setSliderDestination] = useState(0)
+  const [sliderHotel, setSliderHotel] = useState(0)
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
@@ -48,11 +49,12 @@ export default function TravelStep() {
     setShowDest(!showDest)
   }
 
-  function selectDest() {
+  function selectDest(index) {
+    // cityImg.push(index)
     console.log()
   }
   return (
-    <div>
+    <div className="">
       <div className="flex ease-in-out h-screen">
         <div
           className={`duration-100 ease-in-out relative ${
@@ -80,44 +82,64 @@ export default function TravelStep() {
             </div>
           </div>
           <div
-            className={`flex flex-col gap-5 text-center absolute inset-y-1/3 bg-black h-fit bg-opacity-60 py-16 px-5 ${
-              topText ? "inset-x-5" : "inset-x-1/3"
+            className={`flex flex-col text-center absolute inset-y-1/3 bg-black h-fit bg-opacity-60 py-16 px-5 ${
+              topText ? "inset-x-5 gap-4" : "inset-x-1/3 gap-7 "
             }`}>
-            <label
-              htmlFor="inputBudget"
-              className="text-2xl background text-white">
-              Desired Budget :
-            </label>
-            <input
-              type="text"
-              id="inputBudget"
-              className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium text-4xl placeholder:text-2xl"
-              placeholder="2500"
-            />
+            <div>
+              <label
+                htmlFor="inputBudget"
+                className="text-2xl background text-white">
+                Desired Budget :
+              </label>
+              <input
+                type="text"
+                id="inputBudget"
+                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium text-2xl placeholder:text-xl"
+                placeholder="2500"
+              />
+            </div>
 
-            <label
-              htmlFor="numberDestination"
-              className="font-medium text-xl text-white mx-auto">
-              Number of Destinations
-            </label>
-            <input
-              type="text"
-              id="numberDestination"
-              className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium text-4xl placeholder:text-2xl"
-              placeholder="e.g : 5"
-            />
+            <div>
+              <label
+                htmlFor="inputBudget"
+                className="text-2xl background text-white">
+                Total Destination :
+              </label>
+              <input
+                type="text"
+                id="inputBudget"
+                className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium text-2xl placeholder:text-xl"
+                placeholder="2500"
+              />
+            </div>
 
-            <label
-              htmlFor="default-range"
-              className="block mb-1 font-medium text-xl text-white mx-auto">
-              Destination Allocation : {sliderVal ? sliderVal + "%" : ""}
-            </label>
-            <input
-              id="default-range"
-              type="range"
-              onChange={(e) => setSliderVal(e.target.value)}
-              className="w-1/2 mx-auto h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-            />
+            <h1 className="block mb-1 font-medium text-xl text-white mx-auto">
+              Allocation
+            </h1>
+            <div className="flex gap-16">
+              <div className="flex flex-col w-1/2 gap-2">
+                <label htmlFor="rangeDest" className="text-white text-lg">
+                  Destination {sliderDestination ? sliderDestination + "%" : ""}
+                </label>
+                <input
+                  id="rangeDest"
+                  type="range"
+                  onChange={(e) => setSliderDestination(e.target.value)}
+                  className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
+                />
+              </div>
+              <div className="flex flex-col w-1/2 gap-2">
+                <label htmlFor="rangeHotel" className="text-white text-lg">
+                  Hotel {sliderHotel ? sliderHotel + "%" : ""}
+                </label>
+                <input
+                  id="rangeHotel"
+                  type="range"
+                  onChange={(e) => setSliderHotel(e.target.value)}
+                  className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
+                />
+              </div>
+            </div>
             {topText ? (
               <div>
                 <button className="text-xl bg-yelloku w-full mx-auto text-black py-1.5 active:scale-95 duration-200">
@@ -151,7 +173,7 @@ export default function TravelStep() {
                 : "w-full block overflow-y-auto max-h-screen"
             }`}
             id="scrollStyle">
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-wrap gap-2 justify-center mt-20">
               {cityImg.map((el) => {
                 return (
                   <div className="max-w-xs aspect-square" onClick={displayDest}>
@@ -164,9 +186,9 @@ export default function TravelStep() {
           {showDest ? (
             <form onSubmit={(e) => handleSubmit(e)}>
               <div
-                className="w-full block overflow-y-auto max-h-screen"
+                className="w-full block max-h-screen mt-20 overflow-y-auto"
                 id="scrollStyle">
-                <div className="flex flex-wrap gap-2 justify-center">
+                <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
                   {cityImg.map((el) => {
                     return (
                       <div
@@ -177,13 +199,12 @@ export default function TravelStep() {
                     )
                   })}
                 </div>
-
-                <button
-                  type="submit"
-                  className="w-full text-white bg-black py-3 max-w-6xl mx-auto mt-10 block">
-                  Generate
-                </button>
               </div>
+              <button
+                type="submit"
+                className="w-full text-lg font-medium underline text-black bg-yelloku py-3 mt-2 mx-auto block">
+                Generate
+              </button>
             </form>
           ) : (
             ""
