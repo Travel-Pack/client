@@ -1,10 +1,25 @@
 import { NavLink, useNavigate } from "react-router-dom"
+import { useState } from 'react'
 
 export function RegisterPage() {
+
   const navigate = useNavigate()
+  const [registerData, setRegisterData] = useState({
+    fullName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    passwordConfirmation: ""
+  })
+
+  const onChangeHandler = (e)=>{
+    const updatedRegisterData = {...registerData, [e.target.name]: e.target.value};
+    setRegisterData(updatedRegisterData);
+    console.log(registerData);
+  }
 
   function handleRegister(){
-    /* if Success ! */
+    
     navigate("/login")
   }
   return (
@@ -62,9 +77,11 @@ export function RegisterPage() {
                   Name
                 </label>
                 <input
+                  onChange={onChangeHandler}
+                  value={registerData.fullName}
                   type="text"
-                  id="Name"
-                  name="name"
+                  id="Full Name"
+                  name="fullName"
                   placeholder="Enter your full name"
                   className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
@@ -76,6 +93,8 @@ export function RegisterPage() {
                   Phone Number
                 </label>
                 <input
+                  onChange={onChangeHandler}
+                  value={registerData.phoneNumber}
                   type="text"
                   id="phoneNumber"
                   name="phoneNumber"
@@ -90,6 +109,8 @@ export function RegisterPage() {
                   Email
                 </label>
                 <input
+                  onChange={onChangeHandler}
+                  value={registerData.email}
                   type="email"
                   id="Email"
                   name="email"
@@ -104,6 +125,8 @@ export function RegisterPage() {
                   Password
                 </label>
                 <input
+                  onChange={onChangeHandler}
+                  value={registerData.password}
                   type="password"
                   id="Password"
                   name="password"
@@ -118,9 +141,11 @@ export function RegisterPage() {
                   Password Confirmation
                 </label>
                 <input
+                  onChange={onChangeHandler}
+                  value={registerData.passwordConfirmation}
                   type="password"
                   id="PasswordConfirmation"
-                  name="password_confirmation"
+                  name="passwordConfirmation"
                   placeholder="Confirm password"
                   className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />

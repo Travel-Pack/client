@@ -3,53 +3,56 @@ import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_HIGHLIGHTED_DESTINAT
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
-  return async (dispatch, getState) => {
-    try {
-      const {data} = await axios({
-        method: "GET",
-        url: `${baseUrl}/cities`
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/cities`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_CITIES,
+          payload: res.data
+        })
       })
-      dispatch({
-        type: FETCH_CITIES,
-        payload: data
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    .catch(error=>{
+      console.log(error);
+    })
   }
 }
 
 export function fetchCity(slug) {
-  return async (dispatch, getState) => {
-    try {
-      const {data} = await axios({
-        method: "GET",
-        url: `${baseUrl}/cities/${slug}`
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/cities/${slug}`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_CITY,
+          payload: res.data
+        })
       })
-      dispatch({
-        type: FETCH_CITY,
-        payload: data
+      .catch(error=>{
+        console.log(error);
       })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
 
 export function fetchHighlightedDestination() {
-  return async (dispatch, getState) => {
-    try {
-      const {data} = await axios({
-        method: "GET",
-        url: `${baseUrl}/destinations/highlighted`
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/destinations?_limit=9`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_HIGHLIGHTED_DESTINATION,
+          payload: res.data
+        })
       })
-      dispatch({
-        type: FETCH_HIGHLIGHTED_DESTINATION,
-        payload: data
+      .catch(error=>{
+        console.log(error);
       })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
 
@@ -84,6 +87,23 @@ export function fetchTravelSteps() {
       })
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+
+export function registerUser(registerData){
+  return (dispatch, getState)=>{
+    try {
+      const {fullName, phoneNumber, email, password, passwordConfirmation} = registerData;
+      if(password !== passwordConfirmation){
+        throw({msg: "Password not match"})
+      }
+      return axios({
+        method: "POST",
+        url: `${baseUrl}/users`
+      })
+    } catch (error) {
+      console.log(error);
     }
   }
 }

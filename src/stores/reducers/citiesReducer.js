@@ -8,9 +8,9 @@ const initiateState = {
 export default function citiesReducer(state = initiateState, action) {
   switch (action.type) {
     case FETCH_CITIES:
-      return { ...initiateState, cities: action.payload }
+      return { ...state, cities: action.payload }
     case FETCH_CITY:
-      return { ...initiateState, city: action.payload }
+      return { ...state, city: action.payload }
     default:
       return state
   }

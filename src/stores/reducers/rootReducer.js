@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import citiesReducer from './travelStepReducer';
+import citiesReducer from './citiesReducer';
 import destinationsReducer from './destinationsReducer';
 import travelStepsReducer from './travelStepReducer';
 
