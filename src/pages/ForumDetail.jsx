@@ -18,12 +18,12 @@ export default function ForumDetail() {
   }
 
   return (
-    <div className="flex flex-col mt-20 bg-gray-100">
-      <div className="w-full h-72 relative">
+    <div className="flex flex-col xl:mt-20 bg-gray-100">
+      <div className="w-full xl:h-72 relative">
         <img
           src="https://img.freepik.com/free-photo/travel-concept-with-landmarks_23-2149153256.jpg?w=2000&t=st=1672978137~exp=1672978737~hmac=6fe7322da5662ae038075362c74d87c92080674444aa7b8a15486de3918fd6d3"
           alt=""
-          className="object-cover w-full h-full brightness-50"
+          className="object-cover w-full xl:h-full brightness-50"
         />
         <h1 className="absolute bottom-[10%] left-5 text-3xl font-medium text-white">
           {destination[Math.floor(Math.random() * destination.length)] + " Reviews"}
@@ -31,7 +31,7 @@ export default function ForumDetail() {
       </div>
       <div className="container mx-auto mt-10 flex justify-evenly">
         <section id="leftSide" className="flex flex-col gap-3">
-          <div className="flex justify-evenly gap-5">
+          <div className="flex flex-col xl:flex-row justify-evenly gap-5">
             <PaginationCustom />
             <button className="bg-black py-2 px-7 text-white duration-200 active:scale-95" onClick={showDivInput}>
               add review
@@ -86,7 +86,7 @@ export default function ForumDetail() {
             <PaginationCustom />
           </div>
         </section>
-        <section id="leftSide">
+        <section id="leftSide" className="hidden 2xl:block">
           <div className="bg-white w-full p-3">
             <h1 className="text-xl font-medium border-b border-stone-300 pb-3">
               Most Active Member

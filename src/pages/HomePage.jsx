@@ -38,10 +38,12 @@ export function HomePage() {
     <div>
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>
-          <h1 className="text-center font-bold xl:text-5xl text-3xl xl:text-7xl text-white">
+
+          <h1 className="text-center font-bold text-3xl xl:text-7xl text-white">
             Travel Pack
           </h1>
-          <h1 className="xl:xl:text-5xl text-3xl font-light text-white space px-16 text-center xl:px-0 xl:text-left">
+          <h1 className="xl:text-5xl text-3xl font-light text-white space px-16 text-center xl:px-0 xl:text-left">
+
             Join Global community to list all worth destination in Nusantara
           </h1>
           <button className="bg-yelloku py-3 px-11 block mx-auto mt-2 lowercase tracking-wider">

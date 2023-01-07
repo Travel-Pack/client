@@ -16,7 +16,9 @@ export default function Cards({ type, cities, destinations }) {
   if (type === "city") {
     return (
       <div className="grid px-2 mt-3 grid-cols-2 xl:grid-cols-4 gap-2">
+
         {cities.map((el) => {
+
           return (
             <div
               key={el.id}

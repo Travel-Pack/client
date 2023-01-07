@@ -158,7 +158,7 @@ export default function TravelStep() {
             <div className="flex flex-wrap gap-2 justify-center mt-20">
               {cityImg.map((el) => {
                 return (
-                  <div className="max-w-xs aspect-square" onClick={displayDest}>
+                  <div className="max-w-xs aspect-square" onClick={displayDest} >
                     <img src={el} alt="" className="w-full h-full" />
                   </div>
                 )

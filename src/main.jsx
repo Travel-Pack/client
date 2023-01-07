@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom"
 import "./index.css"
 import router from "./routes"
 import store from "./stores"
-
+import "flowbite"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>

@@ -14,7 +14,7 @@ export default function SearchForm() {
   const arr = ["searchTour", "destination", "city"]
 
   return (
-    <form action="" className="w-1/5" onSubmit={handleSearch}>
+    <form action="" className="w-1/5 hidden xl:block" onSubmit={handleSearch}>
       <div className="bg-white -mt-24">
         <div className="flex flex-col gap-5 ">
           <div className="px-10 py-5">

@@ -8,7 +8,7 @@ export default function Forum() {
 
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   return (
-    <div className="flex-col flex gap-5 mt-20">
+    <div className="flex-col flex gap-5 xl:mt-20">
       <section id="forumHero" className="bg-yelloku py-10">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-3">List of Topics</h1>
@@ -28,7 +28,7 @@ export default function Forum() {
       </section>
 
       <div className="container mx-auto">
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid xl:grid-cols-4 px-5 xl:px-0 gap-3">
           {arr.map((el) => {
             return (
               <div
