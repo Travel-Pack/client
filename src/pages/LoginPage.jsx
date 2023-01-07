@@ -16,7 +16,6 @@ export function LoginPage() {
   const onChangeHandler = (e)=>{
     const updatedLoginData = {...loginData, [e.target.name]: e.target.value }
     setLoginData(updatedLoginData);
-    console.log(loginData);
   }
 
   const hideButtonHandler = ()=>{
