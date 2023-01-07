@@ -3,22 +3,47 @@ import { useNavigate } from "react-router-dom"
 import Cards from "../components/HomeSection/Cards"
 import Compass from "../components/svg/Compass"
 import FooterTeam from "./FooterTeam"
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react';
+import { fetchCities, fetchHighlightedDestination } from "../stores/actions/actionCreator"
+import Loader from "../components/Loader"
 
 const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 export function HomePage() {
+
+  const [load, setLoad] = useState(true);
   const nav = useNavigate()
   function navToStep() {
     nav("/travelItenerary")
+  }
+
+  const cities = useSelector((state) => state.cities.cities);
+  const destinations = useSelector((state) => state.destinations.highlightedDestinations);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchCities())
+      .then(_=>{
+        dispatch(fetchHighlightedDestination())
+          .then(_=>{
+            setLoad(false);
+          })
+      })
+  }, [])
+
+  if (load) {
+    return <Loader />
   }
 
   return (
     <div>
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>
+
           <h1 className="text-center font-bold text-3xl xl:text-7xl text-white">
             Travel Pack
           </h1>
           <h1 className="xl:text-5xl text-3xl font-light text-white space px-16 text-center xl:px-0 xl:text-left">
+
             Join Global community to list all worth destination in Nusantara
           </h1>
           <button className="bg-yelloku py-3 px-11 block mx-auto mt-2 lowercase tracking-wider">
@@ -71,7 +96,7 @@ export function HomePage() {
             </div>
           </div>
         </div>
-        <Cards type="city" />
+        <Cards type="city" cities={cities}/>
         <div className="container mx-auto my-4">
           <div className="max-w-3xl">
             <div className="py-10">
@@ -87,7 +112,7 @@ export function HomePage() {
             </div>
           </div>
         </div>
-        <Cards type="destination" />
+        <Cards type="destination" destinations={destinations}/>
       </div>
 
       <section id="quote" className="flex mt-24 xl:flex-row flex-col">

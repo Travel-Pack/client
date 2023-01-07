@@ -1,0 +1,240 @@
+[
+  {
+      "id": 1,
+      "name": "Aceh",
+      "slug": "aceh",
+      "createdAt": "2023-01-07T05:04:58.410Z",
+      "updatedAt": "2023-01-07T05:04:58.410Z"
+  },
+  {
+      "id": 2,
+      "name": "Sumatera Utara",
+      "slug": "sumatera-utara",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 3,
+      "name": "Sumatera Barat",
+      "slug": "sumatera-barat",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 4,
+      "name": "Riau",
+      "slug": "riau",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 5,
+      "name": "Jambi",
+      "slug": "jambi",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 6,
+      "name": "Sumatera Selatan",
+      "slug": "sumatera-selatan",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 7,
+      "name": "Bengkulu",
+      "slug": "bengkulu",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 8,
+      "name": "Lampung",
+      "slug": "lampung",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 9,
+      "name": "Kepulauan Bangka Belitung",
+      "slug": "kepulauan-bangka-belitung",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 10,
+      "name": "Kepulauan Riau",
+      "slug": "kepulauan-riau",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 11,
+      "name": "DKI Jakarta",
+      "slug": "dki-jakarta",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 12,
+      "name": "Jawa Barat",
+      "slug": "jawa-barat",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 13,
+      "name": "Jawa Tengah",
+      "slug": "jawa-tengah",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 14,
+      "name": "DI Yogyakarta",
+      "slug": "di-yogyakarta",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 15,
+      "name": "Jawa Timur",
+      "slug": "jawa-timur",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 16,
+      "name": "Banten",
+      "slug": "banten",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 17,
+      "name": "Bali",
+      "slug": "bali",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 18,
+      "name": "Nusa Tenggara Barat",
+      "slug": "nusa-tenggara-barat",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 19,
+      "name": "Nusa Tenggara Timur",
+      "slug": "nusa-tenggara-timur",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 20,
+      "name": "Kalimantan Barat",
+      "slug": "kalimantan-barat",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 21,
+      "name": "Kalimantan Tengah",
+      "slug": "kalimantan-tengah",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 22,
+      "name": "Kalimantan Selatan",
+      "slug": "kalimantan-selatan",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 23,
+      "name": "Kalimantan Timur",
+      "slug": "kalimantan-timur",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 24,
+      "name": "Kalimantan Utara",
+      "slug": "kalimantan-utara",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 25,
+      "name": "Sulawesi Utara",
+      "slug": "sulawesi-utara",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 26,
+      "name": "Sulawesi Tengah",
+      "slug": "sulawesi-tengah",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 27,
+      "name": "Sulawesi Selatan",
+      "slug": "sulawesi-selatan",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 28,
+      "name": "Sulawesi Tenggara",
+      "slug": "sulawesi-tenggara",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 29,
+      "name": "Gorontalo",
+      "slug": "gorontalo",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 30,
+      "name": "Sulawesi Barat",
+      "slug": "sulawesi-barat",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 31,
+      "name": "Maluku",
+      "slug": "maluku",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 32,
+      "name": "Maluku Utara",
+      "slug": "maluku-utara",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 33,
+      "name": "Papua",
+      "slug": "papua",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  },
+  {
+      "id": 34,
+      "name": "Papua Barat",
+      "slug": "papua-barat",
+      "createdAt": "2023-01-07T05:04:58.411Z",
+      "updatedAt": "2023-01-07T05:04:58.411Z"
+  }
+]

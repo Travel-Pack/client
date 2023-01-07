@@ -9,7 +9,7 @@ export default function FooterTeam() {
           quae vitae quidem eius corrupti molestias harum deserunt facilis.
         </h2>
         <ul className="flex flex-col gap-1.5">
-          <li>Joshuna Natanael</li>
+          <li>Joshua Natanael</li>
           <li>Nur Qomarudin</li>
           <li>Abdullah Alam</li>
           <li>Ezar Setyawan</li>
