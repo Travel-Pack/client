@@ -14,6 +14,7 @@ import Forum from "../pages/Forum"
 import ForumDetail from "../pages/ForumDetail"
 import TravelItenerary from "../pages/TravelItenerary"
 import TravelStep from "../pages/TravelStep"
+import FindDestination from "../components/CityPages/FindDestination"
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
             errorElement: <ErrorPage />,
           },
         ],
+      },
+      {
+        path: "find-byCity/:id",
+        element: <FindDestination />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "find-travel",
