@@ -57,19 +57,21 @@ export function fetchHighlightedDestination() {
 }
 
 export function fetchDestination(slug) {
-  return async (dispatch, getState) => {
-    try {
-      const {data} = await axios({
-        method: "GET",
-        url: `${baseUrl}/destinations/${slug}`
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/destinations?slug=${slug}`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_DESTINATION,
+          //ganti nanti bukan dalam bentuk array
+          payload: res.data[0]
+        })
       })
-      dispatch({
-        type: FETCH_DESTINATION,
-        payload: data
+      .catch(error=>{
+        console.log(error);
       })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
 
@@ -130,6 +132,27 @@ export function loginUser(loginData){
     })
       .then(res=>{
         localStorage.setItem("access_token", res.data.access_token);
+      })
+      .catch(error=>{
+        //ganti ke swal
+        console.log(error);
+      })
+  }
+}
+
+export function postReview(review){
+  return (dispatch, getState)=>{
+    const {cost, fun, internet, safety, comment} = review;
+    return axios({
+      method: "POST",
+      url: `${baseUrl}/review`,
+      // headers: {
+      //   access_token: localStorage.access_token
+      // },
+      data: {cost, fun, internet, safety, comment}
+    })
+      .then(res=>{
+        console.log("Successfully add review");
       })
       .catch(error=>{
         //ganti ke swal

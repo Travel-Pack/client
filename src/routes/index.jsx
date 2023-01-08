@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "destination/:destinationName",
+        path: "destination/:destinationSlug",
         element: <DestinationDetailPage />,
         children: [
           {
@@ -40,11 +40,11 @@ const router = createBrowserRouter([
             element: <DestinationReview />,
             errorElement: <ErrorPage />,
           },
-          {
-            path: "covid",
-            element: <DestinationCovid />,
-            errorElement: <ErrorPage />,
-          },
+          // {
+          //   path: "covid",
+          //   element: <DestinationCovid />,
+          //   errorElement: <ErrorPage />,
+          // },
         ],
       },
       {

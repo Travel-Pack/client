@@ -1,13 +1,18 @@
 import { Carousel } from "flowbite-react"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
+import { useSelector } from "react-redux"
 
 export function DestinationInformation() {
+
+  const destination = useSelector((state) => state.destinations.destination)
+
   return (
     <div>
       {/*Information section*/}
       <section className="max-w-screen-2xl mx-auto py-5">
         <h1 className="font-bold font-caveat text-6xl">
-          Gili Lawa Darat Island, East Nusa Tenggara
+          {/* edit */}
+          {destination.name}, {"City Name"}
         </h1>
         <p className="text-justify mt-8">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a
@@ -35,107 +40,26 @@ export function DestinationInformation() {
           varius sapien. Duis pellentesque velit sit amet efficitur blandit.
         </p>
         {/*Gallery*/}
-        <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
-        <div className="my-10">
-          {/* <div
-            id="carouselExampleCaptions"
-            className="carousel slide relative"
-            data-bs-ride="carousel">
-            <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to={0}
-                className="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              />
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to={1}
-                aria-label="Slide 2"
-              />
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to={2}
-                aria-label="Slide 3"
-              />
-            </div>
-            <div className="carousel-inner relative w-full overflow-hidden">
-              <div className="carousel-item active relative float-left w-full">
-                <img
-                  src="https://images.unsplash.com/photo-1602486493959-78e7be266a62?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2535&q=80"
-                  className="block w-full h-[540px] object-cover"
-                  alt="Destination"
-                />
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="https://images.unsplash.com/photo-1550033588-6f3e54613d6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                  className="block w-full h-[540px] object-cover"
-                  alt="Destination"
-                />
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="https://images.unsplash.com/photo-1576035739460-d6f6423dbf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1728&q=80"
-                  className="block w-full h-[540px] object-cover"
-                  alt="Destination"
-                />
+        {destination.Images.length ?
+          <>
+            <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
+            <div className="my-10">
+              <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+                <Carousel slideInterval={5000}>
+                  {destination.Images.map(el => {
+                    return <img
+                      src={el.imgUrl}
+                      className="block w-full h-[540px] object-cover"
+                      alt="Destination"
+                      key={el.id}
+                    />
+                  })}
+                </Carousel>
               </div>
             </div>
-            <button
-              className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev">
-              <span
-                className="carousel-control-prev-icon inline-block bg-black rounded-full"
-                aria-hidden="true"
-              />
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next">
-              <span
-                className="carousel-control-next-icon inline-block bg-black rounded-full"
-                aria-hidden="true"
-              />
-              <span className="visually-hidden">Next</span>
-            </button>
-          </div> */}
-          <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-            <Carousel slideInterval={5000}>
-              <img
-                src="https://images.unsplash.com/photo-1602486493959-78e7be266a62?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2535&q=80"
-                className="block w-full h-[540px] object-cover"
-                alt="Destination"
-              />
-
-              <img
-                src="https://images.unsplash.com/photo-1550033588-6f3e54613d6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                className="block w-full h-[540px] object-cover"
-                alt="Destination"
-              />
-
-              <img
-                src="https://images.unsplash.com/photo-1576035739460-d6f6423dbf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1728&q=80"
-                className="block w-full h-[540px] object-cover"
-                alt="Destination"
-              />
-
-              <img
-                src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
-                alt="..."
-              />
-            </Carousel>
-          </div>
-        </div>
+          </> :
+          <></>
+        }
         {/*Location*/}
         <h1 className="font-bold font-caveat my-10 text-6xl">Location</h1>
         <MapContainer
@@ -147,7 +71,7 @@ export function DestinationInformation() {
             attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[-8.467514341862568, 119.5584845704952]}>
+          <Marker position={destination.geocoding.split(", ")}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
@@ -184,52 +108,31 @@ export function DestinationInformation() {
                 />
               </div>
               <div className="carousel-inner relative w-full overflow-hidden">
-                <div className="carousel-item active relative float-left w-full">
-                  <blockquote className="bg-gray-100 px-20 py-8">
-                    <div className="flex items-center">
-                      <img
-                        alt="User"
-                        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                        className="h-16 w-16 rounded-full object-cover"
-                      />
-                      <div className="ml-4 text-sm">
-                        <p className="font-medium">John Doe</p>
+                {destination.Reviews.map((el, index) => {
+                  let classCarouselItem = "carousel-item relative float-left w-full "
+                  if(index === 0){
+                    classCarouselItem += "active";
+                  }
+                  return <div className={classCarouselItem} key={el.id}>
+                    <blockquote className="bg-gray-100 px-20 py-8">
+                      <div className="flex items-center">
+                        <img
+                          alt="User"
+                          src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                          className="h-16 w-16 rounded-full object-cover"
+                        />
+                        <div className="ml-4 text-sm">
+                          <p className="font-medium">John Doe</p>
+                        </div>
                       </div>
-                    </div>
-                    <p className="relative mt-4 text-gray-500">
-                      <span className="text-xl">“</span>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni assumenda officiis sit amet itaque eveniet
-                      accusantium corporis tempora, soluta perspiciatis rerum,
-                      ratione animi nemo inventore repellat, commodi in esse
-                      quisquam.
-                      <span className="text-xl">”</span>
-                    </p>
-                  </blockquote>
-                </div>
-                <div className="carousel-item relative float-left w-full">
-                  <blockquote className="bg-gray-100 px-20 py-8">
-                    <div className="flex items-center">
-                      <img
-                        alt="User"
-                        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                        className="h-16 w-16 rounded-full object-cover"
-                      />
-                      <div className="ml-4 text-sm">
-                        <p className="font-medium">James Doe</p>
-                      </div>
-                    </div>
-                    <p className="relative mt-4 text-gray-500">
-                      <span className="text-xl">“</span>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni assumenda officiis sit amet itaque eveniet
-                      accusantium corporis tempora, soluta perspiciatis rerum,
-                      ratione animi nemo inventore repellat, commodi in esse
-                      quisquam.
-                      <span className="text-xl">”</span>
-                    </p>
-                  </blockquote>
-                </div>
+                      <p className="relative mt-4 text-gray-500">
+                        <span className="text-xl">“</span>
+                        {el.comment}
+                        <span className="text-xl">”</span>
+                      </p>
+                    </blockquote>
+                  </div>
+                })}
               </div>
               <button
                 className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0 -ml-6"
