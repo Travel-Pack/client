@@ -5,10 +5,7 @@ import Compass from "../components/svg/Compass"
 import FooterTeam from "./FooterTeam"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useRef, useState } from "react"
-import {
-  fetchCities,
-  fetchHighlightedDestination,
-} from "../stores/actions/actionCreator"
+import { fetchCities, fetchHighlightedDestination } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 
 const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -23,9 +20,7 @@ export function HomePage() {
   }
 
   /* Fetch data from API */
-  const destinations = useSelector(
-    (state) => state.destinations.highlightedDestinations
-  )
+  const destinations = useSelector((state) => state.destinations.highlightedDestinations)
   /*  */
   useEffect(() => {
     dispatch(fetchCities()).then((_) => {
@@ -37,7 +32,7 @@ export function HomePage() {
 
   if (load) return <Loader />
   return (
-    <div>
+    <div className="bg-stone-100">
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>
           <h1 className="text-center font-bold text-3xl xl:text-7xl text-white">
@@ -81,37 +76,35 @@ export function HomePage() {
             </button>
           </div>
         </div>
-        <div className="container mx-auto my-4">
-          <div className="max-w-3xl">
-            <div className="py-10">
-              <h1 className="xl:text-5xl text-3xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
-                Choose The
-                <span className="font-light"> Destinations Just Right </span>
-                For Your Vacation
-              </h1>
-              <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
-                dolorem placeat atque ad! Eaque, ratione totam? Ad placeat
-                laborum
-              </p>
+        <section className="destination-text bg-white w-full">
+          <div className="container mx-auto py-4">
+            <div className="max-w-3xl">
+              <div className="py-10">
+                <h1 className="xl:text-5xl text-3xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
+                  Choose The
+                  <span className="font-light"> Destinations Just Right </span>
+                  For Your Vacation
+                </h1>
+                <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem
+                  placeat atque ad! Eaque, ratione totam? Ad placeat laborum
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
         <Cards type="city" cities={cities} />
         <div className="container mx-auto my-4">
           <div className="max-w-3xl">
             <div className="py-10">
               <h1 className="xl:text-5xl text-3xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
                 Amazing{" "}
-                <span className="font-light">
-                  Destinations And Fun Adventures{" "}
-                </span>
+                <span className="font-light">Destinations And Fun Adventures </span>
                 Waiting For You
               </h1>
               <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
-                dolorem placeat atque ad! Eaque, ratione totam? Ad placeat
-                laborum
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolorem
+                placeat atque ad! Eaque, ratione totam? Ad placeat laborum
               </p>
             </div>
           </div>
@@ -126,17 +119,16 @@ export function HomePage() {
           </div>
         </div>
         <div className="xl:w-1/2">
-          <div
-            className={`h-96 xl:h-full w-full bg-black px-5 xl:px-24 text-white`}>
+          <div className={`h-96 xl:h-full w-full bg-black px-5 xl:px-24 text-white`}>
             <Carousel slideInterval={5000}>
               {array.map((el) => {
                 return (
                   <div className="bg-opacity-20" key={el}>
                     <h1 className="text-lg mb-4">⭐⭐⭐⭐⭐</h1>
                     <p className="xl:text-3xl text-lg mb-10">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Architecto harum minima voluptatem ducimus eligendi
-                      nesciunt molestias laudantium, est ad?{" "}
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto
+                      harum minima voluptatem ducimus eligendi nesciunt molestias
+                      laudantium, est ad?{" "}
                     </p>
                     <h3 className="text-xl">By Donal Batman</h3>
                   </div>

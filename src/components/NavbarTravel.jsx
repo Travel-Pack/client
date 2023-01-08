@@ -37,9 +37,9 @@ export default function NavbarTravel() {
   }, [prevScrollpos])
 
   return (
-    <div>
-      <div
-        className={`hidden xl:flex bg-white bg-opacity-90 items-center z-50 justify-between fixed w-full px-20 shadow-sm backdrop-blur-md duration-200 h-[80px] ${
+    <nav>
+      <nav
+        className={`hidden md:flex bg-white bg-opacity-90 items-center z-50 justify-between fixed w-full px-20 shadow-sm backdrop-blur-md duration-200 h-[80px] ${
           visible ? "top-0" : "-top-[80px]"
         }`}>
         <NavLink to={"/"} className="text-2xl">
@@ -82,41 +82,41 @@ export default function NavbarTravel() {
             </NavLink>
           </div>
         </div>
-      </div>
+      </nav>
 
       <Navbar
         fluid={true}
         rounded={true}
-        className="xl:hidden xl:w-0 xl:h-0 fixed bg-transparent z-50">
+        className="md:hidden md:w-0 md:h-0 fixed bg-transparent z-50">
         <Navbar.Toggle />
         <Navbar.Collapse>
           <NavLink
             to={"/"}
-            className="block py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
+            className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
             Home
           </NavLink>
           <NavLink
             to={"/travel-step"}
-            className="block py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
+            className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
             Travel Step
           </NavLink>
           <NavLink
             to={"/find-travel"}
-            className="block py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
+            className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
             Find Tour
           </NavLink>
           <NavLink
             to={"/forum"}
-            className="block py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
+            className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
             Forum
           </NavLink>
           <NavLink
             to={"/register"}
-            className="block py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
+            className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
             Register
           </NavLink>
         </Navbar.Collapse>
       </Navbar>
-    </div>
+    </nav>
   )
 }
