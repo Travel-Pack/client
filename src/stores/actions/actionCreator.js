@@ -38,6 +38,7 @@ export function fetchCity(slug) {
   }
 }
 
+
 export function fetchHighlightedDestination() {
   return (dispatch, getState) => {
     return axios({
