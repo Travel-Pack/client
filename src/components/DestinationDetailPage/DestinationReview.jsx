@@ -1,7 +1,52 @@
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from 'react'
+import { fetchDestination, postReview } from '../../stores/actions/actionCreator'
+import Loader from "../Loader";
+import { useParams } from "react-router-dom";
+
 export function DestinationReview() {
+
+  const { type } = useParams();
+  const [load, setLoad] = useState(false)
+  const [review, setReview] = useState({
+    cost: 0,
+    fun: 0,
+    internet: 0,
+    safety: 0,
+    comment: ""
+  })
+  const destination = useSelector((state) => state.destinations.destination)
+  const hotel = useSelector((state) => state.destinations.hotel)
+  let data;
+  if (type === "destination") {
+    data = destination;
+  }
+  else {
+    data = hotel;
+  }
+  const onChangeHandler = (e) => {
+    const updatedReview = { ...review, [e.target.name]: e.target.value };
+    setReview(updatedReview);
+  }
+  const dispatch = useDispatch();
+  const submitReviewHandler = (e) => {
+    e.preventDefault();
+    dispatch(postReview(review))
+      .then(_ => {
+        setLoad(true);
+        dispatch(fetchDestination())
+          .then(_ => {
+            setLoad(false);
+          })
+      })
+  }
+
+  if (load) {
+    return <Loader />
+  }
   return (
     <section className="m-10 max-w-screen-2xl mx-auto">
-      <h1 className="font-bold font-caveat text-6xl">Gili Lawa Darat Island, East Nusa Tenggara</h1>
+      <h1 className="font-bold font-caveat text-6xl">{destination.name}, {"City Name"}</h1>
       <h1 className="font-bold font-caveat my-10 text-6xl">Overall</h1>
       <div className="flex items-center mb-5">
         <p className="bg-yellow-300 text-sm font-semibold inline-flex items-center p-1.5 rounded dark:bg-blue-200 dark:text-blue-800">
@@ -53,59 +98,20 @@ export function DestinationReview() {
         </div>
       </div>
       <h1 className="font-bold font-caveat my-10 text-6xl">Reviews</h1>
-      <div className="flex gap-8 items-center border-b py-6 border-gray-200">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" className="w-20" />
-        <div className="w-full">
-          <div className="flex justify-between mb-4">
-            <p className="font-bold">John Doe</p>
-            <p>10/12/22</p>
+      {data.Reviews.length ? data.Reviews.map(el => {
+        return <div key={el.id} className="flex gap-8 items-center border-b py-6 border-gray-200">
+          <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" className="w-20" />
+          <div className="w-full">
+            <div className="flex justify-between mb-4">
+              <p className="font-bold">{"John Doe"}</p>
+              <p>{new Date(el.createdAt).toLocaleString("en-IE", { dateStyle: "short" })}</p>
+            </div>
+            <p>{el.comment}</p>
           </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-            assumenda officiis sit amet itaque eveniet accusantium corporis
-            tempora, soluta perspiciatis rerum, ratione animi nemo inventore
-            repellat, commodi in esse quisquam.</p>
         </div>
-      </div>
-      <div className="flex gap-8 items-center border-b py-6 border-gray-200">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" className="w-20" />
-        <div className="w-full">
-          <div className="flex justify-between mb-4">
-            <p className="font-bold">John Doe</p>
-            <p>10/12/22</p>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-            assumenda officiis sit amet itaque eveniet accusantium corporis
-            tempora, soluta perspiciatis rerum, ratione animi nemo inventore
-            repellat, commodi in esse quisquam.</p>
-        </div>
-      </div>
-      <div className="flex gap-8 items-center border-b py-6 border-gray-200">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" className="w-20" />
-        <div className="w-full">
-          <div className="flex justify-between mb-4">
-            <p className="font-bold">John Doe</p>
-            <p>10/12/22</p>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-            assumenda officiis sit amet itaque eveniet accusantium corporis
-            tempora, soluta perspiciatis rerum, ratione animi nemo inventore
-            repellat, commodi in esse quisquam.</p>
-        </div>
-      </div>
-      <div className="flex gap-8 items-center border-b py-6 border-gray-200">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" className="w-20" />
-        <div className="w-full">
-          <div className="flex justify-between mb-4">
-            <p className="font-bold">John Doe</p>
-            <p>10/12/22</p>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-            assumenda officiis sit amet itaque eveniet accusantium corporis
-            tempora, soluta perspiciatis rerum, ratione animi nemo inventore
-            repellat, commodi in esse quisquam.</p>
-        </div>
-      </div>
-      <form className="my-10">
+      }) : <h1 className="font-bold text-2xl text-center">No review for this {type} yet.</h1>
+      }
+      <form className="my-10" onSubmit={submitReviewHandler}>
         <div className="flex items-center mb-8 gap-32 justify-center">
           <div className="flex items-center">
             <p className="text-xl w-20">Cost</p>
@@ -233,7 +239,7 @@ export function DestinationReview() {
         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only">Enter your review
           message here</label>
         <div className="relative">
-          <input type="search" id="search" className="block w-full p-3 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your review message here ..." required />
+          <input value={review.comment} onChange={onChangeHandler} id="comment" name="comment" className="block w-full p-3 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your review message here ..." required />
         </div>
         <button className="bg-yellow-300 py-3 px-6 rounded-xl my-4 block mx-auto">Send</button>
       </form>

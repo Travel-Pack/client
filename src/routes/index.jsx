@@ -15,6 +15,7 @@ import ForumDetail from "../pages/ForumDetail"
 import TravelItenerary from "../pages/TravelItenerary"
 import TravelStep from "../pages/TravelStep"
 import FindDestination from "../components/CityPages/FindDestination"
+import TravelCards from "../components/TravelSection/TravelCards"
 
 const router = createBrowserRouter([
   {
@@ -27,30 +28,15 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "destination/:destinationName",
-        element: <DestinationDetailPage />,
-        children: [
-          {
-            path: "",
-            element: <DestinationInformation />,
-            errorElement: <ErrorPage />,
-          },
-          {
-            path: "review",
-            element: <DestinationReview />,
-            errorElement: <ErrorPage />,
-          },
-          {
-            path: "covid",
-            element: <DestinationCovid />,
-            errorElement: <ErrorPage />,
-          },
-        ],
-      },
-      {
-        path: "find-byCity/:id",
+        path: "find-byCity/:citySlug/",
         element: <FindDestination />,
         errorElement: <ErrorPage />,
+        children: [
+          {
+            path: ":type",
+            element: <TravelCards />,
+          }
+        ]
       },
       {
         path: "find-travel",
@@ -81,6 +67,27 @@ const router = createBrowserRouter([
         path: "forum/1",
         element: <ForumDetail />,
         errorElement: <ErrorPage />,
+      },
+      {
+        path: ":type/:slug",
+        element: <DestinationDetailPage />,
+        children: [
+          {
+            path: "",
+            element: <DestinationInformation />,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: "review",
+            element: <DestinationReview />,
+            errorElement: <ErrorPage />,
+          },
+          // {
+          //   path: "covid",
+          //   element: <DestinationCovid />,
+          //   errorElement: <ErrorPage />,
+          // },
+        ],
       },
     ],
   },

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_HIGHLIGHTED_DESTINATION } from './actionType';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION } from './actionType';
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
@@ -57,19 +57,21 @@ export function fetchHighlightedDestination() {
 }
 
 export function fetchDestination(slug) {
-  return async (dispatch, getState) => {
-    try {
-      const {data} = await axios({
-        method: "GET",
-        url: `${baseUrl}/destinations/${slug}`
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/destinations?slug=${slug}`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_DESTINATION,
+          //ganti nanti bukan dalam bentuk array
+          payload: res.data[0]
+        })
       })
-      dispatch({
-        type: FETCH_DESTINATION,
-        payload: data
+      .catch(error=>{
+        console.log(error);
       })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
 
@@ -133,6 +135,64 @@ export function loginUser(loginData){
       })
       .catch(error=>{
         //ganti ke swal
+        console.log(error);
+      })
+  }
+}
+
+export function postReview(review){
+  return (dispatch, getState)=>{
+    const {cost, fun, internet, safety, comment} = review;
+    return axios({
+      method: "POST",
+      url: `${baseUrl}/review`,
+      // headers: {
+      //   access_token: localStorage.access_token
+      // },
+      data: {cost, fun, internet, safety, comment}
+    })
+      .then(res=>{
+        console.log("Successfully add review");
+      })
+      .catch(error=>{
+        //ganti ke swal
+        console.log(error);
+      })
+  }
+}
+
+export function fetchDestinationByCity(slug) {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      // url: `${baseUrl}/destinations?citySlug=${slug}`
+      url: `${baseUrl}/destinationsByCity`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_DESTINATIONS_BY_CITY,
+          payload: res.data
+        })
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+  }
+}
+
+export function fetcDestinations() {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/destinations`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_DESTINATIONS,
+          payload: res.data
+        })
+      })
+      .catch(error=>{
         console.log(error);
       })
   }
