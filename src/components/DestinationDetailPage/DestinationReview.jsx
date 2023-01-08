@@ -2,9 +2,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from 'react'
 import { fetchDestination, postReview } from '../../stores/actions/actionCreator'
 import Loader from "../Loader";
+import { useParams } from "react-router-dom";
 
 export function DestinationReview() {
 
+  const { type } = useParams();
   const [load, setLoad] = useState(false)
   const [review, setReview] = useState({
     cost: 0,
@@ -14,25 +16,33 @@ export function DestinationReview() {
     comment: ""
   })
   const destination = useSelector((state) => state.destinations.destination)
-  const onChangeHandler = (e)=>{
-    const updatedReview = {...review, [e.target.name]: e.target.value};
+  const hotel = useSelector((state) => state.destinations.hotel)
+  let data;
+  if (type === "destination") {
+    data = destination;
+  }
+  else {
+    data = hotel;
+  }
+  const onChangeHandler = (e) => {
+    const updatedReview = { ...review, [e.target.name]: e.target.value };
     setReview(updatedReview);
   }
   const dispatch = useDispatch();
-  const submitReviewHandler = (e)=>{
+  const submitReviewHandler = (e) => {
     e.preventDefault();
     dispatch(postReview(review))
-      .then(_=>{
+      .then(_ => {
         setLoad(true);
         dispatch(fetchDestination())
-          .then(_=>{
+          .then(_ => {
             setLoad(false);
           })
       })
   }
 
-  if(load){
-    return <Loader/>
+  if (load) {
+    return <Loader />
   }
   return (
     <section className="m-10 max-w-screen-2xl mx-auto">
@@ -88,18 +98,19 @@ export function DestinationReview() {
         </div>
       </div>
       <h1 className="font-bold font-caveat my-10 text-6xl">Reviews</h1>
-      {destination.Reviews.map(el => {
+      {data.Reviews.length ? data.Reviews.map(el => {
         return <div key={el.id} className="flex gap-8 items-center border-b py-6 border-gray-200">
           <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="user" className="w-20" />
           <div className="w-full">
             <div className="flex justify-between mb-4">
               <p className="font-bold">{"John Doe"}</p>
-              <p>{new Date(el.createdAt).toLocaleString("en-IE", {dateStyle:"short"})}</p>
+              <p>{new Date(el.createdAt).toLocaleString("en-IE", { dateStyle: "short" })}</p>
             </div>
             <p>{el.comment}</p>
           </div>
         </div>
-      })}
+      }) : <h1 className="font-bold text-2xl text-center">No review for this {type} yet.</h1>
+      }
       <form className="my-10" onSubmit={submitReviewHandler}>
         <div className="flex items-center mb-8 gap-32 justify-center">
           <div className="flex items-center">

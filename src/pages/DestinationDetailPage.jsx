@@ -6,13 +6,21 @@ import { fetchDestination } from "../stores/actions/actionCreator";
 
 export function DestinationDetailPage() {
 
+  const {type, slug} = useParams();
   const destination = useSelector((state) => state.destinations.destination)
-  let { destinationSlug } = useParams();
+  const hotel = useSelector((state) => state.destinations.hotel)
+  let data;
+  if(type === "destination"){
+    data = destination
+  }
+  else{
+    data = hotel
+  }
   const [load, setLoad] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(fetchDestination(destinationSlug))
+    dispatch(fetchDestination(slug))
       .then(_=>{
         setLoad(false);
       })
@@ -23,11 +31,11 @@ export function DestinationDetailPage() {
   }
   return (
     <div>
-      <section style={{backgroundImage: `url(${destination.mainImg})`}} className={`bg-cover bg-bottom bg-no-repeat h-96 mt-20`}>
+      <section style={{backgroundImage: `url(${type === "destination"? data.mainImg : data.image})`}} className={`bg-cover bg-bottom bg-no-repeat h-96 mt-20`}>
         <div className="flex-col flex mx-auto justify-end h-full pt-10 px-16 backdrop-contrast-110 backdrop-brightness-75">
           <div className="max-w-lg text-center sm:text-left">
             <div className="font-caramel text-xl font-bold text-white md:text-7xl">
-              {destination.name},{" "}
+              {data.name},{" "}
               <h3 className="text-4xl font-light">City Name</h3>
             </div>
             <div className="mt-14 sm:mt-6">
