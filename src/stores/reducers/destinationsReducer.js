@@ -1,4 +1,4 @@
-import { FETCH_DESTINATION, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION } from "../actions/actionType"
+import { FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION } from "../actions/actionType"
 
 const initiateState = {
   highlightedDestinations: [],
@@ -23,7 +23,8 @@ const initiateState = {
     "isRecommended": false,
     "price": 450000,
     "CityId": 3
-  }
+  },
+  destinations: []
 }
 
 export default function destinationsReducer(state = initiateState, action) {
@@ -34,6 +35,8 @@ export default function destinationsReducer(state = initiateState, action) {
       return { ...state, destination: action.payload }
     case FETCH_DESTINATIONS_BY_CITY:
       return { ...state, destinationsByCity: action.payload }
+    case FETCH_DESTINATIONS:
+      return { ...state, destinations: action.payload }
     default:
       return state
   }

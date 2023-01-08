@@ -7,13 +7,18 @@ export default function TravelCards() {
   const {type} = useParams();
   const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
   const hotelsByCity = useSelector((state) => state.destinations.hotelsByCity);
+  const destinations = useSelector((state) => state.destinations.destinations);
   let data;
-
-  if(type === "destinations"){
+  console.log(type);
+  
+  if(type === "destination"){
     data = destinationsByCity;
   }
-  else{
+  else if(type === "hotel"){
     data = hotelsByCity
+  }
+  else{
+    data = destinations;
   }
 
   const nav = useNavigate()
@@ -36,12 +41,14 @@ export default function TravelCards() {
 
   return (
     <div className="flex gap-6 flex-wrap w-full xl:w-4/5">
-      {!data.length? <h1 className="mx-auto text-2xl font-bold">{`Sorry, no ${type} in this city yet.`}</h1>:data.map((el) => {
+      {!data.length? <h1 className="mx-auto text-2xl font-bold">{`Sorry, no ${type} in this city yet.`}</h1>
+      :
+      data.map((el) => {
         return (
           <div key={el.id} className="bg-white shadow-md flex flex-col cursor-pointer justify-between max-w-[450px] max-h-[470px] mb-5 overflow-hidden active:scale-95 duration-200">
             <div className="w-full h-1/2" onClick={()=>{navToDetail(el.slug)}}>
               <img
-                src={type === "destinations"? el.mainImg: el.image}
+                src={type === "hotel"? el.image : el.mainImg}
                 className="w-full h-full object-cover"
                 alt={el.name}
               />
@@ -49,7 +56,7 @@ export default function TravelCards() {
             <div className="px-7">
               <div className="flex justify-between pt-5">
                 <h1 className="text-xl tracking-wide">{el.name}</h1>
-                <h1 className="text-xl tracking-wide text-red-500">{type === "destinations"? el.cost.toLocaleString("id-ID", {style:"currency", currency:"IDR"}) : el.price.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}</h1>
+                <h1 className="text-xl tracking-wide text-red-500">{type === "hotel"? el.price.toLocaleString("id-ID", {style:"currency", currency:"IDR"}) : el.cost.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}</h1>
               </div>
               <h1 className="text-red-500">7.5 Superb</h1>
 

@@ -5,7 +5,7 @@ export default function Cards({ type, cities, destinations }) {
   const nav = useNavigate()
 
   function handleNavCity(slug) {
-    nav(`/find-byCity/${slug}/destinations`)
+    nav(`/find-byCity/${slug}/destination`)
   }
   function handleNavDestination(slug) {
     nav(`/destination/${slug}`)

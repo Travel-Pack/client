@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION } from './actionType';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION } from './actionType';
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
@@ -171,6 +171,24 @@ export function fetchDestinationByCity(slug) {
       .then(res=>{
         dispatch({
           type: FETCH_DESTINATIONS_BY_CITY,
+          payload: res.data
+        })
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+  }
+}
+
+export function fetcDestinations() {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/destinations`
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_DESTINATIONS,
           payload: res.data
         })
       })

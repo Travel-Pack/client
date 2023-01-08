@@ -37,7 +37,7 @@ export default function FindDestination() {
             className={`hover:bg-white hover:text-black text-white duration-200 py-2.5 px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
-            to="destinations">
+            to="destination">
             Destination
           </NavLink>
 
@@ -45,7 +45,7 @@ export default function FindDestination() {
             className={`hover:bg-white hover:text-black text-white duration-200 py-2.5 px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
-            to="hotels">
+            to="hotel">
             Hotel
           </NavLink>
           
