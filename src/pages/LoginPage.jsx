@@ -1,13 +1,38 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
+import { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { loginUser } from "../stores/actions/actionCreator";
 
 export function LoginPage() {
+
+  const dispatch = useDispatch();
   const navigate = useNavigate()
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
+  })
+  const [hide, setHide] = useState("password");
+
+  const onChangeHandler = (e)=>{
+    const updatedLoginData = {...loginData, [e.target.name]: e.target.value }
+    setLoginData(updatedLoginData);
+  }
+
+  const hideButtonHandler = ()=>{
+    if(hide === "password"){
+      return setHide("text");
+    }
+    return setHide("password");
+  }
 
   function handleLogin(e) {
-    /* if Success! */
     e.preventDefault()
-    navigate("/")
+    dispatch(loginUser())
+      .then(_=>{
+        navigate("/")
+      })
   }
+
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
       <NavLink to={"/"} className="text-2xl fixed left-5 top-5">
@@ -27,6 +52,9 @@ export function LoginPage() {
             </label>
             <div className="relative">
               <input
+                value={loginData.email}
+                onChange={onChangeHandler}
+                name="email"
                 type="email"
                 className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
                 placeholder="Enter email"
@@ -54,11 +82,14 @@ export function LoginPage() {
             </label>
             <div className="relative">
               <input
-                type="password"
+                value={loginData.password}
+                onChange={onChangeHandler}
+                name="password"
+                type={hide}
                 className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
                 placeholder="Enter password"
               />
-              <span className="absolute inset-y-0 right-4 inline-flex items-center">
+              <span onClick={hideButtonHandler} className="absolute inset-y-0 right-4 inline-flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-gray-400"

@@ -1,9 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { registerUser } from "../stores/actions/actionCreator";
+import Loader from "../components/Loader";
 
 export function RegisterPage() {
 
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [registerData, setRegisterData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -11,16 +15,32 @@ export function RegisterPage() {
     password: "",
     passwordConfirmation: ""
   })
+  const [load, setLoad] = useState(false);
 
   const onChangeHandler = (e)=>{
     const updatedRegisterData = {...registerData, [e.target.name]: e.target.value};
     setRegisterData(updatedRegisterData);
-    console.log(registerData);
   }
 
-  function handleRegister(){
-    
-    navigate("/login")
+  function handleRegister(e){
+    e.preventDefault();
+    dispatch(registerUser(registerData))
+    .then(_=>{
+      setLoad(true);
+      setRegisterData({
+          fullName: "",
+          phoneNumber: "",
+          email: "",
+          password: "",
+          passwordConfirmation: ""
+        })
+        setLoad(false);
+        navigate("/login");
+      })
+  }
+  
+  if(load){
+    return <Loader />
   }
   return (
     <section className="bg-white">
@@ -71,7 +91,7 @@ export function RegisterPage() {
                 Let's go TravelPacking!
               </h1>
             </div>
-            <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+            <form onSubmit={handleRegister} className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <label htmlFor="Name" className="block text-sm font-medium text-gray-700">
                   Name
@@ -151,7 +171,7 @@ export function RegisterPage() {
                 />
               </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button onClick={handleRegister} className="inline-block shrink-0 rounded-md bg-yelloku px-12 py-3 text-sm font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
+                <button className="inline-block shrink-0 rounded-md bg-yelloku px-12 py-3 text-sm font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
                   Create an account
                 </button>
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
