@@ -14,7 +14,7 @@ export default function FindTravel() {
         <h1 className="text-white font-semibold text-center xl:text-left xl:text-6xl text-4xl pb-2 xl:pb-10">
           Find The next <br /> Destination
         </h1>
-        <div className="flex justify-between xl:gap-10">
+        <div className="flex justify-between xl:justify-start">
           <div
             className={`hover:bg-white hover:text-black text-white duration-200 xl:py-2.5 px-1 py-1 xl:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""

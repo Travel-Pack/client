@@ -84,7 +84,10 @@ export default function NavbarTravel() {
         </div>
       </div>
 
-      <Navbar fluid={true} rounded={true} className="xl:hidden fixed bg-transparent z-50">
+      <Navbar
+        fluid={true}
+        rounded={true}
+        className="xl:hidden xl:w-0 xl:h-0 fixed bg-transparent z-50">
         <Navbar.Toggle />
         <Navbar.Collapse>
           <NavLink
@@ -114,7 +117,6 @@ export default function NavbarTravel() {
           </NavLink>
         </Navbar.Collapse>
       </Navbar>
-
     </div>
   )
 }

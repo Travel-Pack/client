@@ -1,19 +1,26 @@
-import { Pagination } from "flowbite-react"
 import { useState } from "react"
-import PaginationCustom from "../components/PaginationCustom"
+import PaginatedItems from "../components/PaginatedItems"
 
 export default function ForumDetail() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
   const [isShow, setIsShow] = useState(false)
 
   const destination = ["Gili", "Nusa Dua", "Bundaran HI"]
-  const member = ["alamo", "gravity", "dipper", "mabel", "pines", "razor", "void"]
+  const member = [
+    "alamo",
+    "gravity",
+    "dipper",
+    "mabel",
+    "pines",
+    "razor",
+    "void",
+  ]
 
   function showDivInput() {
     setIsShow(!isShow)
   }
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault()
   }
 
@@ -26,14 +33,17 @@ export default function ForumDetail() {
           className="object-cover w-full xl:h-full brightness-50"
         />
         <h1 className="absolute bottom-[10%] left-5 text-3xl font-medium text-white">
-          {destination[Math.floor(Math.random() * destination.length)] + " Reviews"}
+          {destination[Math.floor(Math.random() * destination.length)] +
+            " Reviews"}
         </h1>
       </div>
       <div className="container mx-auto mt-10 flex justify-evenly">
         <section id="leftSide" className="flex flex-col gap-3">
           <div className="flex flex-col xl:flex-row justify-evenly gap-5">
-            <PaginationCustom />
-            <button className="bg-black py-2 px-7 text-white duration-200 active:scale-95" onClick={showDivInput}>
+            <PaginatedItems />
+            <button
+              className="bg-black py-2 px-7 text-white duration-200 active:scale-95"
+              onClick={showDivInput}>
               add review
             </button>
           </div>
@@ -44,7 +54,9 @@ export default function ForumDetail() {
               placeholder="add review!"
               className={`${isShow ? "block w-full h-3/4" : "hidden"}`}
             />
-            <button type="submit" className="bg-black text-white block w-full mt-2 py-2">
+            <button
+              type="submit"
+              className="bg-black text-white block w-full mt-2 py-2">
               submit!
             </button>
           </form>
@@ -69,8 +81,8 @@ export default function ForumDetail() {
                     </h1>
                     <h1>👌❤️💕👍🤩</h1>
                     <p className="font-light">
-                      It's one thing to subject yourself to a Halloween costume mishap
-                      because, hey, that's your prerogative.
+                      It's one thing to subject yourself to a Halloween costume
+                      mishap because, hey, that's your prerogative.
                     </p>
                   </div>
                   <div className="border-l border-stone-300 w-1/5 justify-evenly items-center flex flex-col">
@@ -83,7 +95,7 @@ export default function ForumDetail() {
             })}
           </div>
           <div className="flex justify-center">
-            <PaginationCustom />
+            <PaginatedItems />
           </div>
         </section>
         <section id="leftSide" className="hidden 2xl:block">
