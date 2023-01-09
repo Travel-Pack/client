@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader";
 import SwiperCard from "../components/Swiper/SwiperCard"
-import { fetchCities, fetchDestinationByCity } from "../stores/actions/actionCreator";
+import { fetchCities, fetchDestinationByCity, generateTravelStep } from "../stores/actions/actionCreator";
 
 const cityImg = [
   "https://img.freepik.com/premium-photo/monas-monument-jakarta-indonesia_134785-10762.jpg?w=1800",
@@ -39,8 +39,13 @@ export default function TravelStep() {
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
   function handleSubmit(e) {
-    e.preventDefault()
-    nav("/travelItenerary")
+    e.preventDefault();
+    setLoad(true);
+    dispatch(generateTravelStep(travelStepData))
+      .then(_=>{
+        setLoad(false);
+        nav("/travelItenerary");
+      })
   }
 
   const onChangeHandler = (e)=>{

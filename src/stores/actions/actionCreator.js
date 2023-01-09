@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION } from './actionType';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, GENERATES_TRAVELSTEPS } from './actionType';
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
@@ -190,6 +190,29 @@ export function fetcDestinations() {
       .then(res=>{
         dispatch({
           type: FETCH_DESTINATIONS,
+          payload: res.data
+        })
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+  }
+}
+
+export function generateTravelStep(inputData) {
+  return (dispatch, getState) => {
+    const { budget, numberOfDestination, allocationDestination, CityId, DestinationsIds} = inputData;
+    const budgetDestination = budget * allocationDestination / 100;
+    const budgetHotel = budget - budgetDestination;
+    return axios({
+      method: "POST",
+      url: `${baseUrl}/travel-steps/generates`,
+      headers: {access_token: localStorage.access_token},
+      data: {budgetDestination, budgetHotel, CityId, DestinationsIds, numberOfDestination}
+    })
+      .then(res=>{
+        dispatch({
+          type: GENERATES_TRAVELSTEPS,
           payload: res.data
         })
       })

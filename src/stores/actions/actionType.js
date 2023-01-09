@@ -5,3 +5,4 @@ export const FETCH_DESTINATION = 'fetch/destination';
 export const FETCH_TRAVELSTEPS = 'fetch/travelsteps';
 export const FETCH_DESTINATIONS_BY_CITY = 'fetch/destinations/city';
 export const FETCH_DESTINATIONS = 'fetch/destinations';
+export const GENERATES_TRAVELSTEPS = 'generates/travel-steps';
