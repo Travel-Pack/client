@@ -30,9 +30,9 @@ export function DestinationDetailPage() {
     return <Loader/>
   }
   return (
-    <div>
-      <section style={{backgroundImage: `url(${type === "destination"? data.mainImg : data.image})`}} className={`bg-cover bg-bottom bg-no-repeat h-96 mt-20`}>
-        <div className="flex-col flex mx-auto justify-end h-full pt-10 px-16 backdrop-contrast-110 backdrop-brightness-75">
+    <div className="flex md:flex-row flex-col">
+      <section style={{backgroundImage: `url(${type === "destination"? data.mainImg : data.image})`}} className={`bg-cover bg-center bg-no-repeat h-fit md:h-screen w-96 md:fixed`}>
+        <div className="flex-col flex mx-auto justify-start md:h-screen pt-20 px-10 backdrop-brightness-50">
           <div className="max-w-lg text-center sm:text-left">
             <div className="font-caramel text-xl font-bold text-white md:text-7xl">
               {data.name},{" "}

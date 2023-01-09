@@ -16,6 +16,7 @@ import TravelItenerary from "../pages/TravelItenerary"
 import TravelStep from "../pages/TravelStep"
 import FindDestination from "../components/CityPages/FindDestination"
 import TravelCards from "../components/TravelSection/TravelCards"
+import { ProfilePage } from "../pages/ProfilePage"
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "profile",
+        element: <ProfilePage />,
+      },
+      {
         path: "find-byCity/:citySlug/",
         element: <FindDestination />,
         errorElement: <ErrorPage />,
@@ -35,8 +40,8 @@ const router = createBrowserRouter([
           {
             path: ":type",
             element: <TravelCards />,
-          }
-        ]
+          },
+        ],
       },
       {
         path: "find-travel",

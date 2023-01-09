@@ -56,7 +56,7 @@ export function LoginPage() {
                 onChange={onChangeHandler}
                 name="email"
                 type="email"
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+                className="w-full rounded-lg border-gray-200 p-4 pr-12  shadow-sm"
                 placeholder="Enter email"
               />
               <span className="absolute inset-y-0 right-4 inline-flex items-center">
@@ -86,7 +86,7 @@ export function LoginPage() {
                 onChange={onChangeHandler}
                 name="password"
                 type={hide}
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+                className="w-full rounded-lg border-gray-200 p-4 pr-12  shadow-sm"
                 placeholder="Enter password"
               />
               <span onClick={hideButtonHandler} className="absolute inset-y-0 right-4 inline-flex items-center">
@@ -113,7 +113,7 @@ export function LoginPage() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-500">
+            <p className=" text-gray-500">
               No account?
               <Link to="/register" className="underline">
                 Sign up
@@ -121,7 +121,7 @@ export function LoginPage() {
             </p>
             <button
               type="submit"
-              className="ml-3 inline-block rounded-md bg-yelloku px-5 py-3 text-sm font-medium">
+              className="ml-3 inline-block rounded-md bg-yelloku px-5 py-3  font-medium">
               Sign in
             </button>
           </div>

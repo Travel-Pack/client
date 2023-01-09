@@ -14,50 +14,64 @@ export default function Cards({ type, cities, destinations }) {
   useEffect(() => {}, [])
   if (type === "city") {
     return (
-      <div className="grid px-2 mt-3 grid-cols-2 xl:grid-cols-4 gap-2">
+      <section className="grid px-2 mt-3 grid-cols-2 xl:grid-cols-4 gap-2">
         {cities.map((el) => {
           return (
-            <div className="overflow-hidden">
+            <div className="overflow-hidden group">
               <div
                 key={el.id}
-                className="aspect-square duration-300 ease-out overflow-hidden cursor-pointer"
+                className="aspect-square duration-300 ease-out overflow-hidden cursor-pointer relative"
                 onClick={() => {
                   handleNavCity(el.slug)
                 }}>
                 <img
-                  className="object-cover h-full w-full duration-300 hover:brightness-100 brightness-90 scale-105 hover:scale-100"
+                  className="object-cover h-full w-full duration-300 brightness-105 scale-105 group-hover:scale-100"
                   src={el.image}
                   alt={el.name}
                 />
+                <div className="absolute inset-0 flex w-full h-full items-end justify-end">
+                  <h1 className="text-white text-4xl font-light backdrop-brightness-50 w-full block pl-5 py-5">
+                    {el.name}
+                  </h1>
+                </div>
               </div>
             </div>
           )
         })}
-      </div>
+      </section>
     )
   }
   if (type === "destination") {
     return (
-      <div className="grid px-2 mt-3 xl:grid-cols-6 gap-2 overflow-hidden">
+      <section className="grid px-2 mt-3 xl:grid-cols-5 gap-2 overflow-hidden py-3">
         {destinations.map((el) => {
           return (
-            <div className="overflow-hidden">
+            <div
+              className="overflow-hidden relative group"
+              onClick={() => {
+                handleNavDestination(el.slug)
+              }}>
               <div
                 key={el.id}
-                className="duration-300 ease-out cursor-pointer aspect-square brightness-90 hover:scale-105 hover:brightness-100"
-                onClick={() => {
-                  handleNavDestination(el.slug)
-                }}>
+                className="duration-300 ease-out cursor-pointer aspect-square brightness-105 group-hover:scale-105  ">
                 <img
                   className="object-cover h-full w-full group-hover:scale-105 duration-700"
                   src={el.mainImg}
                   alt={el.name}
                 />
               </div>
+              <div className="absolute inset-0 flex w-full h-full items-end duration-200">
+                <div className="flex w-full justify-between px-5 py-5 bg-white">
+                  <h1 className="text-black text-xl font-light duration-200">
+                    {el.name}
+                  </h1>
+                  <h1 className="text-red-500 text-lg font-light">{el.price}</h1>
+                </div>
+              </div>
             </div>
           )
         })}
-      </div>
+      </section>
     )
   }
 }
