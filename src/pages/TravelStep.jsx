@@ -1,48 +1,53 @@
 import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"
-import Loader from "../components/Loader";
-import { fetchCities, fetchDestinationByCity, generateTravelStep } from "../stores/actions/actionCreator";
+import { GoChevronUp } from "react-icons/go"
+import { useDispatch, useSelector } from "react-redux"
+import { NavLink, useNavigate } from "react-router-dom"
+import Loader from "../components/Loader"
+import ScrollToTopBtn from "../components/ScrollToTopBtn"
+import {
+  fetchCities,
+  fetchDestinationByCity,
+  generateTravelStep,
+} from "../stores/actions/actionCreator"
+
+import { FaArrowLeft } from "react-icons/fa"
 
 export default function TravelStep() {
-
-  const [citySelected, setCitySelected] = useState("");
-  const [load, setLoad] = useState(true);
-  const dispatch = useDispatch();
-  const cities = useSelector((state) => state.cities.cities);
-  const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
+  const [citySelected, setCitySelected] = useState("")
+  const [load, setLoad] = useState(true)
+  const dispatch = useDispatch()
+  const cities = useSelector((state) => state.cities.cities)
+  const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity)
   const [travelStepData, setTravelStepData] = useState({
     budget: "",
     numberOfDestination: "",
     allocationDestination: 50,
     CityId: "",
-    DestinationsIds: []
+    DestinationsIds: [],
   })
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
   function handleSubmit(e) {
-    e.preventDefault();
-    setLoad(true);
-    dispatch(generateTravelStep(travelStepData))
-      .then(res=>{
-        setLoad(false);
-        if(res === "ok"){
-          nav("/travel-step/generated");
-        }
-      })
+    e.preventDefault()
+    setLoad(true)
+    dispatch(generateTravelStep(travelStepData)).then((res) => {
+      setLoad(false)
+      if (res === "ok") {
+        nav("/travel-step/generated")
+      }
+    })
   }
 
-  const onChangeHandler = (e)=>{
-    const updatedTravelStepData = {...travelStepData, [e.target.name]: e.target.value}
-    setTravelStepData(updatedTravelStepData);
+  const onChangeHandler = (e) => {
+    const updatedTravelStepData = { ...travelStepData, [e.target.name]: e.target.value }
+    setTravelStepData(updatedTravelStepData)
   }
 
-  useEffect(()=>{
-    dispatch(fetchCities())
-      .then(_=>{
-        setLoad(false);
-      })
+  useEffect(() => {
+    dispatch(fetchCities()).then((_) => {
+      setLoad(false)
+    })
   }, [])
 
   function showCity() {
@@ -51,30 +56,29 @@ export default function TravelStep() {
 
   function displayDest(cityName, CityId) {
     setCitySelected(cityName)
-    const updatedTravelStepData = {...travelStepData, CityId}
-    setTravelStepData(updatedTravelStepData);
-    setLoad(true);
-    dispatch(fetchDestinationByCity("slug"))
-      .then(_=>{
-        setLoad(false);
-        setShowDest(!showDest);
-      })
+    const updatedTravelStepData = { ...travelStepData, CityId }
+    setTravelStepData(updatedTravelStepData)
+    setLoad(true)
+    dispatch(fetchDestinationByCity("slug")).then((_) => {
+      setLoad(false)
+      setShowDest(!showDest)
+    })
   }
 
   function selectDest(destinationId) {
-    const updatedTravelStepData = {...travelStepData}
-    const index = updatedTravelStepData.DestinationsIds.findIndex((el)=>el === destinationId);
-    if( index === -1){
-      updatedTravelStepData.DestinationsIds.push(destinationId);
+    const updatedTravelStepData = { ...travelStepData }
+    const index = updatedTravelStepData.DestinationsIds.findIndex(
+      (el) => el === destinationId
+    )
+    if (index === -1) {
+      updatedTravelStepData.DestinationsIds.push(destinationId)
+    } else {
+      updatedTravelStepData.DestinationsIds.splice(index, 1)
     }
-    else{
-      updatedTravelStepData.DestinationsIds.splice(index, 1);
-    }
-    setTravelStepData(updatedTravelStepData);
+    setTravelStepData(updatedTravelStepData)
   }
 
-
-  if(load){
+  if (load) {
     return <Loader />
   }
   return (
@@ -94,7 +98,9 @@ export default function TravelStep() {
               setTopText(false), setShowDest(false)
             }}
             className={`absolute top-24 border-white pb-5 ${
-              topText ? "text-lg xl:text-4xl left-10" : "text-lg xl:text-6xl inset-1/3 text-center"
+              topText
+                ? "text-lg xl:text-4xl left-10"
+                : "text-lg xl:text-6xl inset-1/3 text-center"
             }`}>
             <h1 className="text-white font-semibold cursor-pointer ">Preparing</h1>
             <div className="border-b-2 pb-5 border-white">
@@ -145,8 +151,12 @@ export default function TravelStep() {
                 Proportion
               </label>
               <div className="flex justitfy-between w-full text-white">
-                <h1 className="flex-1">Destination : {travelStepData.allocationDestination + "%"}</h1>
-                <h1 className="flex-1">Hotel : {100 - travelStepData.allocationDestination + "%"}</h1>
+                <h1 className="flex-1">
+                  Destination : {travelStepData.allocationDestination + "%"}
+                </h1>
+                <h1 className="flex-1">
+                  Hotel : {100 - travelStepData.allocationDestination + "%"}
+                </h1>
               </div>
               <input
                 id="rangeDest"
@@ -172,7 +182,9 @@ export default function TravelStep() {
               </button>
             )}
             {showDest ? (
-              <h1 className="text-2xl font-medium text-white">Destination in {citySelected}</h1>
+              <h1 className="text-2xl font-medium text-white">
+                Destination in {citySelected}
+              </h1>
             ) : (
               ""
             )}
@@ -190,8 +202,16 @@ export default function TravelStep() {
             <div className="flex flex-wrap gap-2 justify-center mt-20">
               {cities.map((el) => {
                 return (
-                  <div className="max-w-xs aspect-square" onClick={()=>displayDest(el.name, el.id)} key={el.id}>
+                  <div
+                    className="max-w-xs aspect-square relative"
+                    onClick={() => displayDest(el.name, el.id)}
+                    key={el.id}>
                     <img src={el.image} alt={el.name} className="w-full h-full" />
+                    <div className="absolute inset-0 flex justify-center">
+                      <h1 className="text-lg text-yelloku bg-stone-900 bg-opacity-80 h-fit py-1 w-full text-center">
+                        {el.name}
+                      </h1>
+                    </div>
                   </div>
                 )
               })}
@@ -199,34 +219,60 @@ export default function TravelStep() {
           </div>
           {showDest ? (
             <form onSubmit={(e) => handleSubmit(e)}>
-              <div
-                className="w-full block max-h-screen mt-20 overflow-y-auto"
-                id="scrollStyle">
-                <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
-                  {destinationsByCity.map((el) => {
-                    let classDestinationCard = "max-w-xs aspect-square ";
-                    if(travelStepData.DestinationsIds.findIndex((destinationId)=>destinationId === el.id) !== -1){
-                      classDestinationCard += "border border-8 border-yelloku"
-                    }
-                    return (
-                      <div className={classDestinationCard} onClick={()=>{selectDest(el.id)}} key={el.id}>
-                        <img src={el.mainImg} alt="" className="w-full h-full" />
-                      </div>
-                    )
-                  })}
+              <section className="w-full block">
+                <div className="h-screen overflow-y-auto" id="scrollStyle">
+                  <div className="flex flex-col gap-2 mt-20 pb-2">
+                    <button
+                      id="toSubmitTravel"
+                      type="submit"
+                      className="w-full font-medium underline text-black bg-yelloku py-1 mr-5 block">
+                      Generate Travel!
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-2 justify-center pb-5">
+                    {destinationsByCity.map((el) => {
+                      let classDestinationCard
+                      if (
+                        travelStepData.DestinationsIds.findIndex(
+                          (destinationId) => destinationId === el.id
+                        ) !== -1
+                      ) {
+                        classDestinationCard += "border border-8 border-yelloku"
+                      }
+                      return (
+                        <div
+                          className={`w-72 aspect-square ${classDestinationCard} relative`}
+                          onClick={() => {
+                            selectDest(el.id)
+                          }}
+                          key={el.id}>
+                          <img src={el.mainImg} alt="" className="w-full h-full" />
+                          <div className="absolute inset-0 flex justify-center">
+                            <h1 className="text-xs text-yelloku bg-stone-900 bg-opacity-60 h-fit py-1 w-full text-center">
+                              {el.name}
+                            </h1>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  {/* <ScrollToTopBtn travelPack={true}/> */}
                 </div>
-              </div>
-              <button
-                type="submit"
-                className="w-full text-lg font-medium underline text-black bg-yelloku py-3 mt-2 mx-auto block">
-                Generate
-              </button>
+              </section>
             </form>
           ) : (
             ""
           )}
         </div>
       </div>
+      <button
+        id="backToCity"
+        onClick={() => setShowDest(false)}
+        className={`w-fit font-medium underline text-yelloku py-1 px-2 items-center justify-center gap-2 fixed bottom-2 right-2 bg-black z-50 duration-200 cursor-pointer ${
+          showDest ? "flex" : "hidden"
+        }`}>
+        <FaArrowLeft className="w-3 h-3" /> Back to City
+      </button>
     </div>
   )
 }
