@@ -25,14 +25,14 @@ export default function FindTravel() {
     return <Loader/>
   }
   return (
-    <div className="bg-stone-50 xl:mt-20">
-      <div className="xl:h-96 pt-10 xl:px-16 xl:pt-0 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-[url('https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')] bg-cover ">
-        <h1 className="text-white font-semibold text-center xl:text-left xl:text-6xl text-4xl pb-2 xl:pb-10">
+    <div className="bg-stone-50 md:mt-20">
+      <div className="md:h-96 pt-10 md:px-16 md:pt-0 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-[url('https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')] bg-cover ">
+        <h1 className="text-white font-semibold text-center md:text-left md:text-6xl text-4xl pb-2 md:pb-10">
           Find The next <br /> Destination
         </h1>
-        <div className="flex justify-between xl:justify-start">
+        <div className="flex justify-between md:justify-start">
           <div
-            className={`hover:bg-white hover:text-black text-white duration-200 xl:py-2.5 px-1 py-1 xl:px-9 font-medium relative block cursor-pointer ${
+            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
             onClick={() => handleSort}>
@@ -40,14 +40,14 @@ export default function FindTravel() {
           </div>
 
           <div
-            className={`hover:bg-white hover:text-black text-white duration-200 xl:py-2.5 px-1 py-1 xl:px-9 font-medium relative block cursor-pointer ${
+            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
             onClick={() => handleSort}>
             <h1 className="">Price High to Low</h1>
           </div>
           <div
-            className={`hover:bg-white hover:text-black text-white duration-200 xl:py-2.5 px-1 py-1 xl:px-9 font-medium relative block cursor-pointer ${
+            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
             onClick={() => handleSort}>
@@ -55,7 +55,7 @@ export default function FindTravel() {
           </div>
         </div>
       </div>
-      <div className="mx-auto px-3 xl:px-16 flex justify-center py-3 xl:py-10 gap-5 min-h-full">
+      <div className="mx-auto px-3 md:px-16 flex justify-center py-3 md:py-10 gap-5 min-h-full">
         <TravelCards />
 
         <SearchForm />
