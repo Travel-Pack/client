@@ -19,6 +19,7 @@ export function DestinationInformation() {
   const { type } = useParams()
   let data
   if (type === "destination") {
+    console.log(destination);
     data = destination
   } else {
     data = hotel
@@ -30,7 +31,7 @@ export function DestinationInformation() {
         <div className="w-full">
           <h1 className="font-bold font-caveat text-6xl">
             {/* edit */}
-            {data.name}, {"City Name"}
+            {data.destination.name}, {"City Name"}
           </h1>
           <p className="text-justify mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit
@@ -57,13 +58,13 @@ export function DestinationInformation() {
           </p>
           {/*Gallery*/}
           <section className="gallery">
-            {data.Images.length ? (
+            {data.destination.Images.length ? (
               <div>
                 <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
                 <div className="my-10">
                   <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
                     <Carousel slideInterval={5000}>
-                      {destination.Images.map((el) => {
+                      {data.destination.Images.map((el) => {
                         return (
                           <img
                             src={el.imgUrl}
@@ -93,7 +94,7 @@ export function DestinationInformation() {
                 attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={data.geocoding.split(", ")}>
+              <Marker position={data.destination.geocoding.split(", ")}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
@@ -102,7 +103,7 @@ export function DestinationInformation() {
           </section>
           {/*Highlights*/}
           <section className="highlight">
-            {data.Reviews.length ? (
+            {data.destination.Reviews.length ? (
               <>
                 <h1 className="font-bold font-caveat mt-10 text-6xl">Highlights</h1>
                 <div className="my-10">
@@ -133,7 +134,7 @@ export function DestinationInformation() {
                       />
                     </div>
                     <div className="carousel-inner relative w-full overflow-hidden">
-                      {data.Reviews.map((el, index) => {
+                      {data.destination.Reviews.map((el, index) => {
                         let classCarouselItem =
                           "carousel-item relative float-left w-full "
                         if (index === 0) {

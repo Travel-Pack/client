@@ -144,21 +144,23 @@ export function loginUser(loginData){
 
 export function postReview(review){
   return (dispatch, getState)=>{
-    const {cost, fun, internet, safety, comment} = review;
+    const {cost, fun, internet, safety, comment, DestinationId} = review;
     return axios({
       method: "POST",
-      url: `${baseUrl}/review`,
-      // headers: {
-      //   access_token: localStorage.access_token
-      // },
-      data: {cost, fun, internet, safety, comment}
+      url: `${baseUrl}/reviews`,
+      headers: {
+        access_token: localStorage.access_token
+      },
+      data: {cost, fun, internet, safety, comment, DestinationId}
     })
       .then(res=>{
         console.log("Successfully add review");
+        return "ok";
       })
       .catch(error=>{
         //ganti ke swal
         console.log(error);
+        return "error";
       })
   }
 }

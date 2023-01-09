@@ -31,11 +31,11 @@ export function DestinationDetailPage() {
   }
   return (
     <div className="flex md:flex-row flex-col">
-      <section style={{backgroundImage: `url(${type === "destination"? data.mainImg : data.image})`}} className={`bg-cover bg-center bg-no-repeat h-fit md:h-screen w-96 md:fixed`}>
+      <section style={{backgroundImage: `url(${type === "destination"? data.destination.mainImg : data.image})`}} className={`bg-cover bg-center bg-no-repeat h-fit md:h-screen w-96 md:fixed`}>
         <div className="flex-col flex mx-auto justify-start md:h-screen pt-20 px-10 backdrop-brightness-50">
           <div className="max-w-lg text-center sm:text-left">
             <div className="font-caramel text-xl font-bold text-white md:text-7xl">
-              {data.name},{" "}
+              {data.destination.name},{" "}
               <h3 className="text-4xl font-light">City Name</h3>
             </div>
             <div className="mt-14 sm:mt-6">

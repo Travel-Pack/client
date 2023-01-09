@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { fetchDestination, postReview } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 import { useParams } from "react-router-dom"
@@ -7,16 +7,18 @@ import RatingStar from "../RatingStar/RatingStar"
 
 export function DestinationReview() {
   const { type } = useParams()
+  const destination = useSelector((state) => state.destinations.destination)
+  const hotel = useSelector((state) => state.destinations.hotel)
   const [load, setLoad] = useState(false)
   const [review, setReview] = useState({
     cost: 0,
-    fun: 0,
     internet: 0,
     safety: 0,
+    fun: 0,
     comment: "",
+    DestinationId: destination.destination.id
   })
-  const destination = useSelector((state) => state.destinations.destination)
-  const hotel = useSelector((state) => state.destinations.hotel)
+  const [score, setScore] = useState(0);
   let data
   if (type === "destination") {
     data = destination
@@ -30,14 +32,31 @@ export function DestinationReview() {
   const dispatch = useDispatch()
   const submitReviewHandler = (e) => {
     e.preventDefault()
-    dispatch(postReview(review)).then((_) => {
-      setLoad(true)
-      dispatch(fetchDestination()).then((_) => {
-        setLoad(false)
-      })
+    dispatch(postReview(review)).then((res) => {
+      if(res === "ok"){
+        setLoad(true)
+        setReview({
+          cost: 0,
+          internet: 0,
+          safety: 0,
+          fun: 0,
+          comment: "",
+          DestinationId: destination.destination.id
+        });
+        dispatch(fetchDestination(destination.destination.slug)).then((_) => {
+          setLoad(false)
+        })
+      }
     })
   }
 
+  useEffect(()=>{
+    let average = 0;
+    for(let keys in data.reviews){
+      average += data.reviews[keys]
+    }
+    setScore(average/4);
+  }, [])
   if (load) {
     return <Loader />
   }
@@ -45,17 +64,17 @@ export function DestinationReview() {
     <section className="min-h-screen bg-stone-100 w-full md:ml-96 mx-auto">
       <div className="mt-20 pt-5 md:px-32">
         <h1 className="font-bold font-caveat text-6xl">
-          {destination.name}, {"City Name"}
+          {data.destination.name}, {"City Name"}
         </h1>
         <h1 className="font-bold font-caveat my-10 text-5xl">Overall</h1>
         <div className="flex items-center mb-5">
           <p className="bg-yelloku text-sm font-semibold inline-flex items-center p-1.5 rounded">
-            4.7
+            {score.toFixed(2)}
           </p>
-          <p className="ml-2 font-medium text-gray-900">Excellent</p>
+          <p className="ml-2 font-medium text-gray-900">{score > 4? "Excellent" : score < 3? "Bad": "Good"}</p>
           <span className="w-1 h-1 mx-2 bg-gray-900 rounded-full" />
           <p className="text-sm font-medium text-gray-500">
-            376 reviews
+            {data.comment.length} reviews
           </p>
         </div>
         <div className="gap-8 sm:grid sm:grid-cols-2">
@@ -68,11 +87,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded transition-colors"
-                    style={{ width: "96%" }}
+                    style={{ width: `${data.reviews.averageCost / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.8
+                  {data.reviews.averageCost}
                 </span>
               </dd>
             </dl>
@@ -84,11 +103,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: "92%" }}
+                    style={{ width: `${data.reviews.averageFun / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.6
+                {data.reviews.averageFun}
                 </span>
               </dd>
             </dl>
@@ -102,11 +121,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: "94%" }}
+                    style={{ width: `${data.reviews.averageInternet / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.7
+                {data.reviews.averageInternet}
                 </span>
               </dd>
             </dl>
@@ -118,22 +137,22 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: "94%" }}
+                    style={{ width: `${data.reviews.averageSafety / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.7
+                {data.reviews.averageSafety}
                 </span>
               </dd>
             </dl>
           </div>
         </div>
         <h1 className="font-bold font-caveat my-10 text-5xl">Reviews</h1>
-        {data.Reviews.length ? (
-          data.Reviews.map((el) => {
+        {data.comment.length ? (
+          data.comment.map((el, index) => {
             return (
               <div
-                key={el.id}
+                key={index}
                 className="flex gap-8 items-center border-b py-6 border-gray-200">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
@@ -164,25 +183,25 @@ export function DestinationReview() {
             <div className="flex items-center">
               <p className="text-xl w-20">Cost</p>
               <div className="flex items-center">
-                <RatingStar />
+                <RatingStar key="1" name="cost" setReview={setReview} review={review} />
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Fun</p>
               <div className="flex items-center">
-                <RatingStar />
+                <RatingStar key="2" name="fun" setReview={setReview} review={review}/>
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Intenet</p>
               <div className="flex items-center">
-                <RatingStar />
+                <RatingStar key="3" name="internet" setReview={setReview} review={review}/>
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Safety</p>
               <div className="flex items-center">
-                <RatingStar />
+              <RatingStar key="4" name="safety" setReview={setReview} review={review}/>
               </div>
             </div>
           </section>
