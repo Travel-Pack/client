@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { registerUser } from "../stores/actions/actionCreator";
 import Loader from "../components/Loader";
 
-export function RegisterPage() {
+export function ProfilePage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ export function RegisterPage() {
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Night"
-            src="https://images.unsplash.com/photo-1604999333679-b86d54738315?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1450&q=80"
+            src="https://images.unsplash.com/photo-1601844075967-c1376c021732?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
           <div className="hidden lg:relative lg:block lg:p-12">
@@ -68,14 +68,14 @@ export function RegisterPage() {
               Let's go TravelPacking!
             </h2>
             <p className="mt-4 leading-relaxed text-white/90">
-              Come and join our traveling family!
+              Get ready and prepare your travel here!!
             </p>
           </div>
         </section>
         <main
           aria-label="Main"
-          className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6">
-          <div className="max-w-xl lg:max-w-3xl">
+          className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6 bg-stone-50 min-h-screen">
+          <div className="max-w-xl lg:max-w-3xl shadow-xl p-5 bg-white">
             <div className="relative -mt-16 block lg:hidden">
               <a
                 className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
@@ -91,9 +91,10 @@ export function RegisterPage() {
                 Let's go TravelPacking!
               </h1>
             </div>
-            <form onSubmit={handleRegister} className="mt-8 grid grid-cols-6 gap-6">
+            <form onSubmit={handleRegister} className="mt-2 grid grid-cols-6 gap-6">
               <div className="col-span-6">
-                <label htmlFor="Name" className="block  font-medium text-gray-700">
+              <h1 className="font-medium text-gray-700 text-center text-lg">Hallo {"Alam"}!</h1>
+                <label htmlFor="Name" className="block font-medium text-gray-700">
                   Name
                 </label>
                 <input
@@ -103,13 +104,13 @@ export function RegisterPage() {
                   id="Full Name"
                   name="fullName"
                   placeholder="Enter your full name"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white  text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
                 />
               </div>
               <div className="col-span-6">
                 <label
                   htmlFor="phoneNumber"
-                  className="block  font-medium text-gray-700">
+                  className="block font-medium text-gray-700">
                   Phone Number
                 </label>
                 <input
@@ -119,13 +120,13 @@ export function RegisterPage() {
                   id="phoneNumber"
                   name="phoneNumber"
                   placeholder="Enter your phone number"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white  text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
                 />
               </div>
               <div className="col-span-6">
                 <label
                   htmlFor="Email"
-                  className="block  font-medium text-gray-700">
+                  className="block font-medium text-gray-700">
                   Email
                 </label>
                 <input
@@ -135,13 +136,13 @@ export function RegisterPage() {
                   id="Email"
                   name="email"
                   placeholder="Enter your email"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white  text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
                 />
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="Password"
-                  className="block  font-medium text-gray-700">
+                  className="block font-medium text-gray-700">
                   Password
                 </label>
                 <input
@@ -151,13 +152,13 @@ export function RegisterPage() {
                   id="Password"
                   name="password"
                   placeholder="Enter password"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white  text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
                 />
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="PasswordConfirmation"
-                  className="block  font-medium text-gray-700">
+                  className="block font-medium text-gray-700">
                   Password Confirmation
                 </label>
                 <input
@@ -167,20 +168,13 @@ export function RegisterPage() {
                   id="PasswordConfirmation"
                   name="passwordConfirmation"
                   placeholder="Confirm password"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white  text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
                 />
               </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button className="inline-block shrink-0 rounded-md bg-yelloku px-12 py-3  font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
-                  Create an account
+                <button className="inline-block shrink-0 rounded-md mx-auto bg-yelloku px-12 py-3 font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
+                  Change account details
                 </button>
-                <p className="mt-4  text-gray-500 sm:mt-0">
-                  Already have an account?
-                  <NavLink to="/login" className="text-gray-700 underline">
-                    Log in
-                  </NavLink>
-                  .
-                </p>
               </div>
             </form>
           </div>

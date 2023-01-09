@@ -1,20 +1,7 @@
 import { Navbar } from "flowbite-react"
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
-function SvgNav() {
-  return (
-    <svg
-      className="w-6 h-6"
-      fill="black"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        fillRule="evenodd"
-        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-        clipRule="evenodd"></path>
-    </svg>
-  )
-}
+import { BsFillPersonFill } from "react-icons/bs"
 
 export default function NavbarTravel() {
   const [prevScrollpos, setPrevScrollpos] = useState(window.scrollY)
@@ -45,7 +32,7 @@ export default function NavbarTravel() {
         <NavLink to={"/"} className="text-2xl">
           Travel <span className="font-bold">Pack</span>
         </NavLink>
-        <div className="flex justify-center gap-10" id="navbarLink">
+        <div className="flex justify-center items-center gap-10" id="navbarLink">
           <div>
             <NavLink
               className="font-medium hover:border-b-4 border-yelloku duration-400"
@@ -72,6 +59,11 @@ export default function NavbarTravel() {
               className="font-medium hover:border-b-4 border-yelloku duration-400"
               to={"/forum"}>
               Forum
+            </NavLink>
+          </div>
+          <div>
+            <NavLink className="font-medium" to={"/profile"}>
+              <BsFillPersonFill className="w-5 h-5 hover:text-yelloku duration-400" />
             </NavLink>
           </div>
           <div>
