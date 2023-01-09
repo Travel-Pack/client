@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, GENERATES_TRAVELSTEPS } from './actionType';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, FETCH_REVIEWS, GENERATES_TRAVELSTEPS } from './actionType';
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
@@ -43,7 +43,7 @@ export function fetchHighlightedDestination() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations?_limit=9`
+      url: `${baseUrl}/destinations`
     })
       .then(res=>{
         dispatch({
@@ -223,5 +223,27 @@ export function generateTravelStep(inputData) {
         console.log(error);
         return "error"
       })
+  }
+}
+
+export function fetchReviews() {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/reviews`,
+      //nanti hapus
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_REVIEWS,
+          payload: res.data.reviewByUser
+        })
+      })
+    .catch(error=>{
+      console.log(error);
+    })
   }
 }
