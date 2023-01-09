@@ -14,7 +14,7 @@ export default function Cards({ type, cities, destinations }) {
   useEffect(() => {}, [])
   if (type === "city") {
     return (
-      <section className="grid px-2 mt-3 grid-cols-2 xl:grid-cols-4 gap-2">
+      <section className="grid px-2 mt-3 xl:grid-cols-4 gap-2">
         {cities.map((el) => {
           return (
             <div className="overflow-hidden group">
@@ -25,12 +25,12 @@ export default function Cards({ type, cities, destinations }) {
                   handleNavCity(el.slug)
                 }}>
                 <img
-                  className="object-cover h-full w-full duration-300 brightness-105 scale-105 group-hover:scale-100"
+                  className="object-cover h-full w-full duration-300 brightness-110 contrast-125 scale-105 group-hover:scale-100"
                   src={el.image}
                   alt={el.name}
                 />
-                <div className="absolute inset-0 flex w-full h-full items-end justify-end">
-                  <h1 className="text-white text-4xl font-light backdrop-brightness-50 w-full block pl-5 py-5">
+                <div className="absolute inset-0 flex w-full h-full items-start justify-end">
+                  <h1 className="text-white bg-black bg-opacity-70 text-3xl text-left w-full block pl-5 py-2">
                     {el.name}
                   </h1>
                 </div>
@@ -43,29 +43,33 @@ export default function Cards({ type, cities, destinations }) {
   }
   if (type === "destination") {
     return (
-      <section className="grid px-2 mt-3 xl:grid-cols-5 gap-2 overflow-hidden py-3">
+      <section className="grid px-2 mt-3 xl:grid-cols-5 gap-7 overflow-hidden py-3">
         {destinations.map((el) => {
+          const currencyFormat = el.cost.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          })
           return (
             <div
-              className="overflow-hidden relative group"
+              className="overflow-hidden relative group h-[500px] cursor-pointer"
               onClick={() => {
                 handleNavDestination(el.slug)
               }}>
               <div
                 key={el.id}
-                className="duration-300 ease-out cursor-pointer aspect-square brightness-105 group-hover:scale-105  ">
+                className="duration-300 ease-out cursor-pointer h-full group-hover:scale-105  ">
                 <img
-                  className="object-cover h-full w-full group-hover:scale-105 duration-700"
+                  className="object-cover h-full w-full brightness-105 contrast-125 group-hover:scale-105 duration-700"
                   src={el.mainImg}
                   alt={el.name}
                 />
               </div>
               <div className="absolute inset-0 flex w-full h-full items-end duration-200">
-                <div className="flex w-full justify-between px-5 py-5 bg-white">
-                  <h1 className="text-black text-xl font-light duration-200">
-                    {el.name}
+                <div className="flex w-full justify-between px-3 py-5 gap-10 bg-white">
+                  <h1 className="text-black text-lg duration-200 truncate">{el.name}</h1>
+                  <h1 className="text-red-500">
+                  {currencyFormat}
                   </h1>
-                  <h1 className="text-red-500 text-lg font-light">{el.price}</h1>
                 </div>
               </div>
             </div>
