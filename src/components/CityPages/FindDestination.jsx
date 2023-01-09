@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useParams, NavLink } from "react-router-dom";
-import { fetchDestinationByCity } from "../../stores/actions/actionCreator";
+import { fetchCity } from "../../stores/actions/actionCreator";
 import Loader from "../Loader";
-// import TravelCards from "../TravelSection/TravelCards"
 
 export default function FindDestination() {
 
-  const { citySlug } = useParams();
+  const { citySlug, type } = useParams();
   const [active, setActive] = useState(null);
   const [load, setLoad] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(fetchDestinationByCity(citySlug))
+    dispatch(fetchCity(citySlug))
       .then(_=>{
         setLoad(false);
       })

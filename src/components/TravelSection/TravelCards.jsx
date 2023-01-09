@@ -8,14 +8,15 @@ export default function TravelCards() {
   const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
   const hotelsByCity = useSelector((state) => state.destinations.hotelsByCity);
   const destinations = useSelector((state) => state.destinations.destinations);
+  const city = useSelector((state) => state.cities.city);
+  
   let data;
-  console.log(type);
   
   if(type === "destination"){
-    data = destinationsByCity;
+    data = city.destination;
   }
   else if(type === "hotel"){
-    data = hotelsByCity
+    data = city.hotel;
   }
   else{
     data = destinations;
