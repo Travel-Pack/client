@@ -28,6 +28,7 @@ export default function IteneraryCards({type}) {
             key={index}>
             <h1 className="text-xl font-semibold">Travel Step {index + 1}</h1>
             <div>
+              <h1 className="font-bold text-2xl">Hotel</h1>
               <div className="flex justify-between text-lg">
                 <h1>{el.hotel.name}</h1>
                 <h3>{el.hotel.price.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}</h3>
@@ -41,6 +42,7 @@ export default function IteneraryCards({type}) {
                 </div> */}
               </div>
             </div>
+            <h1 className="font-bold text-2xl">Destination(s)</h1>
             {el.destination.map(destination => {
               total += destination.cost;
               return <div key={destination.id}>
