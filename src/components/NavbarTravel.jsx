@@ -2,6 +2,7 @@ import { Navbar } from "flowbite-react"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { BsFillPersonFill } from "react-icons/bs"
+import { notifySuccess } from "../helpers/notify"
 
 export default function NavbarTravel() {
   const [prevScrollpos, setPrevScrollpos] = useState(window.scrollY)
@@ -11,7 +12,9 @@ export default function NavbarTravel() {
   const loggedIn = localStorage.getItem("access_token")
 
   function handleLogout() {
+    console.log("masuk click")
     navigate("/login")
+    notifySuccess("Signed out")
     return localStorage.clear()
   }
 
@@ -118,14 +121,15 @@ export default function NavbarTravel() {
             Forum
           </NavLink>
           {loggedIn ? (
-            <NavLink
-              className="font-medium hover:border-b-4 border-yelloku duration-400"
-              onClick={() => handleLogout}>
+            <button
+              onClick={() => handleLogout}
+              onTouchStart={handleLogout}
+              className="block md:hidden py-2 pl-3 pr-4 text-left text-black bg-yelloku font-medium">
               Logout
-            </NavLink>
+            </button>
           ) : (
             <NavLink
-              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium"
               to={"/login"}>
               Login
             </NavLink>

@@ -160,6 +160,7 @@ export function loginUser(loginData) {
       })
         .then((res) => {
           localStorage.setItem("access_token", res.data?.access_token)
+          notifySuccess("Succesfully signed in")
         })
         .catch((error) => {
           if (error.message === "Network Error") {
