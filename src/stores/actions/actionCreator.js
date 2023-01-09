@@ -145,7 +145,6 @@ export function loginUser(loginData){
 export function postReview(review){
   return (dispatch, getState)=>{
     const {cost, fun, internet, safety, comment, DestinationId, HotelId} = review;
-    console.log({cost, fun, internet, safety, comment, DestinationId, HotelId}, "<<<<");
     return axios({
       method: "POST",
       url: `${baseUrl}/reviews`,
@@ -162,25 +161,6 @@ export function postReview(review){
         //ganti ke swal
         console.log(error);
         return "error";
-      })
-  }
-}
-
-export function fetchDestinationByCity(slug) {
-  return (dispatch, getState) => {
-    return axios({
-      method: "GET",
-      // url: `${baseUrl}/destinations?citySlug=${slug}`
-      url: `${baseUrl}/destinationsByCity`
-    })
-      .then(res=>{
-        dispatch({
-          type: FETCH_DESTINATIONS_BY_CITY,
-          payload: res.data
-        })
-      })
-      .catch(error=>{
-        console.log(error);
       })
   }
 }
@@ -205,14 +185,14 @@ export function fetcDestinations() {
 
 export function generateTravelStep(inputData) {
   return (dispatch, getState) => {
-    const { budget, numberOfDestination, allocationDestination, CityId, DestinationsIds} = inputData;
+    const { budget, numberOfDestination, allocationDestination, CityId, DestinationIds} = inputData;
     const budgetDestination = budget * allocationDestination / 100;
     const budgetHotel = budget - budgetDestination;
     return axios({
       method: "POST",
       url: `${baseUrl}/travel-steps/generates`,
       headers: {access_token: localStorage.access_token},
-      data: {budgetDestination, budgetHotel, CityId, DestinationsIds, numberOfDestination}
+      data: {budgetDestination, budgetHotel, CityId, DestinationIds, numberOfDestination: +numberOfDestination}
     })
       .then(res=>{
         dispatch({
