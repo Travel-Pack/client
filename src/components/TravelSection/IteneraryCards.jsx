@@ -1,24 +1,32 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 
-export default function IteneraryCards() {
+export default function IteneraryCards({type}) {
 
   const generatedTravelSteps = useSelector((state) => state.travelSteps.generatedTravelSteps);
+  const travelSteps = useSelector((state) => state.travelSteps.travelSteps);
+  let data = generatedTravelSteps;
+  if(type === "wishlist") {
+    data = travelSteps;
+  }
   const nav = useNavigate()
   function handleSave() {
     nav("/my-travel-step")
   }
   const arr = [1, 2, 3, 4]
 
+  if(!data.length){
+    return <h1 className="font-bold text-center text-2xl">Sorry, no matched travel steps.</h1>
+  }
   return (
     <div className="grid grid-cols-4 gap-5">
-      {generatedTravelSteps.map((el, index) => {
+      {data.map((el, index) => {
         let total = el.hotel.price;
         return (
           <div
             className="col-span-2 shadow-lg flex flex-col gap-2 py-7 px-6 border"
             key={index}>
-            <h1 className="text-xl font-semibold">Travel Step {index}</h1>
+            <h1 className="text-xl font-semibold">Travel Step {index + 1}</h1>
             <div>
               <div className="flex justify-between text-lg">
                 <h1>{el.hotel.name}</h1>

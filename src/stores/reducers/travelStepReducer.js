@@ -1,7 +1,51 @@
 import { FETCH_TRAVELSTEPS, GENERATES_TRAVELSTEPS } from "../actions/actionType"
 
 const initiateState = {
-  travelSteps: [],
+  travelSteps: [{
+    "hotel": {
+      "id": 4,
+      "name": "Livinn Hostel Surabaya",
+      "slug": "livinn-hostel-surabaya",
+      "image": "https://jenishotel.info/wp-content/uploads/2019/09/livinn-hostel.jpg",
+      "address": "Jl. jalan sehat",
+      "geocoding": "-7.263283,112.751178",
+      "isRecommended": true,
+      "price": 88000,
+      "CityId": 3,
+      "createdAt": "2023-01-09T05:59:58.430Z",
+      "updatedAt": "2023-01-09T05:59:58.430Z"
+    },
+    "destination": [
+      {
+        "id": 14,
+        "name": "Sanggar Agung Temple",
+        "slug": "sanggar-agung-temple",
+        "address": "Jl. Sukolilo No.100, Sukolilo Baru, Kec. Bulak, Kota Surabaya, Jawa Timur 60122",
+        "mainImg": "https://www.surabayarollcake.com/wp-content/uploads/2019/01/Klenteng-Sanggar-Agung-Surabaya.jpg",
+        "cost": 10000,
+        "geocoding": "-7.247488948002271, 112.80180008459418",
+        "description": "this is destination DESCRIPTIONS SECTION!",
+        "CityId": 3,
+        "UserId": 2,
+        "createdAt": "2023-01-09T05:59:58.426Z",
+        "updatedAt": "2023-01-09T05:59:58.426Z"
+      },
+      {
+        "id": 15,
+        "name": "Food Junction Grand Pakuwon",
+        "slug": "food-junction-grand-pakuwon",
+        "address": "Jalan Grand Banjar Mutiara Asri No.1, Banjar Sugihan, Kec. Tandes, Kota Surabaya, Jawa Timur 60184",
+        "mainImg": "https://www.pakuwonjati.com/upload/2020/05/5eb035d16732c-pkw-mall-com-08fj-gallery0.jpg",
+        "cost": 0,
+        "geocoding": "-7.250777204884361, 112.66208039993745",
+        "description": "this is destination DESCRIPTIONS SECTION!",
+        "CityId": 3,
+        "UserId": 3,
+        "createdAt": "2023-01-09T05:59:58.426Z",
+        "updatedAt": "2023-01-09T05:59:58.426Z"
+      }
+    ]
+  },],
   generatedTravelSteps: [
     {
       "hotel": {
