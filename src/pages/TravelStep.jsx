@@ -1,57 +1,81 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import SwiperCard from "../components/Swiper/SwiperCard"
-
-const cityImg = [
-  "https://img.freepik.com/premium-photo/monas-monument-jakarta-indonesia_134785-10762.jpg?w=1800",
-  "https://statik.tempo.co/data/2020/04/18/id_931835/931835_720.jpg",
-  "https://images.unsplash.com/photo-1615608178738-37d47d27c13d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1615608273520-ce1dda209c29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1615556075244-9dd09e1934fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  "https://images.unsplash.com/photo-1627071690191-2a5f5f482eab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2066&q=80",
-  "https://images.unsplash.com/photo-1626710916458-4307c35d48e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  "https://images.unsplash.com/photo-1614088459293-5669fadc3448?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1624495833746-d7415f9149af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-]
+import Loader from "../components/Loader";
+import { fetchCities, fetchDestinationByCity, generateTravelStep } from "../stores/actions/actionCreator";
 
 export default function TravelStep() {
-  const [sliderDestination, setSliderDestination] = useState(50)
+
+  const [citySelected, setCitySelected] = useState("");
+  const [load, setLoad] = useState(true);
+  const dispatch = useDispatch();
+  const cities = useSelector((state) => state.cities.cities);
+  const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
+  const [travelStepData, setTravelStepData] = useState({
+    budget: "",
+    numberOfDestination: "",
+    allocationDestination: 50,
+    CityId: "",
+    DestinationsIds: []
+  })
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
   function handleSubmit(e) {
-    e.preventDefault()
-    nav("/travelItenerary")
+    e.preventDefault();
+    setLoad(true);
+    dispatch(generateTravelStep(travelStepData))
+      .then(res=>{
+        setLoad(false);
+        if(res === "ok"){
+          nav("/travel-step/generated");
+        }
+      })
   }
 
-  /* budget section di "highlight"
-  perlu hightlight untuk destination allocation */
-  /* fitur member : bisa menggunakan alokasi destination (jika premium)
-  Landing langsung diarahkan ke desired budget(middle)
-  tambahin alokasi hotel
-  2 slider (kiri buat hotel & kanan buat travelingnya) 
-  city & desination perlu dibedakan karena destinasi dapat banyak tambahkan border di city jika sudah dipilih (hide yng lain)
-  destination sudah dipiklih terus di kasih ui lagi
+  const onChangeHandler = (e)=>{
+    const updatedTravelStepData = {...travelStepData, [e.target.name]: e.target.value}
+    setTravelStepData(updatedTravelStepData);
+  }
 
-  
-  generate()
-  subtotal didapat dari desi*/
+  useEffect(()=>{
+    dispatch(fetchCities())
+      .then(_=>{
+        setLoad(false);
+      })
+  }, [])
 
   function showCity() {
     setTopText(!topText)
   }
 
-  function displayDest() {
-    setShowDest(!showDest)
+  function displayDest(cityName, CityId) {
+    setCitySelected(cityName)
+    const updatedTravelStepData = {...travelStepData, CityId}
+    setTravelStepData(updatedTravelStepData);
+    setLoad(true);
+    dispatch(fetchDestinationByCity("slug"))
+      .then(_=>{
+        setLoad(false);
+        setShowDest(!showDest);
+      })
   }
 
-  function selectDest(index) {
-    // cityImg.push(index)
-    console.log()
+  function selectDest(destinationId) {
+    const updatedTravelStepData = {...travelStepData}
+    const index = updatedTravelStepData.DestinationsIds.findIndex((el)=>el === destinationId);
+    if( index === -1){
+      updatedTravelStepData.DestinationsIds.push(destinationId);
+    }
+    else{
+      updatedTravelStepData.DestinationsIds.splice(index, 1);
+    }
+    setTravelStepData(updatedTravelStepData);
+  }
+
+
+  if(load){
+    return <Loader />
   }
   return (
     <div className="overflow-hidden">
@@ -90,6 +114,9 @@ export default function TravelStep() {
               <input
                 type="text"
                 id="inputBudget"
+                onChange={onChangeHandler}
+                value={travelStepData.budget}
+                name="budget"
                 className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                 placeholder="2500"
               />
@@ -102,6 +129,9 @@ export default function TravelStep() {
               <input
                 type="text"
                 id="inputBudget"
+                value={travelStepData.numberOfDestination}
+                onChange={onChangeHandler}
+                name="numberOfDestination"
                 className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                 placeholder="2"
               />
@@ -112,16 +142,18 @@ export default function TravelStep() {
             </h1>
             <div className="flex flex-col gap-2">
               <label htmlFor="rangeDest" className="text-white text-lg">
-                Destination
+                Proportion
               </label>
               <div className="flex justitfy-between w-full text-white">
-                <h1 className="flex-1">Destination : {100 - sliderDestination + "%"}</h1>
-                <h1 className="flex-1">Hotel : {sliderDestination + "%"}</h1>
+                <h1 className="flex-1">Destination : {travelStepData.allocationDestination + "%"}</h1>
+                <h1 className="flex-1">Hotel : {100 - travelStepData.allocationDestination + "%"}</h1>
               </div>
               <input
                 id="rangeDest"
                 type="range"
-                onChange={(e) => setSliderDestination(e.target.value)}
+                onChange={onChangeHandler}
+                value={travelStepData.allocationDestination}
+                name="allocationDestination"
                 className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
               />
             </div>
@@ -140,7 +172,7 @@ export default function TravelStep() {
               </button>
             )}
             {showDest ? (
-              <h1 className="text-2xl font-medium text-white">Destination in Jakarta</h1>
+              <h1 className="text-2xl font-medium text-white">Destination in {citySelected}</h1>
             ) : (
               ""
             )}
@@ -156,10 +188,10 @@ export default function TravelStep() {
             }`}
             id="scrollStyle">
             <div className="flex flex-wrap gap-2 justify-center mt-20">
-              {cityImg.map((el) => {
+              {cities.map((el) => {
                 return (
-                  <div className="max-w-xs aspect-square" onClick={displayDest} >
-                    <img src={el} alt="" className="w-full h-full" />
+                  <div className="max-w-xs aspect-square" onClick={()=>displayDest(el.name, el.id)} key={el.id}>
+                    <img src={el.image} alt={el.name} className="w-full h-full" />
                   </div>
                 )
               })}
@@ -171,10 +203,14 @@ export default function TravelStep() {
                 className="w-full block max-h-screen mt-20 overflow-y-auto"
                 id="scrollStyle">
                 <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
-                  {cityImg.map((el) => {
+                  {destinationsByCity.map((el) => {
+                    let classDestinationCard = "max-w-xs aspect-square ";
+                    if(travelStepData.DestinationsIds.findIndex((destinationId)=>destinationId === el.id) !== -1){
+                      classDestinationCard += "border border-8 border-yelloku"
+                    }
                     return (
-                      <div className="max-w-xs aspect-square" onClick={selectDest}>
-                        <img src={el} alt="" className="w-full h-full" />
+                      <div className={classDestinationCard} onClick={()=>{selectDest(el.id)}} key={el.id}>
+                        <img src={el.mainImg} alt="" className="w-full h-full" />
                       </div>
                     )
                   })}

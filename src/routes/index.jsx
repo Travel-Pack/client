@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "travelItenerary",
+        path: "travel-step/generated",
         element: <TravelItenerary />,
         errorElement: <ErrorPage />,
       },
