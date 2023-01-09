@@ -69,8 +69,8 @@ export default function NavbarTravel() {
           <div>
             <NavLink
               className="font-medium hover:border-b-4 border-yelloku duration-400"
-              to={"/register"}>
-              Register
+              to={"/login"}>
+              Login
             </NavLink>
           </div>
         </div>
@@ -103,9 +103,9 @@ export default function NavbarTravel() {
             Forum
           </NavLink>
           <NavLink
-            to={"/register"}
+            to={"/login"}
             className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
-            Register
+            Login
           </NavLink>
         </Navbar.Collapse>
       </Navbar>
