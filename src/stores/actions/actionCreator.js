@@ -130,7 +130,7 @@ export function loginUser(loginData){
     }
     return axios({
       method: "POST",
-      url: `${baseUrl}/users/login`,
+      url: `${baseUrl}/login`,
       data: { email, password }
     })
       .then(res=>{
