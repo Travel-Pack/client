@@ -215,9 +215,11 @@ export function generateTravelStep(inputData) {
           type: GENERATES_TRAVELSTEPS,
           payload: res.data
         })
+        return "ok"
       })
       .catch(error=>{
         console.log(error);
+        return "error"
       })
   }
 }

@@ -2,24 +2,7 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader";
-import SwiperCard from "../components/Swiper/SwiperCard"
 import { fetchCities, fetchDestinationByCity, generateTravelStep } from "../stores/actions/actionCreator";
-
-const cityImg = [
-  "https://img.freepik.com/premium-photo/monas-monument-jakarta-indonesia_134785-10762.jpg?w=1800",
-  "https://statik.tempo.co/data/2020/04/18/id_931835/931835_720.jpg",
-  "https://images.unsplash.com/photo-1615608178738-37d47d27c13d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1615608273520-ce1dda209c29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1615556075244-9dd09e1934fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  "https://images.unsplash.com/photo-1627071690191-2a5f5f482eab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2066&q=80",
-  "https://images.unsplash.com/photo-1626710916458-4307c35d48e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-  "https://images.unsplash.com/photo-1614088459293-5669fadc3448?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80",
-  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1525849306000-cc26ceb5c1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1624495833746-d7415f9149af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-]
 
 export default function TravelStep() {
 
@@ -42,9 +25,11 @@ export default function TravelStep() {
     e.preventDefault();
     setLoad(true);
     dispatch(generateTravelStep(travelStepData))
-      .then(_=>{
+      .then(res=>{
         setLoad(false);
-        nav("/travelItenerary");
+        if(res === "ok"){
+          nav("/travelItenerary");
+        }
       })
   }
 
@@ -99,7 +84,6 @@ export default function TravelStep() {
       updatedTravelStepData.DestinationsIds.splice(index, 1);
     }
     setTravelStepData(updatedTravelStepData);
-    console.log(travelStepData);
   }
 
 
