@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, FETCH_REVIEWS, GENERATES_TRAVELSTEPS } from './actionType';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, FETCH_HOTEL, FETCH_REVIEWS, GENERATES_TRAVELSTEPS } from './actionType';
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
@@ -144,14 +144,15 @@ export function loginUser(loginData){
 
 export function postReview(review){
   return (dispatch, getState)=>{
-    const {cost, fun, internet, safety, comment, DestinationId} = review;
+    const {cost, fun, internet, safety, comment, DestinationId, HotelId} = review;
+    console.log({cost, fun, internet, safety, comment, DestinationId, HotelId}, "<<<<");
     return axios({
       method: "POST",
       url: `${baseUrl}/reviews`,
       headers: {
         access_token: localStorage.access_token
       },
-      data: {cost, fun, internet, safety, comment, DestinationId}
+      data: {cost, fun, internet, safety, comment, DestinationId, HotelId}
     })
       .then(res=>{
         console.log("Successfully add review");
@@ -246,5 +247,27 @@ export function fetchReviews() {
     .catch(error=>{
       console.log(error);
     })
+  }
+}
+
+export function fetchHotel(slug) {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/hotels/${slug}`,
+      //nanti hapus
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_HOTEL,
+          payload: res.data
+        })
+      })
+      .catch(error=>{
+        console.log(error);
+      })
   }
 }

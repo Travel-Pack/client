@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
+import { useState } from "react"
 
 function weatherRandom() {
   const weather = ["rainy", "cloudy", "normal"]
@@ -15,14 +16,27 @@ export function DestinationInformation() {
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
+  let data;
 
   const { type } = useParams()
-  let data
   if (type === "destination") {
-    console.log(destination);
-    data = destination
+    data = {
+      name: destination.destination.name,
+      slug: destination.destination.slug,
+      price: destination.destination.cost,
+      Reviews: destination.destination.Reviews,
+      geocoding: destination.destination.geocoding,
+      Images: destination.destination.Images
+    }
   } else {
-    data = hotel
+    data = {
+      name: hotel.name,
+      slug: hotel.slug,
+      price: hotel.price,
+      Reviews: hotel.Reviews,
+      geocoding: hotel.geocoding,
+      Images: hotel.Images
+    }
   }
 
   return (
@@ -31,7 +45,7 @@ export function DestinationInformation() {
         <div className="w-full">
           <h1 className="font-bold font-caveat text-6xl">
             {/* edit */}
-            {data.destination.name}, {"City Name"}
+            {data.name}, {"City Name"}
           </h1>
           <p className="text-justify mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit
@@ -58,13 +72,13 @@ export function DestinationInformation() {
           </p>
           {/*Gallery*/}
           <section className="gallery">
-            {data.destination.Images.length ? (
+            {data.Images.length ? (
               <div>
                 <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
                 <div className="my-10">
                   <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
                     <Carousel slideInterval={5000}>
-                      {data.destination.Images.map((el) => {
+                      {data.Images.map((el) => {
                         return (
                           <img
                             src={el.imgUrl}
@@ -94,7 +108,7 @@ export function DestinationInformation() {
                 attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={data.destination.geocoding.split(", ")}>
+              <Marker position={data.geocoding.split(", ")}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
@@ -103,7 +117,7 @@ export function DestinationInformation() {
           </section>
           {/*Highlights*/}
           <section className="highlight">
-            {data.destination.Reviews.length ? (
+            {data.Reviews.length ? (
               <>
                 <h1 className="font-bold font-caveat mt-10 text-6xl">Highlights</h1>
                 <div className="my-10">
@@ -134,7 +148,7 @@ export function DestinationInformation() {
                       />
                     </div>
                     <div className="carousel-inner relative w-full overflow-hidden">
-                      {data.destination.Reviews.map((el, index) => {
+                      {data.Reviews.map((el, index) => {
                         let classCarouselItem =
                           "carousel-item relative float-left w-full "
                         if (index === 0) {

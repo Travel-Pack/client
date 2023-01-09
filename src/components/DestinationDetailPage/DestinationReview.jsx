@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
-import { fetchDestination, postReview } from "../../stores/actions/actionCreator"
+import { fetchDestination, fetchHotel, postReview } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 import { useParams } from "react-router-dom"
 import RatingStar from "../RatingStar/RatingStar"
@@ -15,15 +15,32 @@ export function DestinationReview() {
     internet: 0,
     safety: 0,
     fun: 0,
-    comment: "",
-    DestinationId: destination.destination.id
+    comment: ""
   })
   const [score, setScore] = useState(0);
-  let data
+  let data;
   if (type === "destination") {
-    data = destination
+    data = {
+      name: destination.destination.name,
+      slug: destination.destination.slug,
+      avg_cost: destination.reviews.averageCost,
+      avg_fun: destination.reviews.averageFun,
+      avg_internet: destination.reviews.averageInternet,
+      avg_safety: destination.reviews.averageSafety,
+      comments: destination.comment,
+      DestinationId: destination.destination.id
+    }
   } else {
-    data = hotel
+    data = {
+      name: hotel.name,
+      slug: hotel.slug,
+      avg_cost: hotel.avg_cost,
+      avg_fun: hotel.avg_fun,
+      avg_internet: hotel.avg_internet,
+      avg_safety: hotel.avg_safety,
+      comments: hotel.Reviews,
+      HotelId: hotel.id
+    }
   }
   const onChangeHandler = (e) => {
     const updatedReview = { ...review, [e.target.name]: e.target.value }
@@ -32,7 +49,7 @@ export function DestinationReview() {
   const dispatch = useDispatch()
   const submitReviewHandler = (e) => {
     e.preventDefault()
-    dispatch(postReview(review)).then((res) => {
+    dispatch(postReview({...review, DestinationId: data.DestinationId, HotelId: data.HotelId})).then((res) => {
       if(res === "ok"){
         setLoad(true)
         setReview({
@@ -40,10 +57,13 @@ export function DestinationReview() {
           internet: 0,
           safety: 0,
           fun: 0,
-          comment: "",
-          DestinationId: destination.destination.id
+          comment: ""
         });
-        dispatch(fetchDestination(destination.destination.slug)).then((_) => {
+        let fetch = fetchDestination;
+        if(type !== "destination"){
+          fetch = fetchHotel
+        }
+        dispatch(fetch(data.slug)).then((_) => {
           setLoad(false)
         })
       }
@@ -51,11 +71,8 @@ export function DestinationReview() {
   }
 
   useEffect(()=>{
-    let average = 0;
-    for(let keys in data.reviews){
-      average += data.reviews[keys]
-    }
-    setScore(average/4);
+    let average = (data.avg_cost + data.avg_fun + data.avg_internet + data.avg_safety) / 4;
+    setScore(average);
   }, [])
   if (load) {
     return <Loader />
@@ -64,7 +81,7 @@ export function DestinationReview() {
     <section className="min-h-screen bg-stone-100 w-full md:ml-96 mx-auto">
       <div className="mt-20 pt-5 md:px-32">
         <h1 className="font-bold font-caveat text-6xl">
-          {data.destination.name}, {"City Name"}
+          {data.name}, {"City Name"}
         </h1>
         <h1 className="font-bold font-caveat my-10 text-5xl">Overall</h1>
         <div className="flex items-center mb-5">
@@ -74,7 +91,7 @@ export function DestinationReview() {
           <p className="ml-2 font-medium text-gray-900">{score > 4? "Excellent" : score < 3? "Bad": "Good"}</p>
           <span className="w-1 h-1 mx-2 bg-gray-900 rounded-full" />
           <p className="text-sm font-medium text-gray-500">
-            {data.comment.length} reviews
+            {data.comments.length} reviews
           </p>
         </div>
         <div className="gap-8 sm:grid sm:grid-cols-2">
@@ -87,11 +104,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded transition-colors"
-                    style={{ width: `${data.reviews.averageCost / 5 * 100}%` }}
+                    style={{ width: `${data.avg_cost / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  {data.reviews.averageCost}
+                  {data.avg_cost}
                 </span>
               </dd>
             </dl>
@@ -103,11 +120,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: `${data.reviews.averageFun / 5 * 100}%` }}
+                    style={{ width: `${data.avg_fun / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.reviews.averageFun}
+                {data.avg_fun}
                 </span>
               </dd>
             </dl>
@@ -121,11 +138,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: `${data.reviews.averageInternet / 5 * 100}%` }}
+                    style={{ width: `${data.avg_internet / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.reviews.averageInternet}
+                {data.avg_internet}
                 </span>
               </dd>
             </dl>
@@ -137,19 +154,19 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: `${data.reviews.averageSafety / 5 * 100}%` }}
+                    style={{ width: `${data.avg_safety / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.reviews.averageSafety}
+                {data.avg_safety}
                 </span>
               </dd>
             </dl>
           </div>
         </div>
         <h1 className="font-bold font-caveat my-10 text-5xl">Reviews</h1>
-        {data.comment.length ? (
-          data.comment.map((el, index) => {
+        {data.comments.length ? (
+          data.comments.map((el, index) => {
             return (
               <div
                 key={index}

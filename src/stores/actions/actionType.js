@@ -7,3 +7,4 @@ export const FETCH_DESTINATIONS_BY_CITY = 'fetch/destinations/city';
 export const FETCH_DESTINATIONS = 'fetch/destinations';
 export const GENERATES_TRAVELSTEPS = 'generates/travel-steps';
 export const FETCH_REVIEWS = 'fetch/reviews';
+export const FETCH_HOTEL = 'fetch/hotel';

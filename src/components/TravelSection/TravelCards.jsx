@@ -26,7 +26,7 @@ export default function TravelCards() {
   const hRef = useRef(null)
 
   function navToDetail(slug) {
-    if(type === "destinations"){
+    if(type === "destination"){
       nav(`/destination/${slug}`)
     }
     else{
