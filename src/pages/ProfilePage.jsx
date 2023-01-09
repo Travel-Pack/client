@@ -1,52 +1,59 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { registerUser } from "../stores/actions/actionCreator";
-import Loader from "../components/Loader";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { registerUser } from "../stores/actions/actionCreator"
+import Loader from "../components/Loader"
+import { VscEdit } from "react-icons/vsc"
+import { useEffect } from "react"
 
 export function ProfilePage() {
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [registerData, setRegisterData] = useState({
     fullName: "",
     phoneNumber: "",
     email: "",
     password: "",
-    passwordConfirmation: ""
+    passwordConfirmation: "",
   })
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(false)
+  const [inputActive1, setInputActive1] = useState(false)
+  const [inputActive2, setInputActive2] = useState(false)
+  const [inputActive3, setInputActive3] = useState(false)
+  const [inputActive4, setInputActive4] = useState(false)
 
-  const onChangeHandler = (e)=>{
-    const updatedRegisterData = {...registerData, [e.target.name]: e.target.value};
-    setRegisterData(updatedRegisterData);
+  const onChangeHandler = (e) => {
+    const updatedRegisterData = {
+      ...registerData,
+      [e.target.name]: e.target.value,
+    }
+    setRegisterData(updatedRegisterData)
   }
 
-  function handleRegister(e){
-    e.preventDefault();
-    dispatch(registerUser(registerData))
-    .then(_=>{
-      setLoad(true);
+  function handleRegister(e) {
+    e.preventDefault()
+    dispatch(registerUser(registerData)).then((_) => {
+      setLoad(true)
       setRegisterData({
-          fullName: "",
-          phoneNumber: "",
-          email: "",
-          password: "",
-          passwordConfirmation: ""
-        })
-        setLoad(false);
-        navigate("/login");
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        passwordConfirmation: "",
       })
+      setLoad(false)
+      navigate("/login")
+    })
   }
-  
-  if(load){
+
+  if (load) {
     return <Loader />
   }
   return (
     <section className="bg-white">
       <NavLink to={"/"} className="text-2xl fixed right-5 top-5">
-          Travel <span className="font-bold">Pack</span>
-        </NavLink>
+        Travel <span className="font-bold">Pack</span>
+      </NavLink>
       {/*Ganti 2 logonya*/}
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
@@ -91,21 +98,34 @@ export function ProfilePage() {
                 Let's go TravelPacking!
               </h1>
             </div>
-            <form onSubmit={handleRegister} className="mt-2 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleRegister}
+              className="mt-2 grid grid-cols-6 gap-6">
               <div className="col-span-6">
-              <h1 className="font-medium text-gray-700 text-center text-lg">Hallo {"Alam"}!</h1>
-                <label htmlFor="Name" className="block font-medium text-gray-700">
+                <h1 className="font-medium text-gray-700 text-center text-lg">
+                  Hallo {"Alam"}!
+                </h1>
+                <label
+                  htmlFor="Name"
+                  className="block font-medium text-gray-700">
                   Name
                 </label>
-                <input
-                  onChange={onChangeHandler}
-                  value={registerData.fullName}
-                  type="text"
-                  id="Full Name"
-                  name="fullName"
-                  placeholder="Enter your full name"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
-                />
+                <div className="flex justify-between gap-2 items-center">
+                  <input
+                    onChange={onChangeHandler}
+                    value={"Abdullah Alam"}
+                    type="text"
+                    id="Full Name"
+                    name="fullName"
+                    placeholder="Enter your full name"
+                    className="p-3 mt-1 w-full rounded-sm border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300"
+                    disabled={inputActive1 ? false : true}
+                  />
+                  <VscEdit
+                    onClick={() => setInputActive1(!inputActive1)}
+                    className="cursor-pointer w-8 h-8"
+                  />
+                </div>
               </div>
               <div className="col-span-6">
                 <label
@@ -113,15 +133,22 @@ export function ProfilePage() {
                   className="block font-medium text-gray-700">
                   Phone Number
                 </label>
-                <input
-                  onChange={onChangeHandler}
-                  value={registerData.phoneNumber}
-                  type="text"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder="Enter your phone number"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
-                />
+                <div className="flex justify-between gap-2 items-center">
+                  <input
+                    onChange={onChangeHandler}
+                    value={registerData.phoneNumber}
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter your phone number"
+                    className="p-3 mt-1 w-full rounded-sm border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300"
+                    disabled={inputActive2 ? false : true}
+                  />
+                  <VscEdit
+                    onClick={() => setInputActive2(!inputActive2)}
+                    className="cursor-pointer w-8 h-8"
+                  />
+                </div>
               </div>
               <div className="col-span-6">
                 <label
@@ -129,22 +156,36 @@ export function ProfilePage() {
                   className="block font-medium text-gray-700">
                   Email
                 </label>
-                <input
-                  onChange={onChangeHandler}
-                  value={registerData.email}
-                  type="email"
-                  id="Email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
-                />
+                <div className="flex justify-between gap-2 items-center">
+                  <input
+                    onChange={onChangeHandler}
+                    value={registerData.email}
+                    type="email"
+                    id="Email"
+                    name="email"
+                    placeholder="Enter your email"
+                    className="p-3 mt-1 w-full rounded-sm border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300 select-none"
+                    disabled={inputActive3 ? false : true}
+                  />
+                  <VscEdit
+                    onClick={() => setInputActive3(!inputActive3)}
+                    className="cursor-pointer w-8 h-8"
+                  />
+                </div>
               </div>
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="Password"
-                  className="block font-medium text-gray-700">
-                  Password
-                </label>
+                <div className="flex items-center gap-5">
+                  <label
+                    htmlFor="Password"
+                    className="block font-medium text-gray-700">
+                    Password
+                  </label>
+                  <VscEdit
+                    onClick={() => setInputActive4(!inputActive4)}
+                    className="cursor-pointer w-5 h-5"
+                  />
+                </div>
+
                 <input
                   onChange={onChangeHandler}
                   value={registerData.password}
@@ -152,7 +193,8 @@ export function ProfilePage() {
                   id="Password"
                   name="password"
                   placeholder="Enter password"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-sm border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300"
+                  disabled={inputActive4 ? false : true}
                 />
               </div>
               <div className="col-span-6 sm:col-span-3">
@@ -168,11 +210,12 @@ export function ProfilePage() {
                   id="PasswordConfirmation"
                   name="passwordConfirmation"
                   placeholder="Confirm password"
-                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
+                  className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300"
+                  disabled={inputActive4 ? false : true}
                 />
               </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button className="inline-block shrink-0 rounded-md mx-auto bg-yelloku px-12 py-3 font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
+                <button className="inline-block shrink-0 rounded-md mx-auto bg-yelloku px-12 py-3 font-medium  hover:bg-black hover:text-yelloku duration-200">
                   Change account details
                 </button>
               </div>

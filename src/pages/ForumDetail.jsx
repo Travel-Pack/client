@@ -1,5 +1,6 @@
 import { useState } from "react"
-import PaginatedItems from "../components/PaginatedItems";
+import PaginatedItems from "../components/PaginatedItems"
+import ScrollToTopBtn from "../components/ScrollToTopBtn"
 
 export default function ForumDetail() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
@@ -26,6 +27,7 @@ export default function ForumDetail() {
 
   return (
     <div className="flex flex-col xl:mt-20 bg-gray-100">
+      <ScrollToTopBtn />
       <div className="w-full xl:h-72 relative">
         <img
           src="https://img.freepik.com/free-photo/travel-concept-with-landmarks_23-2149153256.jpg?w=2000&t=st=1672978137~exp=1672978737~hmac=6fe7322da5662ae038075362c74d87c92080674444aa7b8a15486de3918fd6d3"
@@ -40,7 +42,6 @@ export default function ForumDetail() {
       <div className="container mx-auto mt-10 flex justify-evenly">
         <section id="leftSide" className="flex flex-col gap-3">
           <div className="flex flex-col xl:flex-row justify-evenly gap-5">
-            <PaginatedItems />
             <button
               className="bg-black py-2 px-7 text-white duration-200 active:scale-95"
               onClick={showDivInput}>

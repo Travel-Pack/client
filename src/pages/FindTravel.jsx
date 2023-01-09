@@ -4,28 +4,28 @@ import SearchForm from "../components/TravelSection/SearchForm"
 import { useDispatch } from "react-redux"
 import { fetcDestinations } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
+import ScrollToTopBtn from "../components/ScrollToTopBtn"
 export default function FindTravel() {
-
   const [active, setActive] = useState(null)
-  const dispatch = useDispatch();
-  const [load, setLoad] = useState(true);
+  const dispatch = useDispatch()
+  const [load, setLoad] = useState(true)
 
   function handleSort() {
     setActive("bg-white text-black")
   }
 
-  useEffect(()=>{
-    dispatch(fetcDestinations())
-      .then(_=>{
-        setLoad(false);
-      })
+  useEffect(() => {
+    dispatch(fetcDestinations()).then((_) => {
+      setLoad(false)
+    })
   }, [])
 
-  if(load){
-    return <Loader/>
+  if (load) {
+    return <Loader />
   }
   return (
     <div className="bg-stone-50 md:mt-20">
+      <ScrollToTopBtn />
       <div className="md:h-96 pt-10 md:px-16 md:pt-0 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-[url('https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')] bg-cover ">
         <h1 className="text-white font-semibold text-center md:text-left md:text-6xl text-4xl pb-2 md:pb-10">
           Find The next <br /> Destination

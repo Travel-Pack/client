@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import ScrollToTopBtn from "../components/ScrollToTopBtn"
 
 export default function Forum() {
   const nav = useNavigate()
@@ -9,6 +10,7 @@ export default function Forum() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   return (
     <div className="flex-col flex gap-5 xl:mt-20">
+      <ScrollToTopBtn />
       <section id="forumHero" className="bg-yelloku py-10">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold mb-3">List of Topics</h1>
