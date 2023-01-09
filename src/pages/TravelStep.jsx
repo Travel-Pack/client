@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import Loader from "../components/Loader";
 import SwiperCard from "../components/Swiper/SwiperCard"
+import { fetchCities, fetchDestinationByCity } from "../stores/actions/actionCreator";
 
 const cityImg = [
   "https://img.freepik.com/premium-photo/monas-monument-jakarta-indonesia_134785-10762.jpg?w=1800",
@@ -19,7 +22,19 @@ const cityImg = [
 ]
 
 export default function TravelStep() {
-  const [sliderDestination, setSliderDestination] = useState(50)
+
+  const [citySelected, setCitySelected] = useState("");
+  const [load, setLoad] = useState(true);
+  const dispatch = useDispatch();
+  const cities = useSelector((state) => state.cities.cities);
+  const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
+  const [travelStepData, setTravelStepData] = useState({
+    budget: "",
+    numberOfDestination: "",
+    allocationDestination: 50,
+    CityId: "",
+    DestinationsIds: []
+  })
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
@@ -27,6 +42,18 @@ export default function TravelStep() {
     e.preventDefault()
     nav("/travelItenerary")
   }
+
+  const onChangeHandler = (e)=>{
+    const updatedTravelStepData = {...travelStepData, [e.target.name]: e.target.value}
+    setTravelStepData(updatedTravelStepData);
+  }
+
+  useEffect(()=>{
+    dispatch(fetchCities())
+      .then(_=>{
+        setLoad(false);
+      })
+  }, [])
 
   /* budget section di "highlight"
   perlu hightlight untuk destination allocation */
@@ -45,13 +72,34 @@ export default function TravelStep() {
     setTopText(!topText)
   }
 
-  function displayDest() {
-    setShowDest(!showDest)
+  function displayDest(cityName, CityId) {
+    setCitySelected(cityName)
+    const updatedTravelStepData = {...travelStepData, CityId}
+    setTravelStepData(updatedTravelStepData);
+    setLoad(true);
+    dispatch(fetchDestinationByCity("slug"))
+      .then(_=>{
+        setLoad(false);
+        setShowDest(!showDest);
+      })
   }
 
-  function selectDest(index) {
-    // cityImg.push(index)
-    console.log()
+  function selectDest(destinationId) {
+    const updatedTravelStepData = {...travelStepData}
+    const index = updatedTravelStepData.DestinationsIds.findIndex((el)=>el === destinationId);
+    if( index === -1){
+      updatedTravelStepData.DestinationsIds.push(destinationId);
+    }
+    else{
+      updatedTravelStepData.DestinationsIds.splice(index, 1);
+    }
+    setTravelStepData(updatedTravelStepData);
+    console.log(travelStepData);
+  }
+
+
+  if(load){
+    return <Loader />
   }
   return (
     <div className="overflow-hidden">
@@ -90,6 +138,9 @@ export default function TravelStep() {
               <input
                 type="text"
                 id="inputBudget"
+                onChange={onChangeHandler}
+                value={travelStepData.budget}
+                name="budget"
                 className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                 placeholder="2500"
               />
@@ -102,6 +153,9 @@ export default function TravelStep() {
               <input
                 type="text"
                 id="inputBudget"
+                value={travelStepData.numberOfDestination}
+                onChange={onChangeHandler}
+                name="numberOfDestination"
                 className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                 placeholder="2"
               />
@@ -112,16 +166,18 @@ export default function TravelStep() {
             </h1>
             <div className="flex flex-col gap-2">
               <label htmlFor="rangeDest" className="text-white text-lg">
-                Destination
+                Proportion
               </label>
               <div className="flex justitfy-between w-full text-white">
-                <h1 className="flex-1">Destination : {100 - sliderDestination + "%"}</h1>
-                <h1 className="flex-1">Hotel : {sliderDestination + "%"}</h1>
+                <h1 className="flex-1">Destination : {travelStepData.allocationDestination + "%"}</h1>
+                <h1 className="flex-1">Hotel : {100 - travelStepData.allocationDestination + "%"}</h1>
               </div>
               <input
                 id="rangeDest"
                 type="range"
-                onChange={(e) => setSliderDestination(e.target.value)}
+                onChange={onChangeHandler}
+                value={travelStepData.allocationDestination}
+                name="allocationDestination"
                 className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
               />
             </div>
@@ -140,7 +196,7 @@ export default function TravelStep() {
               </button>
             )}
             {showDest ? (
-              <h1 className="text-2xl font-medium text-white">Destination in Jakarta</h1>
+              <h1 className="text-2xl font-medium text-white">Destination in {citySelected}</h1>
             ) : (
               ""
             )}
@@ -156,10 +212,10 @@ export default function TravelStep() {
             }`}
             id="scrollStyle">
             <div className="flex flex-wrap gap-2 justify-center mt-20">
-              {cityImg.map((el) => {
+              {cities.map((el) => {
                 return (
-                  <div className="max-w-xs aspect-square" onClick={displayDest} >
-                    <img src={el} alt="" className="w-full h-full" />
+                  <div className="max-w-xs aspect-square" onClick={()=>displayDest(el.name, el.id)} key={el.id}>
+                    <img src={el.image} alt={el.name} className="w-full h-full" />
                   </div>
                 )
               })}
@@ -171,10 +227,14 @@ export default function TravelStep() {
                 className="w-full block max-h-screen mt-20 overflow-y-auto"
                 id="scrollStyle">
                 <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
-                  {cityImg.map((el) => {
+                  {destinationsByCity.map((el) => {
+                    let classDestinationCard = "max-w-xs aspect-square ";
+                    if(travelStepData.DestinationsIds.findIndex((destinationId)=>destinationId === el.id) !== -1){
+                      classDestinationCard += "border border-8 border-yelloku"
+                    }
                     return (
-                      <div className="max-w-xs aspect-square" onClick={selectDest}>
-                        <img src={el} alt="" className="w-full h-full" />
+                      <div className={classDestinationCard} onClick={()=>{selectDest(el.id)}} key={el.id}>
+                        <img src={el.mainImg} alt="" className="w-full h-full" />
                       </div>
                     )
                   })}
