@@ -17,7 +17,7 @@ export default function Cards({ type, cities, destinations }) {
       <section className="grid px-2 mt-3 xl:grid-cols-4 gap-2">
         {cities.map((el) => {
           return (
-            <div className="overflow-hidden group">
+            <div className="overflow-hidden group" key={el.id}>
               <div
                 key={el.id}
                 className="aspect-square duration-300 ease-out overflow-hidden cursor-pointer relative"
@@ -51,7 +51,8 @@ export default function Cards({ type, cities, destinations }) {
           })
           return (
             <div
-              className="overflow-hidden relative group h-[500px] cursor-pointer"
+              className="overflow-hidden relative group"
+              key={el.id}
               onClick={() => {
                 handleNavDestination(el.slug)
               }}>

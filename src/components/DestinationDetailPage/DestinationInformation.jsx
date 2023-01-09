@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
+import { useState } from "react"
 
 function weatherRandom() {
   const weather = ["rainy", "cloudy", "normal"]
@@ -15,13 +16,27 @@ export function DestinationInformation() {
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
+  let data;
 
   const { type } = useParams()
-  let data
   if (type === "destination") {
-    data = destination
+    data = {
+      name: destination.destination.name,
+      slug: destination.destination.slug,
+      price: destination.destination.cost,
+      Reviews: destination.destination.Reviews,
+      geocoding: destination.destination.geocoding,
+      Images: destination.destination.Images
+    }
   } else {
-    data = hotel
+    data = {
+      name: hotel.name,
+      slug: hotel.slug,
+      price: hotel.price,
+      Reviews: hotel.Reviews,
+      geocoding: hotel.geocoding,
+      Images: hotel.Images
+    }
   }
 
   return (
@@ -63,7 +78,7 @@ export function DestinationInformation() {
                 <div className="my-10">
                   <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
                     <Carousel slideInterval={5000}>
-                      {destination.Images.map((el) => {
+                      {data.Images.map((el) => {
                         return (
                           <img
                             src={el.imgUrl}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, GENERATES_TRAVELSTEPS } from './actionType';
+import { FETCH_CITIES, FETCH_CITY, FETCH_DESTINATION, FETCH_DESTINATIONS, FETCH_DESTINATIONS_BY_CITY, FETCH_HIGHLIGHTED_DESTINATION, FETCH_HOTEL, FETCH_REVIEWS, FETCH_TRAVELSTEPS, GENERATES_TRAVELSTEPS } from './actionType';
 const baseUrl = "http://localhost:3000";
 
 export function fetchCities() {
@@ -43,7 +43,7 @@ export function fetchHighlightedDestination() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations?_limit=9`
+      url: `${baseUrl}/destinations`
     })
       .then(res=>{
         dispatch({
@@ -61,13 +61,12 @@ export function fetchDestination(slug) {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations?slug=${slug}`
+      url: `${baseUrl}/destinations/${slug}`
     })
       .then(res=>{
         dispatch({
           type: FETCH_DESTINATION,
-          //ganti nanti bukan dalam bentuk array
-          payload: res.data[0]
+          payload: res.data
         })
       })
       .catch(error=>{
@@ -77,20 +76,23 @@ export function fetchDestination(slug) {
 }
 
 export function fetchTravelSteps() {
-  return async (dispatch, getState) => {
-    try {
-      const {data} = await axios({
-        method: "GET",
-        url: `${baseUrl}/travelSteps`,
-        headers: localStorage.access_token
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/travel-steps`,
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_TRAVELSTEPS,
+          payload: res.data
+        })
       })
-      dispatch({
-        type: FETCH_DESTINATION,
-        payload: data
+      .catch(error=>{
+        console.log(error);
       })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }
 
@@ -102,7 +104,7 @@ export function registerUser(registerData){
     }
     return axios({
       method: "POST",
-      url: `${baseUrl}/users`,
+      url: `${baseUrl}/register`,
       data: {
         fullName, phoneNumber, email, password,
         isPremium: false,
@@ -112,10 +114,12 @@ export function registerUser(registerData){
       .then(res=>{
         //ganti ke swal
         console.log(res);
+        return "ok"
       })
       .catch(error=>{
         //ganti ke swal
         console.log(error);
+        return "error"
       })
   }
 }
@@ -128,7 +132,7 @@ export function loginUser(loginData){
     }
     return axios({
       method: "POST",
-      url: `${baseUrl}/users/login`,
+      url: `${baseUrl}/login`,
       data: { email, password }
     })
       .then(res=>{
@@ -143,40 +147,23 @@ export function loginUser(loginData){
 
 export function postReview(review){
   return (dispatch, getState)=>{
-    const {cost, fun, internet, safety, comment} = review;
+    const {cost, fun, internet, safety, comment, DestinationId, HotelId} = review;
     return axios({
       method: "POST",
-      url: `${baseUrl}/review`,
-      // headers: {
-      //   access_token: localStorage.access_token
-      // },
-      data: {cost, fun, internet, safety, comment}
+      url: `${baseUrl}/reviews`,
+      headers: {
+        access_token: localStorage.access_token
+      },
+      data: {cost, fun, internet, safety, comment, DestinationId, HotelId}
     })
       .then(res=>{
         console.log("Successfully add review");
+        return "ok";
       })
       .catch(error=>{
         //ganti ke swal
         console.log(error);
-      })
-  }
-}
-
-export function fetchDestinationByCity(slug) {
-  return (dispatch, getState) => {
-    return axios({
-      method: "GET",
-      // url: `${baseUrl}/destinations?citySlug=${slug}`
-      url: `${baseUrl}/destinationsByCity`
-    })
-      .then(res=>{
-        dispatch({
-          type: FETCH_DESTINATIONS_BY_CITY,
-          payload: res.data
-        })
-      })
-      .catch(error=>{
-        console.log(error);
+        return "error";
       })
   }
 }
@@ -201,14 +188,14 @@ export function fetcDestinations() {
 
 export function generateTravelStep(inputData) {
   return (dispatch, getState) => {
-    const { budget, numberOfDestination, allocationDestination, CityId, DestinationsIds} = inputData;
+    const { budget, numberOfDestination, allocationDestination, CityId, DestinationIds} = inputData;
     const budgetDestination = budget * allocationDestination / 100;
     const budgetHotel = budget - budgetDestination;
     return axios({
       method: "POST",
       url: `${baseUrl}/travel-steps/generates`,
       headers: {access_token: localStorage.access_token},
-      data: {budgetDestination, budgetHotel, CityId, DestinationsIds, numberOfDestination}
+      data: {budgetDestination, budgetHotel, CityId, DestinationIds, numberOfDestination: +numberOfDestination}
     })
       .then(res=>{
         dispatch({
@@ -220,6 +207,50 @@ export function generateTravelStep(inputData) {
       .catch(error=>{
         console.log(error);
         return "error"
+      })
+  }
+}
+
+export function fetchReviews() {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/reviews`,
+      //nanti hapus
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_REVIEWS,
+          payload: res.data.reviewByUser
+        })
+      })
+    .catch(error=>{
+      console.log(error);
+    })
+  }
+}
+
+export function fetchHotel(slug) {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/hotels/${slug}`,
+      //nanti hapus
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
+      .then(res=>{
+        dispatch({
+          type: FETCH_HOTEL,
+          payload: res.data
+        })
+      })
+      .catch(error=>{
+        console.log(error);
       })
   }
 }

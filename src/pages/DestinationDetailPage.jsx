@@ -2,7 +2,7 @@ import { Outlet, NavLink, useParams } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import Loader from "../components/Loader";
-import { fetchDestination } from "../stores/actions/actionCreator";
+import { fetchDestination, fetchHotel } from "../stores/actions/actionCreator";
 
 export function DestinationDetailPage() {
 
@@ -18,24 +18,28 @@ export function DestinationDetailPage() {
   }
   const [load, setLoad] = useState(true);
   const dispatch = useDispatch();
-
+console.log(data);
   useEffect(()=>{
-    dispatch(fetchDestination(slug))
+    let fetch = fetchDestination;
+    if(type !== "destination"){
+      fetch = fetchHotel
+    }
+    dispatch(fetch(slug))
       .then(_=>{
         setLoad(false);
       })
   }, [])
-
+  
   if(load){
     return <Loader/>
   }
   return (
     <div className="flex md:flex-row flex-col">
-      <section style={{backgroundImage: `url(${type === "destination"? data.mainImg : data.image})`}} className={`bg-cover bg-center bg-no-repeat h-fit md:h-screen w-96 md:fixed`}>
+      <section style={{backgroundImage: `url(${type === "destination"? data.destination.mainImg : data.image})`}} className={`bg-cover bg-center bg-no-repeat h-fit md:h-screen w-96 md:fixed`}>
         <div className="flex-col flex mx-auto justify-start md:h-screen pt-20 px-10 backdrop-brightness-50">
           <div className="max-w-lg text-center sm:text-left">
             <div className="font-caramel text-xl font-bold text-white md:text-7xl">
-              {data.name},{" "}
+              {type === "destination"? data.destination.name : data.name},{" "}
               <h3 className="text-4xl font-light">City Name</h3>
             </div>
             <div className="mt-14 sm:mt-6">
