@@ -28,7 +28,7 @@ export default function TravelStep() {
       .then(res=>{
         setLoad(false);
         if(res === "ok"){
-          nav("/travelItenerary");
+          nav("/travel-step/generated");
         }
       })
   }
@@ -44,19 +44,6 @@ export default function TravelStep() {
         setLoad(false);
       })
   }, [])
-
-  /* budget section di "highlight"
-  perlu hightlight untuk destination allocation */
-  /* fitur member : bisa menggunakan alokasi destination (jika premium)
-  Landing langsung diarahkan ke desired budget(middle)
-  tambahin alokasi hotel
-  2 slider (kiri buat hotel & kanan buat travelingnya) 
-  city & desination perlu dibedakan karena destinasi dapat banyak tambahkan border di city jika sudah dipilih (hide yng lain)
-  destination sudah dipiklih terus di kasih ui lagi
-
-  
-  generate()
-  subtotal didapat dari desi*/
 
   function showCity() {
     setTopText(!topText)

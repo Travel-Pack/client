@@ -213,7 +213,7 @@ export function generateTravelStep(inputData) {
       .then(res=>{
         dispatch({
           type: GENERATES_TRAVELSTEPS,
-          payload: res.data
+          payload: res.data.travelStep
         })
         return "ok"
       })
