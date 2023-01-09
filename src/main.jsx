@@ -11,7 +11,6 @@ import { ToastContainer, toast } from "react-toastify"
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ToastContainer />
-
     <RouterProvider router={router} />
   </Provider>
 )

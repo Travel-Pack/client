@@ -1,4 +1,5 @@
 import axios from "axios"
+import { notifyError, notifySuccess } from "../../helpers/notify"
 import {
   FETCH_CITIES,
   FETCH_CITY,
@@ -12,13 +13,12 @@ import {
   GENERATES_TRAVELSTEPS,
 } from "./actionType"
 const baseUrl = "http://localhost:3000"
-import { toast } from "react-toastify"
 
 export function fetchCities() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/cities`,
+      url: `${baseUrl}/publics/cities`,
     })
       .then((res) => {
         dispatch({
@@ -54,7 +54,7 @@ export function fetchHighlightedDestination() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations`,
+      url: `${baseUrl}/publics/destinations`,
     })
       .then((res) => {
         dispatch({
@@ -109,70 +109,76 @@ export function fetchTravelSteps() {
 
 export function registerUser(registerData) {
   return (dispatch, getState) => {
-    const { fullName, phoneNumber, email, password, passwordConfirmation } =
-      registerData
-    if (password !== passwordConfirmation) {
-      throw { msg: "Password not match" }
+    try {
+      const { fullName, phoneNumber, email, password, passwordConfirmation } =
+        registerData
+      if (password !== passwordConfirmation) {
+        throw { msg: "Password not match" }
+      }
+      return axios({
+        method: "POST",
+        url: `${baseUrl}/register`,
+        data: {
+          fullName,
+          phoneNumber,
+          email,
+          password,
+          isPremium: false,
+          role: "Customer",
+        },
+      })
+        .then((res) => {
+          //ganti ke swal
+          notifySuccess("Successfully register!")
+          return "ok"
+        })
+        .catch((error) => {
+          //ganti ke swal
+          if (error.message === "Network Error") {
+            return notifyError(error.message)
+          }
+          notifyError(error.response.data?.msg)
+          return "error"
+        })
+    } catch (error) {
+      notifyError(error.msg)
     }
-    return axios({
-      method: "POST",
-      url: `${baseUrl}/register`,
-      data: {
-        fullName,
-        phoneNumber,
-        email,
-        password,
-        isPremium: false,
-        role: "Customer",
-      },
-    })
-      .then((res) => {
-        //ganti ke swal
-        console.log(res)
-        return "ok"
-      })
-      .catch((error) => {
-        //ganti ke swal
-        console.log(error)
-        return "error"
-      })
   }
 }
 
 export function loginUser(loginData) {
   return (dispatch, getState) => {
-    const { email, password } = loginData
-    if (!password || !email) {
-      throw { msg: "Data cannot be empty" }
-    }
-    return axios({
-      method: "POST",
-      url: `${baseUrl}/login`,
-      data: { email, password },
-    })
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.access_token)
+    try {
+      const { email, password } = loginData
+      if (!password || !email) {
+        throw { msg: "Username or password cannot be empty" }
+      }
+      return axios({
+        method: "POST",
+        url: `${baseUrl}/login`,
+        data: { email, password },
       })
-      .catch((error) => {
-        toast.error(error.response.data.msg, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
+        .then((res) => {
+          localStorage.setItem("access_token", res.data?.access_token)
         })
-        return error
-      })
+        .catch((error) => {
+          if (error.message === "Network Error") {
+            return notifyError(error.message)
+          }
+          if (error.response.data?.msg) {
+            return notifyError(error.response.data?.msg)
+          }
+          return error
+        })
+    } catch (error) {
+      notifyError(error.msg)
+    }
   }
 }
 
 export function postReview(review) {
   return (dispatch, getState) => {
-    const { cost, fun, internet, safety, comment, DestinationId, HotelId } =
-      review
+    const { cost, fun, internet, safety, comment, DestinationId, HotelId } = review
     return axios({
       method: "POST",
       url: `${baseUrl}/reviews`,
@@ -213,13 +219,8 @@ export function fetcDestinations() {
 
 export function generateTravelStep(inputData) {
   return (dispatch, getState) => {
-    const {
-      budget,
-      numberOfDestination,
-      allocationDestination,
-      CityId,
-      DestinationIds,
-    } = inputData
+    const { budget, numberOfDestination, allocationDestination, CityId, DestinationIds } =
+      inputData
     const budgetDestination = (budget * allocationDestination) / 100
     const budgetHotel = budget - budgetDestination
     return axios({
@@ -252,7 +253,7 @@ export function fetchReviews() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/reviews`,
+      url: `${baseUrl}/publics/reviews`,
       //nanti hapus
       headers: {
         access_token: localStorage.access_token,

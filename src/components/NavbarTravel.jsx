@@ -1,12 +1,19 @@
 import { Navbar } from "flowbite-react"
 import { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { BsFillPersonFill } from "react-icons/bs"
 
 export default function NavbarTravel() {
   const [prevScrollpos, setPrevScrollpos] = useState(window.scrollY)
   const [visible, setVisible] = useState(true)
   const [active, isActive] = useState(false)
+  const navigate = useNavigate()
+  const loggedIn = localStorage.getItem("access_token")
+
+  function handleLogout() {
+    navigate("/login")
+    return localStorage.clear()
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +28,7 @@ export default function NavbarTravel() {
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
-  }, [prevScrollpos])
+  }, [prevScrollpos, loggedIn])
 
   return (
     <nav>
@@ -67,11 +74,19 @@ export default function NavbarTravel() {
             </NavLink>
           </div>
           <div>
-            <NavLink
-              className="font-medium hover:border-b-4 border-yelloku duration-400"
-              to={"/login"}>
-              Login
-            </NavLink>
+            {loggedIn ? (
+              <button
+                className="font-medium hover:border-b-4 border-yelloku duration-400"
+                onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <NavLink
+                className="font-medium hover:border-b-4 border-yelloku duration-400"
+                to={"/login"}>
+                Login
+              </NavLink>
+            )}
           </div>
         </div>
       </nav>
@@ -102,11 +117,19 @@ export default function NavbarTravel() {
             className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
             Forum
           </NavLink>
-          <NavLink
-            to={"/login"}
-            className="block md:hidden py-2 pl-3 pr-4 text-black bg-yelloku font-medium">
-            Login
-          </NavLink>
+          {loggedIn ? (
+            <NavLink
+              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              onClick={() => handleLogout}>
+              Logout
+            </NavLink>
+          ) : (
+            <NavLink
+              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              to={"/login"}>
+              Login
+            </NavLink>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </nav>

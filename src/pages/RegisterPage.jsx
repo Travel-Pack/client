@@ -1,44 +1,43 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { registerUser } from "../stores/actions/actionCreator";
-import Loader from "../components/Loader";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { registerUser } from "../stores/actions/actionCreator"
+import Loader from "../components/Loader"
+import { Spinner } from "flowbite-react"
 
 export function RegisterPage() {
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [registerData, setRegisterData] = useState({
     fullName: "",
     phoneNumber: "",
     email: "",
     password: "",
-    passwordConfirmation: ""
+    passwordConfirmation: "",
   })
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(false)
 
   const onChangeHandler = (e) => {
-    const updatedRegisterData = { ...registerData, [e.target.name]: e.target.value };
-    setRegisterData(updatedRegisterData);
+    const updatedRegisterData = { ...registerData, [e.target.name]: e.target.value }
+    setRegisterData(updatedRegisterData)
   }
 
   function handleRegister(e) {
-    e.preventDefault();
-    dispatch(registerUser(registerData))
-      .then(res => {
-        setLoad(true);
-        if (res === "ok") {
-          setRegisterData({
-            fullName: "",
-            phoneNumber: "",
-            email: "",
-            password: "",
-            passwordConfirmation: ""
-          })
-          navigate("/login");
-        }
-        setLoad(false);
-      })
+    e.preventDefault()
+    dispatch(registerUser(registerData)).then((res) => {
+      setLoad(true)
+      if (res === "ok") {
+        setRegisterData({
+          fullName: "",
+          phoneNumber: "",
+          email: "",
+          password: "",
+          passwordConfirmation: "",
+        })
+        navigate("/login")
+      }
+      setLoad(false)
+    })
   }
 
   if (load) {
@@ -109,9 +108,7 @@ export function RegisterPage() {
                 />
               </div>
               <div className="col-span-6">
-                <label
-                  htmlFor="phoneNumber"
-                  className="block  font-medium text-gray-700">
+                <label htmlFor="phoneNumber" className="block  font-medium text-gray-700">
                   Phone Number
                 </label>
                 <input
@@ -125,9 +122,7 @@ export function RegisterPage() {
                 />
               </div>
               <div className="col-span-6">
-                <label
-                  htmlFor="Email"
-                  className="block  font-medium text-gray-700">
+                <label htmlFor="Email" className="block  font-medium text-gray-700">
                   Email
                 </label>
                 <input
@@ -141,9 +136,7 @@ export function RegisterPage() {
                 />
               </div>
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="Password"
-                  className="block  font-medium text-gray-700">
+                <label htmlFor="Password" className="block  font-medium text-gray-700">
                   Password
                 </label>
                 <input
@@ -174,7 +167,7 @@ export function RegisterPage() {
               </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button className="inline-block shrink-0 rounded-md bg-yelloku px-12 py-3  font-medium transition hover:bg-transparent hover:text-yellow-300 focus:outline-none focus:ring active:text-yellow-300">
-                  Create an account
+                  {load ? <Spinner /> : "Create an account"}
                 </button>
                 <p className="mt-4  text-gray-500 sm:mt-0">
                   Already have an account?
