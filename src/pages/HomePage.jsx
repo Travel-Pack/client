@@ -44,7 +44,7 @@ export function HomePage() {
 
   if (load) return <Loader />
   return (
-    <div className="bg-stone-100">
+    <div className="bg-stone-50">
       <ScrollToTopBtn />
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>

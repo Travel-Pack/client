@@ -1,35 +1,46 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
-import { useState } from 'react'
+import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { loginUser } from "../stores/actions/actionCreator";
+import { loginUser } from "../stores/actions/actionCreator"
+import { Spinner } from "flowbite-react"
 
 export function LoginPage() {
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [loginData, setLoginData] = useState({
     email: "",
-    password: ""
+    password: "",
   })
-  const [hide, setHide] = useState("password");
+  const [hide, setHide] = useState("password")
 
-  const onChangeHandler = (e)=>{
-    const updatedLoginData = {...loginData, [e.target.name]: e.target.value }
-    setLoginData(updatedLoginData);
+  const onChangeHandler = (e) => {
+    const updatedLoginData = { ...loginData, [e.target.name]: e.target.value }
+    setLoginData(updatedLoginData)
   }
 
-  const hideButtonHandler = ()=>{
-    if(hide === "password"){
-      return setHide("text");
+  const hideButtonHandler = () => {
+    if (hide === "password") {
+      return setHide("text")
     }
-    return setHide("password");
+    return setHide("password")
   }
 
   function handleLogin(e) {
     e.preventDefault()
     dispatch(loginUser(loginData))
-      .then(_=>{
-        navigate("/")
+      .then(() => {
+        setLoading(true)
+      })
+      .then((_) => {
+        localStorage.getItem("access_token") ? navigate("/") : ""
+      })
+      .catch((error) => {
+        navigate("/login")
+        return error
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -43,9 +54,7 @@ export function LoginPage() {
           <h1 className="text-2xl font-bold sm:text-3xl">Log In</h1>
           <p className="mt-4 text-gray-500">Login to access more features.</p>
         </div>
-        <form
-          onSubmit={handleLogin}
-          className="mx-auto mt-8 mb-0 max-w-md space-y-4">
+        <form onSubmit={handleLogin} className="mx-auto mt-8 mb-0 max-w-md space-y-4">
           <div>
             <label htmlFor="email" className="sr-only">
               Email
@@ -89,7 +98,9 @@ export function LoginPage() {
                 className="w-full rounded-lg border-gray-200 p-4 pr-12  shadow-sm"
                 placeholder="Enter password"
               />
-              <span onClick={hideButtonHandler} className="absolute inset-y-0 right-4 inline-flex items-center">
+              <span
+                onClick={hideButtonHandler}
+                className="absolute inset-y-0 right-4 inline-flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-gray-400"
@@ -121,8 +132,12 @@ export function LoginPage() {
             </p>
             <button
               type="submit"
-              className="ml-3 inline-block rounded-md bg-yelloku px-5 py-3  font-medium">
-              Sign in
+              className="ml-3 inline-block rounded-md bg-yelloku px-5 py-3 active:scale-95 duration-100 font-medium">
+              {loading ? (
+                <Spinner color="warning" aria-label="Warning spinner example" />
+              ) : (
+                "Sign in"
+              )}
             </button>
           </div>
         </form>
