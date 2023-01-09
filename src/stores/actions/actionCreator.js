@@ -102,7 +102,7 @@ export function registerUser(registerData){
     }
     return axios({
       method: "POST",
-      url: `${baseUrl}/users`,
+      url: `${baseUrl}/register`,
       data: {
         fullName, phoneNumber, email, password,
         isPremium: false,
@@ -112,10 +112,12 @@ export function registerUser(registerData){
       .then(res=>{
         //ganti ke swal
         console.log(res);
+        return "ok"
       })
       .catch(error=>{
         //ganti ke swal
         console.log(error);
+        return "error"
       })
   }
 }
