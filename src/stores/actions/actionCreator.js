@@ -61,13 +61,12 @@ export function fetchDestination(slug) {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations?slug=${slug}`
+      url: `${baseUrl}/destinations/${slug}`
     })
       .then(res=>{
         dispatch({
           type: FETCH_DESTINATION,
-          //ganti nanti bukan dalam bentuk array
-          payload: res.data[0]
+          payload: res.data
         })
       })
       .catch(error=>{

@@ -6,6 +6,7 @@ import Loader from "../Loader";
 
 export default function FindDestination() {
 
+  const city = useSelector((state) => state.cities.city);
   const { citySlug, type } = useParams();
   const [active, setActive] = useState(null);
   const [load, setLoad] = useState(true);
@@ -27,9 +28,9 @@ export default function FindDestination() {
   }
   return (
     <div className="bg-stone-50 mt-20">
-      <div className="h-96 px-16 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-[url('https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')] bg-cover ">
+      <div style={{backgroundImage: `url(${city.city.image})`}} className="h-96 px-16 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-cover ">
         <h1 className="text-white font-semibold text-6xl pb-10">
-          Find The next <br /> Destination
+          Find The next <br /> Destination in {city.city.name}
         </h1>
         <div className="flex gap-10">
           <NavLink

@@ -5,8 +5,8 @@ import { useNavigate, useParams } from "react-router-dom"
 export default function TravelCards() {
 
   const {type} = useParams();
-  const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
-  const hotelsByCity = useSelector((state) => state.destinations.hotelsByCity);
+  // const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
+  // const hotelsByCity = useSelector((state) => state.destinations.hotelsByCity);
   const destinations = useSelector((state) => state.destinations.destinations);
   const city = useSelector((state) => state.cities.city);
   
