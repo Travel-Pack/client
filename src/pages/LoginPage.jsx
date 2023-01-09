@@ -27,7 +27,7 @@ export function LoginPage() {
 
   function handleLogin(e) {
     e.preventDefault()
-    dispatch(loginUser())
+    dispatch(loginUser(loginData))
       .then(_=>{
         navigate("/")
       })

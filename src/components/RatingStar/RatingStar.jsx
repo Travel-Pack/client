@@ -2,12 +2,12 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { FaStar } from "react-icons/fa"
 
-export default function RatingStar() {
-  const [rating, setRating] = useState(null)
+export default function RatingStar({name, setReview, review}) {
+  const [rating, setRating] = useState(0)
   const [hoverColor, setHoverColor] = useState(null)
 
   useEffect(() => {
-    console.log(rating)
+    setReview({...review, [name]:rating})
   }, [rating])
   return (
     <div className="flex justify-center">
@@ -15,7 +15,7 @@ export default function RatingStar() {
         const ratingValue = i + 1
 
         return (
-          <label className="">
+          <label className="" key={name+i}>
             <input
               type="radio"
               className="hidden w-0 h-0"

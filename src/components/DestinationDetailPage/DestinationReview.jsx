@@ -1,27 +1,46 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
-import { fetchDestination, postReview } from "../../stores/actions/actionCreator"
+import { useState, useEffect } from "react"
+import { fetchDestination, fetchHotel, postReview } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 import { useParams } from "react-router-dom"
 import RatingStar from "../RatingStar/RatingStar"
 
 export function DestinationReview() {
   const { type } = useParams()
+  const destination = useSelector((state) => state.destinations.destination)
+  const hotel = useSelector((state) => state.destinations.hotel)
   const [load, setLoad] = useState(false)
   const [review, setReview] = useState({
     cost: 0,
-    fun: 0,
     internet: 0,
     safety: 0,
-    comment: "",
+    fun: 0,
+    comment: ""
   })
-  const destination = useSelector((state) => state.destinations.destination)
-  const hotel = useSelector((state) => state.destinations.hotel)
-  let data
+  const [score, setScore] = useState(0);
+  let data;
   if (type === "destination") {
-    data = destination
+    data = {
+      name: destination.destination.name,
+      slug: destination.destination.slug,
+      avg_cost: destination.reviews.averageCost,
+      avg_fun: destination.reviews.averageFun,
+      avg_internet: destination.reviews.averageInternet,
+      avg_safety: destination.reviews.averageSafety,
+      comments: destination.comment,
+      DestinationId: destination.destination.id
+    }
   } else {
-    data = hotel
+    data = {
+      name: hotel.name,
+      slug: hotel.slug,
+      avg_cost: hotel.avg_cost,
+      avg_fun: hotel.avg_fun,
+      avg_internet: hotel.avg_internet,
+      avg_safety: hotel.avg_safety,
+      comments: hotel.Reviews,
+      HotelId: hotel.id
+    }
   }
   const onChangeHandler = (e) => {
     const updatedReview = { ...review, [e.target.name]: e.target.value }
@@ -30,14 +49,31 @@ export function DestinationReview() {
   const dispatch = useDispatch()
   const submitReviewHandler = (e) => {
     e.preventDefault()
-    dispatch(postReview(review)).then((_) => {
-      setLoad(true)
-      dispatch(fetchDestination()).then((_) => {
-        setLoad(false)
-      })
+    dispatch(postReview({...review, DestinationId: data.DestinationId, HotelId: data.HotelId})).then((res) => {
+      if(res === "ok"){
+        setLoad(true)
+        setReview({
+          cost: 0,
+          internet: 0,
+          safety: 0,
+          fun: 0,
+          comment: ""
+        });
+        let fetch = fetchDestination;
+        if(type !== "destination"){
+          fetch = fetchHotel
+        }
+        dispatch(fetch(data.slug)).then((_) => {
+          setLoad(false)
+        })
+      }
     })
   }
 
+  useEffect(()=>{
+    let average = (data.avg_cost + data.avg_fun + data.avg_internet + data.avg_safety) / 4;
+    setScore(average);
+  }, [])
   if (load) {
     return <Loader />
   }
@@ -45,17 +81,17 @@ export function DestinationReview() {
     <section className="min-h-screen bg-stone-100 w-full md:ml-96 mx-auto">
       <div className="mt-20 pt-5 md:px-32">
         <h1 className="font-bold font-caveat text-6xl">
-          {destination.name}, {"City Name"}
+          {data.name}, {"City Name"}
         </h1>
         <h1 className="font-bold font-caveat my-10 text-5xl">Overall</h1>
         <div className="flex items-center mb-5">
           <p className="bg-yelloku text-sm font-semibold inline-flex items-center p-1.5 rounded">
-            4.7
+            {score.toFixed(2)}
           </p>
-          <p className="ml-2 font-medium text-gray-900">Excellent</p>
+          <p className="ml-2 font-medium text-gray-900">{score > 4? "Excellent" : score < 3? "Bad": "Good"}</p>
           <span className="w-1 h-1 mx-2 bg-gray-900 rounded-full" />
           <p className="text-sm font-medium text-gray-500">
-            376 reviews
+            {data.comments.length} reviews
           </p>
         </div>
         <div className="gap-8 sm:grid sm:grid-cols-2">
@@ -68,11 +104,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded transition-colors"
-                    style={{ width: "96%" }}
+                    style={{ width: `${data.avg_cost / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.8
+                  {data.avg_cost}
                 </span>
               </dd>
             </dl>
@@ -84,11 +120,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: "92%" }}
+                    style={{ width: `${data.avg_fun / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.6
+                {data.avg_fun}
                 </span>
               </dd>
             </dl>
@@ -102,11 +138,11 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: "94%" }}
+                    style={{ width: `${data.avg_internet / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.7
+                {data.avg_internet}
                 </span>
               </dd>
             </dl>
@@ -118,22 +154,22 @@ export function DestinationReview() {
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: "94%" }}
+                    style={{ width: `${data.avg_safety / 5 * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  4.7
+                {data.avg_safety}
                 </span>
               </dd>
             </dl>
           </div>
         </div>
         <h1 className="font-bold font-caveat my-10 text-5xl">Reviews</h1>
-        {data.Reviews.length ? (
-          data.Reviews.map((el) => {
+        {data.comments.length ? (
+          data.comments.map((el, index) => {
             return (
               <div
-                key={el.id}
+                key={index}
                 className="flex gap-8 items-center border-b py-6 border-gray-200">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
@@ -164,25 +200,25 @@ export function DestinationReview() {
             <div className="flex items-center">
               <p className="text-xl w-20">Cost</p>
               <div className="flex items-center">
-                <RatingStar />
+                <RatingStar key="1" name="cost" setReview={setReview} review={review} />
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Fun</p>
               <div className="flex items-center">
-                <RatingStar />
+                <RatingStar key="2" name="fun" setReview={setReview} review={review}/>
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Intenet</p>
               <div className="flex items-center">
-                <RatingStar />
+                <RatingStar key="3" name="internet" setReview={setReview} review={review}/>
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Safety</p>
               <div className="flex items-center">
-                <RatingStar />
+              <RatingStar key="4" name="safety" setReview={setReview} review={review}/>
               </div>
             </div>
           </section>

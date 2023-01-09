@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader";
-import { fetchCities, fetchDestinationByCity, generateTravelStep } from "../stores/actions/actionCreator";
+import { fetchCities, fetchCity, generateTravelStep } from "../stores/actions/actionCreator";
 
 export default function TravelStep() {
 
@@ -10,13 +10,13 @@ export default function TravelStep() {
   const [load, setLoad] = useState(true);
   const dispatch = useDispatch();
   const cities = useSelector((state) => state.cities.cities);
-  const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
+  const city = useSelector((state) => state.cities.city);
   const [travelStepData, setTravelStepData] = useState({
     budget: "",
     numberOfDestination: "",
     allocationDestination: 50,
     CityId: "",
-    DestinationsIds: []
+    DestinationIds: []
   })
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
@@ -46,29 +46,32 @@ export default function TravelStep() {
   }, [])
 
   function showCity() {
-    setTopText(!topText)
+    if(travelStepData.budget !== "" || travelStepData.numberOfDestination !== ""){
+      setTopText(!topText)
+    }
   }
 
-  function displayDest(cityName, CityId) {
+  function displayDest(cityName, CityId, citySlug) {
     setCitySelected(cityName)
     const updatedTravelStepData = {...travelStepData, CityId}
     setTravelStepData(updatedTravelStepData);
     setLoad(true);
-    dispatch(fetchDestinationByCity("slug"))
+    dispatch(fetchCity(citySlug))
       .then(_=>{
         setLoad(false);
         setShowDest(!showDest);
+        console.log(city);
       })
   }
 
   function selectDest(destinationId) {
     const updatedTravelStepData = {...travelStepData}
-    const index = updatedTravelStepData.DestinationsIds.findIndex((el)=>el === destinationId);
+    const index = updatedTravelStepData.DestinationIds.findIndex((el)=>el === destinationId);
     if( index === -1){
-      updatedTravelStepData.DestinationsIds.push(destinationId);
+      updatedTravelStepData.DestinationIds.push(destinationId);
     }
     else{
-      updatedTravelStepData.DestinationsIds.splice(index, 1);
+      updatedTravelStepData.DestinationIds.splice(index, 1);
     }
     setTravelStepData(updatedTravelStepData);
   }
@@ -112,13 +115,13 @@ export default function TravelStep() {
                 Desired Budget :
               </label>
               <input
-                type="text"
+                type="number"
                 id="inputBudget"
                 onChange={onChangeHandler}
                 value={travelStepData.budget}
                 name="budget"
                 className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
-                placeholder="2500"
+                placeholder="ex. 25000000"
               />
             </div>
 
@@ -127,13 +130,13 @@ export default function TravelStep() {
                 Total Destination :
               </label>
               <input
-                type="text"
+                type="number"
                 id="inputBudget"
                 value={travelStepData.numberOfDestination}
                 onChange={onChangeHandler}
                 name="numberOfDestination"
                 className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
-                placeholder="2"
+                placeholder="ex. 2"
               />
             </div>
 
@@ -190,7 +193,7 @@ export default function TravelStep() {
             <div className="flex flex-wrap gap-2 justify-center mt-20">
               {cities.map((el) => {
                 return (
-                  <div className="max-w-xs aspect-square" onClick={()=>displayDest(el.name, el.id)} key={el.id}>
+                  <div className="max-w-xs aspect-square" onClick={()=>displayDest(el.name, el.id, el.slug)} key={el.id}>
                     <img src={el.image} alt={el.name} className="w-full h-full" />
                   </div>
                 )
@@ -203,9 +206,9 @@ export default function TravelStep() {
                 className="w-full block max-h-screen mt-20 overflow-y-auto"
                 id="scrollStyle">
                 <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
-                  {destinationsByCity.map((el) => {
+                  {city.destination.map((el) => {
                     let classDestinationCard = "max-w-xs aspect-square ";
-                    if(travelStepData.DestinationsIds.findIndex((destinationId)=>destinationId === el.id) !== -1){
+                    if(travelStepData.DestinationIds.findIndex((destinationId)=>destinationId === el.id) !== -1){
                       classDestinationCard += "border border-8 border-yelloku"
                     }
                     return (

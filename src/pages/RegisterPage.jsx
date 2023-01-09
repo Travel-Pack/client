@@ -17,36 +17,38 @@ export function RegisterPage() {
   })
   const [load, setLoad] = useState(false);
 
-  const onChangeHandler = (e)=>{
-    const updatedRegisterData = {...registerData, [e.target.name]: e.target.value};
+  const onChangeHandler = (e) => {
+    const updatedRegisterData = { ...registerData, [e.target.name]: e.target.value };
     setRegisterData(updatedRegisterData);
   }
 
-  function handleRegister(e){
+  function handleRegister(e) {
     e.preventDefault();
     dispatch(registerUser(registerData))
-    .then(_=>{
-      setLoad(true);
-      setRegisterData({
-          fullName: "",
-          phoneNumber: "",
-          email: "",
-          password: "",
-          passwordConfirmation: ""
-        })
+      .then(res => {
+        setLoad(true);
+        if (res === "ok") {
+          setRegisterData({
+            fullName: "",
+            phoneNumber: "",
+            email: "",
+            password: "",
+            passwordConfirmation: ""
+          })
+          navigate("/login");
+        }
         setLoad(false);
-        navigate("/login");
       })
   }
-  
-  if(load){
+
+  if (load) {
     return <Loader />
   }
   return (
     <section className="bg-white">
       <NavLink to={"/"} className="text-2xl fixed right-5 top-5">
-          Travel <span className="font-bold">Pack</span>
-        </NavLink>
+        Travel <span className="font-bold">Pack</span>
+      </NavLink>
       {/*Ganti 2 logonya*/}
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
