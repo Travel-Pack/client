@@ -1,12 +1,26 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import { fetchTravelSteps } from "../../stores/actions/actionCreator";
+import Loader from "../Loader";
 
-export default function IteneraryCards({type}) {
+export default function IteneraryCards({ type }) {
 
+  const [load, setLoad] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    if(type === "wishlist"){
+      setLoad(true);
+      dispatch(fetchTravelSteps())
+        .then(_=>{
+          setLoad(false);
+        })
+    }
+  }, [])
   const generatedTravelSteps = useSelector((state) => state.travelSteps.generatedTravelSteps);
   const travelSteps = useSelector((state) => state.travelSteps.travelSteps);
   let data = generatedTravelSteps;
-  if(type === "wishlist") {
+  if (type === "wishlist") {
     data = travelSteps;
   }
   const nav = useNavigate()
@@ -15,8 +29,12 @@ export default function IteneraryCards({type}) {
   }
   const arr = [1, 2, 3, 4]
 
-  if(!data.length){
+  if (!data.length) {
     return <h1 className="font-bold text-center text-2xl">Sorry, no matched travel steps.</h1>
+  }
+
+  if(load){
+    return <Loader/>
   }
   return (
     <div className="grid grid-cols-4 gap-5">
@@ -63,9 +81,11 @@ export default function IteneraryCards({type}) {
                 <h3>{total.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}</h3>
               </div>
             </div>
-            <button className="bg-black px-7 py-2 text-white" onClick={handleSave}>
-              Save
-            </button>
+            {type === "wishlist" ?
+              <button className="bg-black px-7 py-2 text-white" onClick={handleSave}>
+                Save
+              </button> : <></>
+            }
           </div>
         )
       })}
