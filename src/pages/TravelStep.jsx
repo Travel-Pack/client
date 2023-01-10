@@ -10,6 +10,7 @@ import {
   fetchCity,
   generateTravelStep,
 } from "../stores/actions/actionCreator"
+import { yellowButton } from "../helpers/buttonStyle"
 
 export default function TravelStep() {
   const [citySelected, setCitySelected] = useState("")
@@ -181,14 +182,14 @@ export default function TravelStep() {
 
               {topText ? (
                 <div>
-                  <button className="text-xl bg-yelloku w-full mx-auto text-black py-1.5 active:scale-95 duration-200">
+                  <button className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
                     new budget
                   </button>
                 </div>
               ) : (
                 <button
                   onClick={showCity}
-                  className="text-xl bg-yelloku w-full mx-auto text-black py-1.5 active:scale-95 duration-200">
+                  className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
                   choose city
                 </button>
               )}

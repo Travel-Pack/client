@@ -1,0 +1,2 @@
+export const blackButton = "bg-black text-yelloku hover:bg-yelloku hover:text-black duration-150 ease-in-out active:scale-95"
+export const yellowButton = "bg-yelloku text-black hover:bg-black hover:text-yelloku duration-150 ease-in-out active:scale-95"

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { BsBinoculars, BsCompass, BsSearch } from "react-icons/bs"
 import { useDispatch } from "react-redux"
+import { blackButton } from "../../helpers/buttonStyle"
 import { fetcDestinations, fetchDestination } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 
@@ -91,7 +92,7 @@ export default function SearchForm() {
           </div>
           <button
             type="submit"
-            className="block tracking-wide py-3 bg-black text-white">
+            className={`block tracking-wide py-3 ${blackButton}`}>
             search
           </button>
         </div>
