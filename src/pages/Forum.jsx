@@ -1,5 +1,10 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
+
+const serverUrl = "http://localhost:3000/"
+// const socket = io.connect(serverUrl);
 
 export default function Forum() {
   const nav = useNavigate()
@@ -8,7 +13,25 @@ export default function Forum() {
   }
 
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-  return (
+  //Batas awal edit
+  const [availableTopics, setAvailableTopics] = useState([])
+  const navToSection = (slug) => {
+    nav(`/forum/${slug}`)
+  }
+  const fetchMessages = async () => {
+    try {
+      let { data } = await axios.get(serverUrl + 'publics/topic')
+      console.log(data);
+      setAvailableTopics(data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchMessages()
+  }, [])
+  // Batas akhir Edit
+  if (availableTopics) return (
     <div className="flex-col flex gap-5 xl:mt-20">
       <ScrollToTopBtn />
       <section id="forumHero" className="bg-yelloku py-10">
@@ -28,6 +51,43 @@ export default function Forum() {
           </div>
         </div>
       </section>
+
+      {/* Qomar Mulai Edit */}
+      <div className="mx-auto flex flex-col gap-5 w-fit">
+        {availableTopics.map((el) => {
+          return (
+            <div
+              className="flex items-center bg-white shadow-md py-5 px-4 justify-between"
+              key={el.id}
+              onClick={() => navToSection(el.slug)}>
+              <div className="w-fit px-3">
+                <div className="rounded-full w-6 h-6">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/1/15/Dipper_Pines.png"
+                    alt="avatarProfile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="div flex flex-col">
+                <h1 className="text-lg font-medium">
+                  {el.title}
+                </h1>
+                <h1>👌❤️💕👍🤩</h1>
+                <p className="font-light">
+                  Author: {el.User.fullName}
+                </p>
+              </div>
+              <div className="border-l border-stone-300 w-1/5 justify-evenly items-center flex flex-col">
+                <h1>560</h1>
+                <h1>15568</h1>
+                <h1>⭐⭐⭐⭐⭐</h1>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      {/* Qomar Selesai Edit */}
 
       <div className="container mx-auto">
         <div className="grid xl:grid-cols-4 px-5 xl:px-0 gap-3">
