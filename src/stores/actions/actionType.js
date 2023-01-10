@@ -8,3 +8,4 @@ export const FETCH_DESTINATIONS = 'fetch/destinations';
 export const GENERATES_TRAVELSTEPS = 'generates/travel-steps';
 export const FETCH_REVIEWS = 'fetch/reviews';
 export const FETCH_HOTEL = 'fetch/hotel';
+export const FETCH_USER = 'fetch/user';
