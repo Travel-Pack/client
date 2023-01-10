@@ -18,7 +18,7 @@ import {
   FETCH_NEW_MESSAGE,
   FETCH_TOPIC_BY_ID
 } from "./actionType"
-const baseUrl = "http://localhost:3000"
+export const baseUrl = "http://localhost:3000"
 
 export function fetchCities() {
   return (dispatch, getState) => {
@@ -509,4 +509,21 @@ export function insertMessage(message) {
       payload: message,
     })
   }
+}
+
+export function fetchWeatherData() {
+ return async (dispatch, getState) =>{
+  try {
+    const { data } = await axios.get(
+      `https://api.api-ninjas.com/v1/weather?lat=-7.70251914381839&lon=110.44913175490338`,
+      {
+        headers: { "X-API-KEY": "kPVxzSr3Kcu25cCTh+hiMg==IXgVlTxk1lBJXIqe" },
+      }
+    )
+
+    return
+  } catch (error) {
+    console.log(error)
+  }
+ }
 }

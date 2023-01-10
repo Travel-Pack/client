@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
 import { useState } from "react"
 import { useEffect } from "react"
+import axios from "axios"
 
 function weatherRandom() {
   const weather = ["rainy", "cloudy", "normal"]
@@ -13,12 +14,12 @@ function weatherRandom() {
 
 export function DestinationInformation() {
   const currentDate = new Date()
-
+  const [weatherData, setWeatherData] = useState({})
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
   const dispatch = useDispatch()
-  
+
   let data
 
   const { type } = useParams()
@@ -44,9 +45,24 @@ export function DestinationInformation() {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     // dispatch()
-  },[])
+    async function fetchWeatherData() {
+      try {
+        const { data } = await axios.get(
+          `https://api.api-ninjas.com/v1/weather?lat=-7.70251914381839&lon=110.44913175490338`,
+          {
+            headers: { "X-API-KEY": "kPVxzSr3Kcu25cCTh+hiMg==IXgVlTxk1lBJXIqe" },
+          }
+        )
+        console.log(data)
+        setWeatherData(data)
+        return
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }, [weatherData])
 
   return (
     <section className="min-h-screen bg-stone-100 md:ml-96 w-full mx-auto">
@@ -177,7 +193,9 @@ export function DestinationInformation() {
                                   className="h-16 w-16 rounded-full object-cover"
                                 />
                                 <div className="ml-4 text-sm">
-                                  <p className="font-medium">{type === "destination"? el.user : el.User.fullName}</p>
+                                  <p className="font-medium">
+                                    {type === "destination" ? el.user : el.User.fullName}
+                                  </p>
                                 </div>
                               </div>
                               <p className="relative mt-4 text-gray-500">{el.comment}</p>
@@ -216,13 +234,18 @@ export function DestinationInformation() {
             )}
           </section>
         </div>
-        <div className="weather w-1/3 bg-amber-200 rounded-xl overflow-hidden pt-10 px-14 self-center">
+        <div
+          className="weather w-1/3 bg-amber-50 rounded-xl overflow-hidden py-10 px-14 self-center"
+          onClick={() => fetchWeatherData}>
           <div className="backdrop-blur-lg flex flex-col items-center w-full h-full">
             <h1 className="text-3xl font-semibold text-black">{data.city}</h1>
             <h1 className="text-lg font-light text-sky-600">
               {currentDate.toLocaleDateString("id-ID", options)}
             </h1>
-            <WiDayRain className="w-36 h-36 text-sky-600" />
+            <div className="flex flex-col items-center justify-center">
+              <WiDayRain className="w-36 h-36 text-sky-600" />
+              <h1 className="text-xl text-center">Today Will be sunny! Enjoy the trip</h1>
+            </div>
             {/* <WiDayCloudyWindy className="w-36 h-36 text-sky-600" />
             <WiDaySunny className="w-36 h-36 text-sky-600" /> */}
           </div>
