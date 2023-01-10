@@ -64,6 +64,13 @@ export default function NavbarTravel() {
               Find Destination
             </NavLink>
           </div>
+          <div>
+            <NavLink
+              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              to={"/my-travel-step"}>
+              My Travel
+            </NavLink>
+          </div>
           <div className="mr-16">
             <NavLink
               className="font-medium hover:border-b-4 border-yelloku duration-400"

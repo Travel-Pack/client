@@ -1,9 +1,10 @@
 import { Carousel } from "flowbite-react"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
 import { useState } from "react"
+import { useEffect } from "react"
 
 function weatherRandom() {
   const weather = ["rainy", "cloudy", "normal"]
@@ -16,6 +17,8 @@ export function DestinationInformation() {
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
+  const dispatch = useDispatch()
+  
   let data
 
   const { type } = useParams()
@@ -40,6 +43,10 @@ export function DestinationInformation() {
       city: hotel.City.name,
     }
   }
+
+  useEffect(()=>{
+    // dispatch()
+  },[])
 
   return (
     <section className="min-h-screen bg-stone-100 md:ml-96 w-full mx-auto">
@@ -78,13 +85,13 @@ export function DestinationInformation() {
               <div>
                 <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
                 <div className="my-10">
-                  <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-                    <Carousel slideInterval={5000}>
+                  <div className="h-30 sm:h-64 xl:h-80 2xl:h-[1000px]">
+                    <Carousel slideInterval={5000} className="overflow-hidden">
                       {data.Images.map((el) => {
                         return (
                           <img
                             src={el.imgUrl}
-                            className="block w-full h-[540px] object-cover"
+                            className="block w-full xl:h-full object-cover"
                             alt="Destination"
                             key={el.id}
                           />
@@ -209,14 +216,15 @@ export function DestinationInformation() {
             )}
           </section>
         </div>
-        <div className="weather w-1/6 bg-black pt-10">
+        <div className="weather w-1/3 bg-amber-200 rounded-xl overflow-hidden pt-10 px-14 self-center">
           <div className="backdrop-blur-lg flex flex-col items-center w-full h-full">
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-3xl font-semibold text-black">{data.city}</h1>
+            <h1 className="text-lg font-light text-sky-600">
               {currentDate.toLocaleDateString("id-ID", options)}
             </h1>
-            <WiDayRain className="w-36 h-36 text-yelloku" />
-            <WiDayCloudyWindy className="w-36 h-36 text-yelloku" />
-            <WiDaySunny className="w-36 h-36 text-yelloku" />
+            <WiDayRain className="w-36 h-36 text-sky-600" />
+            {/* <WiDayCloudyWindy className="w-36 h-36 text-sky-600" />
+            <WiDaySunny className="w-36 h-36 text-sky-600" /> */}
           </div>
         </div>
       </section>
