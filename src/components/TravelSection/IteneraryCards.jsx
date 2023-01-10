@@ -88,7 +88,6 @@ export default function IteneraryCards({ type }) {
       ) : (
         <div className="grid grid-cols-2 gap-20 px-10">
           {data.map((el, index) => {
-            console.log(el)
             let total = el.hotel.price
             return (
               <div
@@ -131,7 +130,7 @@ export default function IteneraryCards({ type }) {
                   {el.destination.map((destination) => {
                     total += destination.cost
                     return (
-                      <div className="flex w-full gap-4 items-center bg-stone-100 p-3 mb-2 ">
+                      <div className="flex w-full gap-4 items-center bg-stone-100 p-3 mb-2 " key={destination.id}>
                         <div
                           onClick={() => nav(`/destination/${destination.slug}`)}
                           className="h-48 aspect-square p-2 shadow-md bg-white"
