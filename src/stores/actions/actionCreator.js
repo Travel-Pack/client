@@ -73,7 +73,7 @@ export function fetchDestination(slug) {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations/${slug}`,
+      url: `${baseUrl}/publics/destinations/${slug}`,
     })
       .then((res) => {
         dispatch({

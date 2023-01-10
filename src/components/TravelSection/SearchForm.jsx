@@ -22,6 +22,10 @@ export default function SearchForm() {
     setLoad(true);
     dispatch(fetcDestinations("", data))
       .then(_=>{
+        setData({
+          ...data,
+          filterCost: sliderVal
+        })
         setLoad(false);
       })
   }
