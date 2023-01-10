@@ -28,10 +28,8 @@ export function LoginPage() {
 
   function handleLogin(e) {
     e.preventDefault()
+    setLoading(true)
     dispatch(loginUser(loginData))
-      .then(() => {
-        setLoading(true)
-      })
       .then((_) => {
         localStorage.getItem("access_token") ? navigate("/") : ""
       })
