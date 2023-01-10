@@ -319,3 +319,32 @@ export function fetchHotel(slug) {
       })
   }
 }
+
+export async function getTransactionToken() {
+  const {data} = await axios({
+    method: "POST",
+    url: `${baseUrl}/midtrans`,
+    headers: {
+      access_token: localStorage.access_token,
+    },
+  })
+  return data.transactionToken;
+}
+
+export function activatePremium(){
+  return (dispatch, getState) => {
+    return axios({
+      method: "PATCH",
+      url: `${baseUrl}/users/activatePremium`,
+      headers: {
+        access_token: localStorage.access_token,
+      },
+    })
+      .then(_=> {
+        console.log("Successfully updated");
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}

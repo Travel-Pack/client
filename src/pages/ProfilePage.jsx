@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { registerUser } from "../stores/actions/actionCreator"
+import { activatePremium, getTransactionToken, registerUser } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
 import { useEffect } from "react"
@@ -43,6 +43,29 @@ export function ProfilePage() {
       })
       setLoad(false)
       navigate("/login")
+    })
+  }
+
+  const paymentHandler = async ()=>{
+    const token = await getTransactionToken();
+    window.snap.pay(token, {
+      onSuccess: function(result){
+        console.log("Succefully upgraded to premium");
+        setLoad(true);
+        dispatch(activatePremium())
+          .finally(_=>{
+            setLoad(false);
+          })
+      },
+      onPending: function(result){
+        console.log("Payment status pending");
+      },
+      onError: function(result){
+        console.log("Payment status error");
+      },
+      onClose: function(){
+        console.log("Payment window closed");
+      }
     })
   }
 
@@ -220,6 +243,7 @@ export function ProfilePage() {
                 </button>
               </div>
             </form>
+            <button id="pay-button" className="inline-block shrink-0 rounded-md mx-auto bg-yelloku px-12 py-3 font-medium  hover:bg-black hover:text-yelloku duration-200 mt-6" onClick={paymentHandler}>Upgrade to premium!</button>
           </div>
         </main>
       </div>
