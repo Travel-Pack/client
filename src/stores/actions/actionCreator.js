@@ -414,3 +414,26 @@ export function updateUser(updateData) {
       })
   }
 }
+
+export function saveTravelStep(travelStepData) {
+  return (dispatch, getState) => {
+    const { name, HotelId, DestinationIds } = travelStepData
+    return axios({
+      method: "POST",
+      url: `${baseUrl}/travel-steps`,
+      headers: {
+        access_token: localStorage.access_token,
+      },
+      data: { name, HotelId, DestinationIds },
+    })
+      .then((res) => {
+        console.log("Successfully saved travel step")
+        return "ok"
+      })
+      .catch((error) => {
+        //ganti ke swal
+        console.log(error)
+        return "error"
+      })
+  }
+}

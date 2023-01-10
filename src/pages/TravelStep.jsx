@@ -63,7 +63,6 @@ export default function TravelStep() {
     dispatch(fetchCity(citySlug)).then((_) => {
       setLoad(false)
       setShowDest(!showDest)
-      console.log(city)
     })
   }
 
