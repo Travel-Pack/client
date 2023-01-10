@@ -166,6 +166,7 @@ export function loginUser(loginData) {
       })
         .then((res) => {
           localStorage.setItem("access_token", res.data?.access_token)
+          localStorage.setItem("email", res.data?.email)
           notifySuccess("Succesfully signed in")
         })
         .catch((error) => {

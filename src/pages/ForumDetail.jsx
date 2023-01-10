@@ -45,7 +45,7 @@ export default function ForumDetail() {
       const messageData = {
         id,
         slug,
-        email: localStorage.email || "qomar@gmail.com",
+        email: localStorage.email,
         text: currentMessage,
       };
 
@@ -127,6 +127,8 @@ export default function ForumDetail() {
           })}
         </ScrollToBottom>
       </div>
+      {
+        localStorage.email ? 
       <div className="forum-footer mb-10 p-5">
         <input
           type="text"
@@ -138,6 +140,7 @@ export default function ForumDetail() {
         />
         <button onClick={sendMessage} className="p-2 border rounded bg-green-500">Send Message</button>
       </div>
+      : null }
     </div>
         </section>
         <section id="leftSide" className="hidden 2xl:block">
