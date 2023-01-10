@@ -209,6 +209,7 @@ export function fetcDestinations(params, data) {
       addedFilter = true;
     }
     if(data){
+      data.filterCost = data.filterCost * 1000;
       if(addedFilter){
         url += "&";
         addedFilter = false;
@@ -226,7 +227,7 @@ export function fetcDestinations(params, data) {
           addedFilter = true;
         }
       }
-    }console.log(url);
+    }
     return axios({
       method: "GET",
       url,

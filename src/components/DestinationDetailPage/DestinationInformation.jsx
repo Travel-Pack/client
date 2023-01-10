@@ -170,9 +170,7 @@ export function DestinationInformation() {
                                 </div>
                               </div>
                               <p className="relative mt-4 text-gray-500">
-                                <span className="text-xl">“</span>
                                 {el.comment}
-                                <span className="text-xl">”</span>
                               </p>
                             </blockquote>
                           </div>
