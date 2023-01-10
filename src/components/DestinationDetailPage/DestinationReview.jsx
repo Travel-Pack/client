@@ -78,7 +78,7 @@ export function DestinationReview() {
     return <Loader />
   }
   return (
-    <section className="min-h-screen bg-stone-100 w-full md:ml-96 mx-auto">
+    <section className="min-h-screen bg-stone-100 w-full mx-auto">
       <div className="mt-20 pt-5 md:px-32">
         <h1 className="font-bold font-caveat text-6xl">
           {data.name}, {"City Name"}

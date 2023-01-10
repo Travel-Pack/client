@@ -198,7 +198,7 @@ export function postReview(review) {
       data: { cost, fun, internet, safety, comment, DestinationId, HotelId },
     })
       .then((res) => {
-        console.log("Successfully add review")
+        notifySuccess("Successfully add review")
         return "ok"
       })
       .catch((error) => {
@@ -439,7 +439,7 @@ export function saveTravelStep(travelStepData) {
       data: { name, HotelId, DestinationIds },
     })
       .then((res) => {
-        console.log("Successfully saved travel step")
+        notifySuccess("Successfully saved travel step")
         return "ok"
       })
       .catch((error) => {
@@ -511,25 +511,25 @@ export function insertMessage(message) {
   }
 }
 
-export function fetchWeatherData(geocoding) {
-  return async (dispatch, getState) => {
-    try {
-      const latLong = geocoding?.split(", ")
-      const { data } = await axios.get(
-        `https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`,
-        {
-          headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
-        }
-      )
-      dispatch({
-        type: FETCH_WEATHER_DATA,
-        payload: data,
-      })
-    } catch (error) {
-      notifyError(error)
-    }
-  }
-}
+// export function fetchWeatherData(geocoding) {
+  // return async (dispatch, getState) => {
+  //   try {
+  //     const latLong = geocoding?.split(", ")
+  //     const { data } = await axios.get(
+  //       `https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`,
+  //       {
+  //         headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
+  //       }
+  //     )
+  //     dispatch({
+  //       type: FETCH_WEATHER_DATA,
+  //       payload: data,
+  //     })
+  //   } catch (error) {
+  //     notifyError(error)
+  //   }
+  // }
+// }
 
 // export function fetchWeatherData(geocoding) {
 //   return (dispatch, getState) => {

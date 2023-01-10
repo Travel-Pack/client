@@ -18,7 +18,7 @@ export default function TravelItenerary() {
         </section>
         <section id="cards" className="mx-auto">
           <IteneraryCards />
-          {!needPremium ? (
+          {needPremium ? (
             <section>
               <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
