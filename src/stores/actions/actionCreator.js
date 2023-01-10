@@ -373,38 +373,43 @@ export function fetchUserData(){
 
 export function updateUser(updateData) {
   return (dispatch, getState) => {
-    try {
-      const { fullName, phoneNumber, email, password, passwordConfirmation } = updateData;
-      let data = { fullName, phoneNumber, email, password, passwordConfirmation };
-      if(password){
-        if (password !== passwordConfirmation) {
-          throw { msg: "Password not match" }
-        }
-        data.password = password;
+    const { fullName, phoneNumber, email, password, passwordConfirmation } = updateData;
+    let data = { fullName, phoneNumber, email, password, passwordConfirmation };
+    if(password){
+      if (password !== passwordConfirmation) {
+        throw { msg: "Password not match" }
       }
-      return axios({
-        method: "PUT",
-        url: `${baseUrl}/users`,
-        data,
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then((res) => {
-          //ganti ke swal
-          notifySuccess("Successfully updated profile!")
-          return "ok"
-        })
-        .catch((error) => {
-          //ganti ke swal
-          if (error.message === "Network Error") {
-            return notifyError(error.message)
-          }
-          notifyError(error.response.data?.msg)
-          return "error"
-        })
-    } catch (error) {
-      notifyError(error.msg)
+      data.password = password;
     }
+    return axios({
+      method: "PUT",
+      url: `${baseUrl}/users`,
+      data,
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
+      .then(async (res) => {
+        //ganti ke swal
+        notifySuccess("Successfully updated profile!")
+        const {data} = await axios({
+          method: "POST",
+          url: `${baseUrl}/login`,
+          data: {
+            email,
+            password
+          }
+        })
+        localStorage.setItem("access_token", data.access_token);
+        return "ok"
+      })
+      .catch((error) => {console.log(error);
+        //ganti ke swal
+        if (error.message === "Network Error") {
+          return notifyError(error.message)
+        }
+        notifyError(error.response.data.msg)
+        return "error"
+      })
   }
 }
