@@ -270,7 +270,8 @@ export function generateTravelStep(inputData) {
         return "ok"
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error.response.data?.msg)
+
         return "error"
       })
   }

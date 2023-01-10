@@ -1,8 +1,10 @@
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react"
 import React, { useState, useEffect } from "react"
+import { GoChevronUp } from "react-icons/go"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader"
+import { FaAngleLeft } from "react-icons/fa"
 import {
   fetchCities,
   fetchCity,
@@ -12,7 +14,6 @@ import {
 export default function TravelStep() {
   const [citySelected, setCitySelected] = useState("")
   const [load, setLoad] = useState(true)
-  const [showModal, setShowModal] = useState(false)
   const dispatch = useDispatch()
   const cities = useSelector((state) => state.cities.cities)
   const city = useSelector((state) => state.cities.city)
@@ -83,7 +84,7 @@ export default function TravelStep() {
     return <Loader />
   }
   return (
-    <div className="">
+    <div className="md:overflow-hidden">
       <div className="flex flex-col xl:flex-row ease-in-out md:h-screen">
         <div
           className={`duration-100 ease-in-out min-h-screen md:h-auto relative ${
@@ -196,16 +197,27 @@ export default function TravelStep() {
             topText ? "block md:w-3/4 w-full" : "hidden w-0"
           }`}>
           <div
-            className={`${showDest ? "w-0 hidden" : "w-full block overflow-y-auto"}`}
+            className={`md:h-screen ${
+              showDest ? "w-0 hidden" : "w-full block overflow-y-auto"
+            }`}
             id="scrollStyle">
-            <div className="flex flex-wrap gap-2 justify-center mt-20">
+            <div className="flex flex-wrap gap-2 justify-center mt-20 pb-10">
               {cities.map((el) => {
                 return (
                   <div
-                    className="max-w-xs aspect-square"
+                    className="max-w-xs aspect-square relative group"
                     onClick={() => displayDest(el.name, el.id, el.slug)}
                     key={el.id}>
-                    <img src={el.image} alt={el.name} className="w-full h-full" />
+                    <img
+                      src={el.image}
+                      alt={el.name}
+                      className="w-full h-full brightness-90 group-hover:brightness-100 duration-100"
+                    />
+                    <div className="absolute inset-0 flex flex-col justify-end items-center">
+                      <h1 className="text-yelloku bg-black w-full text-center">
+                        {el.name}
+                      </h1>
+                    </div>
                   </div>
                 )
               })}
@@ -213,87 +225,65 @@ export default function TravelStep() {
           </div>
           {showDest ? (
             <form onSubmit={(e) => handleSubmit(e)}>
-              <div className="w-full block mt-20 overflow-y-auto" id="scrollStyle">
-                <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
-                  {city.destination.map((el) => {
-                    let classDestinationCard = "max-w-xs aspect-square "
-                    if (
-                      travelStepData.DestinationIds.findIndex(
-                        (destinationId) => destinationId === el.id
-                      ) !== -1
-                    ) {
-                      classDestinationCard += "border border-8 border-yelloku"
-                    }
-                    return (
-                      <div
-                        className={classDestinationCard}
-                        onClick={() => {
-                          selectDest(el.id)
-                        }}
-                        key={el.id}>
-                        <img src={el.mainImg} alt="" className="w-full h-full" />
-                      </div>
-                    )
-                  })}
+              <div className="mt-20 pb-5 h-screen overflow-y-auto">
+                <button
+                  type="submit"
+                  className="w-full text-lg font-medium underline text-black bg-yelloku py-3 mb-2 mx-auto block">
+                  Generate
+                </button>
+                <div className="block w-full pb-24" id="scrollStyle">
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {city.destination.map((el) => {
+                      let classDestinationCard = ""
+                      if (
+                        travelStepData.DestinationIds.findIndex(
+                          (destinationId) => destinationId === el.id
+                        ) !== -1
+                      ) {
+                        classDestinationCard += "border border-8 border-yelloku"
+                      }
+                      return (
+                        <div
+                          className={`w-72 aspect-square ${classDestinationCard} relative group`}
+                          onClick={() => {
+                            selectDest(el.id)
+                          }}
+                          key={el.id}>
+                          <img
+                            src={el.mainImg}
+                            alt=""
+                            className="w-full h-full brightness-75 group-hover:brightness-100 duration-100"
+                          />
+                          <div className="absolute inset-0 flex flex-col justify-end items-center">
+                            <h1 className="text-yelloku bg-black w-full text-center">
+                              {el.name}
+                            </h1>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
-              <button
-                onClick={() => setShowModal(!showModal)}
-                className="w-full text-lg font-medium underline text-black bg-yelloku py-3 mt-2 mx-auto block">
-                Generate
-              </button>
             </form>
           ) : (
             ""
           )}
         </div>
       </div>
-      <React.Fragment>
-        <Modal show={showModal} size="md" popup={true} onClose={() => showModal}>
-          <Modal.Header />
-          <Modal.Body>
-            <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                Sign in to our platform
-              </h3>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="email" value="Your email" />
-                </div>
-                <TextInput id="email" placeholder="name@company.com" required={true} />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="password" value="Your password" />
-                </div>
-                <TextInput id="password" type="password" required={true} />
-              </div>
-              <div className="flex justify-between">
-                <div className="flex items-center gap-2">
-                  <Checkbox id="remember" />
-                  <Label htmlFor="remember">Remember me</Label>
-                </div>
-                <a
-                  href="/modal"
-                  className="text-sm text-blue-700 hover:underline dark:text-blue-500">
-                  Lost Password?
-                </a>
-              </div>
-              <div className="w-full">
-                <Button>Log in to your account</Button>
-              </div>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                Not registered?{" "}
-                <a
-                  href="/modal"
-                  className="text-blue-700 hover:underline dark:text-blue-500">
-                  Create account
-                </a>
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
-      </React.Fragment>
+      {showDest ? (
+        <span
+          className={`fixed bottom-2 right-2 bg-black z-50 duration-200 cursor-pointer 
+        }`}>
+          <button
+            onClick={() => setShowDest(false)}
+            className=" text-yelloku flex items-center gap-2 px-2">
+            <FaAngleLeft className="w-5 h-5" /> Back
+          </button>
+        </span>
+      ) : (
+        ""
+      )}
     </div>
   )
 }
