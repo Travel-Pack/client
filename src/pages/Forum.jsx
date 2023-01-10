@@ -1,37 +1,29 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
-
-const serverUrl = "http://localhost:3000/"
-// const socket = io.connect(serverUrl);
+import { fetchForumId, fetchTopics } from "../stores/actions/actionCreator"
 
 export default function Forum() {
   const nav = useNavigate()
+  const dispatch = useDispatch()
+  const {topics} = useSelector((state) => state.forums)
   function navigateToDetail() {
     nav(`/forum/${1}`)
   }
 
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
   //Batas awal edit
-  const [availableTopics, setAvailableTopics] = useState([])
-  const navToSection = (slug) => {
+  const navToSection = (slug, id) => {
+    dispatch(fetchForumId(id))
     nav(`/forum/${slug}`)
   }
-  const fetchMessages = async () => {
-    try {
-      let { data } = await axios.get(serverUrl + 'publics/topic')
-      console.log(data);
-      setAvailableTopics(data)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
   useEffect(() => {
-    fetchMessages()
+    dispatch(fetchTopics())
   }, [])
   // Batas akhir Edit
-  if (availableTopics) return (
+  if (topics) return (
     <div className="flex-col flex gap-5 xl:mt-20">
       <ScrollToTopBtn />
       <section id="forumHero" className="bg-yelloku py-10">
@@ -54,12 +46,12 @@ export default function Forum() {
 
       {/* Qomar Mulai Edit */}
       <div className="mx-auto flex flex-col gap-5 w-fit">
-        {availableTopics.map((el) => {
+        {topics.map((el) => {
           return (
             <div
               className="flex items-center bg-white shadow-md py-5 px-4 justify-between"
               key={el.id}
-              onClick={() => navToSection(el.slug)}>
+              onClick={() => navToSection(el.slug, el.id)}>
               <div className="w-fit px-3">
                 <div className="rounded-full w-6 h-6">
                   <img
@@ -73,7 +65,6 @@ export default function Forum() {
                 <h1 className="text-lg font-medium">
                   {el.title}
                 </h1>
-                <h1>👌❤️💕👍🤩</h1>
                 <p className="font-light">
                   Author: {el.User.fullName}
                 </p>

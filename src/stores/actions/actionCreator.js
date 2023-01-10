@@ -12,6 +12,11 @@ import {
   FETCH_TRAVELSTEPS,
   FETCH_USER,
   GENERATES_TRAVELSTEPS,
+  FETCH_TOPICS,
+  FETCH_MESSAGES,
+  FETCH_FORUM_ID,
+  FETCH_NEW_MESSAGE,
+  FETCH_TOPIC_BY_ID
 } from "./actionType"
 const baseUrl = "http://localhost:3000"
 
@@ -441,5 +446,66 @@ export function saveTravelStep(travelStepData) {
         console.log(error)
         return "error"
       })
+  }
+}
+
+export function fetchTopics() {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/publics/topic`,
+    })
+      .then((res) => {
+        dispatch({
+          type: FETCH_TOPICS,
+          payload: res.data,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+export function fetchForumId(id) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: FETCH_FORUM_ID,
+      payload: id,
+    })
+  }
+}
+
+export function fetchMessages(id) {
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/publics/topic/${id}`,
+    })
+      .then((res) => {
+        dispatch({
+          type: FETCH_TOPIC_BY_ID,
+          payload: res.data,
+        })
+        return res
+      })
+      .then((res) => {
+        dispatch({
+          type: FETCH_MESSAGES,
+          payload: res.data.Messages,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+export function insertMessage(message) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: FETCH_NEW_MESSAGE,
+      payload: message,
+    })
   }
 }
