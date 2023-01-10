@@ -41,7 +41,6 @@ export function DestinationInformation() {
     }
   }
 
-  console.log(data.geocoding.split(", "))
   return (
     <section className="min-h-screen bg-stone-100 md:ml-96 w-full mx-auto">
       <section className="flex gap-10 detail-inside mt-20 pt-5 md:px-32">
@@ -171,7 +170,7 @@ export function DestinationInformation() {
                                   className="h-16 w-16 rounded-full object-cover"
                                 />
                                 <div className="ml-4 text-sm">
-                                  <p className="font-medium">{el.user}</p>
+                                  <p className="font-medium">{type === "destination"? el.user : el.User.fullName}</p>
                                 </div>
                               </div>
                               <p className="relative mt-4 text-gray-500">{el.comment}</p>

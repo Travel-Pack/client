@@ -73,7 +73,7 @@ export function DestinationReview() {
   useEffect(()=>{
     let average = (data.avg_cost + data.avg_fun + data.avg_internet + data.avg_safety) / 4;
     setScore(average);
-  }, [])
+  }, [data])
   if (load) {
     return <Loader />
   }
