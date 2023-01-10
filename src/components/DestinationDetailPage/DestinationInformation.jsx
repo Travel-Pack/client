@@ -6,6 +6,7 @@ import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
 import { useCallback, useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
+import Skeleton from "../Skeleton"
 // import { fetchWeatherData } from "../../stores/actions/actionCreator"
 
 export function DestinationInformation() {
@@ -74,7 +75,7 @@ export function DestinationInformation() {
   }, [weatherData])
 
   return (
-    <section className="min-h-screen bg-stone-100 mx-auto w-screen">
+    <section className="min-h-screen bg-stone-50 mx-auto w-screen">
       <section className="gap-10 flex flex-col-reverse md:flex-row detail-inside mt-20 py-5 md:px-32">
         <div className="left-side w-11/12">
           <h1 className="font-bold font-caveat text-6xl">
@@ -196,24 +197,32 @@ export function DestinationInformation() {
           </div>
           <div className="my-10 bg-white p-3">
             <h1 className="text-xl mb-7">Reviews</h1>
-            {data.Reviews?.map((el, index) => {
-              const formatDate = new Date(el.createdAt).toLocaleDateString("id-ID", {
-                month: "long",
-                day: "2-digit",
-                year: "numeric",
-              })
-              return (
-                <div className="w-full h-full" key={index}>
-                  <div className="flex items-center justify-between mb-1">
-                    <h1 className="font-semibold text-xl">
-                      {type === "destination" ? el.user : el.User.fullName}
-                    </h1>
-                    <h1 className=" text-gray-400">{formatDate}</h1>
-                  </div>
-                  <h1 className="font-light text-lg mb-5">{el.comment}</h1>
-                </div>
-              )
-            })}
+            {data.Reviews.length ? (
+              <>
+                {data.Reviews?.map((el, index) => {
+                  const formatDate = new Date(el.createdAt).toLocaleDateString("id-ID", {
+                    month: "long",
+                    day: "2-digit",
+                    year: "numeric",
+                  })
+                  return (
+                    <div className="w-full h-full" key={index}>
+                      <div className="flex items-center justify-between mb-1">
+                        <h1 className="font-semibold text-xl">
+                          {type === "destination" ? el.user : el.User.fullName}
+                        </h1>
+                        <h1 className=" text-gray-400">{formatDate}</h1>
+                      </div>
+                      <h1 className="font-light text-lg mb-5">{el.comment}</h1>
+                    </div>
+                  )
+                })}
+              </>
+            ) : (
+              <>
+                <h1 className="text-center text-xl">No review from user yet</h1>
+              </>
+            )}
           </div>
         </div>
       </section>

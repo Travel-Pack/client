@@ -222,10 +222,10 @@ export default function TravelStep() {
                     <img
                       src={el.image}
                       alt={el.name}
-                      className="w-full h-full brightness-90 group-hover:brightness-100 duration-100"
+                      className="w-full h-full brightness-75 contrast-75 group-hover:brightness-100 duration-100"
                     />
-                    <div className="absolute inset-0 flex flex-col justify-end items-center">
-                      <h1 className="text-yelloku bg-black w-full text-center">
+                    <div className="absolute inset-0 flex flex-col justify-center items-center">
+                      <h1 className="text-white w-full text-2xl font-bold text-center px-2 capitalize">
                         {el.name}
                       </h1>
                     </div>
