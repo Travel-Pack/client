@@ -1,9 +1,15 @@
-import { FETCH_NEED_PREMIUM, FETCH_REVIEWS, FETCH_USER } from "../actions/actionType"
+import {
+  FETCH_NEED_PREMIUM,
+  FETCH_REVIEWS,
+  FETCH_USER,
+  FETCH_WEATHER_DATA,
+} from "../actions/actionType"
 
 const initiateState = {
   reviews: [],
   user: {},
-  needPremium: false
+  needPremium: false,
+  weatherData: {},
 }
 
 export default function othersReducer(state = initiateState, action) {
@@ -14,6 +20,8 @@ export default function othersReducer(state = initiateState, action) {
       return { ...state, user: action.payload }
     case FETCH_NEED_PREMIUM:
       return { ...state, needPremium: action.payload }
+    case FETCH_WEATHER_DATA:
+      return { ...state, weatherData: action.payload }
     default:
       return state
   }

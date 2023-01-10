@@ -17,9 +17,10 @@ import {
   FETCH_FORUM_ID,
   FETCH_NEW_MESSAGE,
   FETCH_TOPIC_BY_ID,
-  FETCH_NEED_PREMIUM
+  FETCH_NEED_PREMIUM,
+  FETCH_WEATHER_DATA,
 } from "./actionType"
-const baseUrl = "http://localhost:3000"
+export const baseUrl = "http://localhost:3000"
 
 export function fetchCities() {
   return (dispatch, getState) => {
@@ -34,7 +35,7 @@ export function fetchCities() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -52,7 +53,7 @@ export function fetchCity(slug) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -70,7 +71,7 @@ export function fetchHighlightedDestination() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -88,7 +89,7 @@ export function fetchDestination(slug) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -109,7 +110,7 @@ export function fetchTravelSteps() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -187,8 +188,7 @@ export function loginUser(loginData) {
 
 export function postReview(review) {
   return (dispatch, getState) => {
-    const { cost, fun, internet, safety, comment, DestinationId, HotelId } =
-      review
+    const { cost, fun, internet, safety, comment, DestinationId, HotelId } = review
     return axios({
       method: "POST",
       url: `${baseUrl}/reviews`,
@@ -198,12 +198,12 @@ export function postReview(review) {
       data: { cost, fun, internet, safety, comment, DestinationId, HotelId },
     })
       .then((res) => {
-        console.log("Successfully add review")
+        notifySuccess("Successfully add review")
         return "ok"
       })
       .catch((error) => {
         //ganti ke swal
-        console.log(error)
+        notifyError(error)
         return "error"
       })
   }
@@ -211,29 +211,28 @@ export function postReview(review) {
 
 export function fetcDestinations(params, data) {
   return (dispatch, getState) => {
-    let url = `${baseUrl}/publics/destinations`;
-    let addedFilter = false;
-    if(params){
-      url += `?orderBy=${params}`;
-      addedFilter = true;
+    let url = `${baseUrl}/publics/destinations`
+    let addedFilter = false
+    if (params) {
+      url += `?orderBy=${params}`
+      addedFilter = true
     }
-    if(data){
-      data.filterCost = data.filterCost * 1000;
-      if(addedFilter){
-        url += "&";
-        addedFilter = false;
+    if (data) {
+      data.filterCost = data.filterCost * 1000
+      if (addedFilter) {
+        url += "&"
+        addedFilter = false
+      } else {
+        url += "?"
       }
-      else{
-        url += "?";
-      }
-      for(let key in data){
-        if(data[key]){
-          if(addedFilter){
-            url += "&";
-            addedFilter = false;
+      for (let key in data) {
+        if (data[key]) {
+          if (addedFilter) {
+            url += "&"
+            addedFilter = false
           }
-          url += `${key}=${data[key]}`;
-          addedFilter = true;
+          url += `${key}=${data[key]}`
+          addedFilter = true
         }
       }
     }
@@ -248,20 +247,15 @@ export function fetcDestinations(params, data) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
 
 export function generateTravelStep(inputData) {
   return (dispatch, getState) => {
-    const {
-      budget,
-      numberOfDestination,
-      allocationDestination,
-      CityId,
-      DestinationIds,
-    } = inputData
+    const { budget, numberOfDestination, allocationDestination, CityId, DestinationIds } =
+      inputData
     const budgetDestination = (budget * allocationDestination) / 100
     const budgetHotel = budget - budgetDestination
     return axios({
@@ -283,7 +277,7 @@ export function generateTravelStep(inputData) {
         })
         dispatch({
           type: FETCH_NEED_PREMIUM,
-          payload: res.data.needPremium
+          payload: res.data.needPremium,
         })
         return "ok"
       })
@@ -312,7 +306,7 @@ export function fetchReviews() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -334,23 +328,23 @@ export function fetchHotel(slug) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
 
 export async function getTransactionToken() {
-  const {data} = await axios({
+  const { data } = await axios({
     method: "POST",
     url: `${baseUrl}/midtrans`,
     headers: {
       access_token: localStorage.access_token,
     },
   })
-  return data.transactionToken;
+  return data.transactionToken
 }
 
-export function activatePremium(){
+export function activatePremium() {
   return (dispatch, getState) => {
     return axios({
       method: "PATCH",
@@ -359,16 +353,16 @@ export function activatePremium(){
         access_token: localStorage.access_token,
       },
     })
-      .then(_=> {
-        console.log("Successfully updated");
+      .then((_) => {
+        console.log("Successfully updated")
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
 
-export function fetchUserData(){
+export function fetchUserData() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
@@ -377,51 +371,52 @@ export function fetchUserData(){
         access_token: localStorage.access_token,
       },
     })
-      .then(res=> {
+      .then((res) => {
         dispatch({
           type: FETCH_USER,
-          payload: res.data.userById
+          payload: res.data.userById,
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
 
 export function updateUser(updateData) {
   return (dispatch, getState) => {
-    const { fullName, phoneNumber, email, password, passwordConfirmation } = updateData;
-    let data = { fullName, phoneNumber, email, password, passwordConfirmation };
-    if(password){
+    const { fullName, phoneNumber, email, password, passwordConfirmation } = updateData
+    let data = { fullName, phoneNumber, email, password, passwordConfirmation }
+    if (password) {
       if (password !== passwordConfirmation) {
         throw { msg: "Password not match" }
       }
-      data.password = password;
+      data.password = password
     }
     return axios({
       method: "PUT",
       url: `${baseUrl}/users`,
       data,
       headers: {
-        access_token: localStorage.access_token
-      }
+        access_token: localStorage.access_token,
+      },
     })
       .then(async (res) => {
         //ganti ke swal
         notifySuccess("Successfully updated profile!")
-        const {data} = await axios({
+        const { data } = await axios({
           method: "POST",
           url: `${baseUrl}/login`,
           data: {
             email,
-            password
-          }
+            password,
+          },
         })
-        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("access_token", data.access_token)
         return "ok"
       })
-      .catch((error) => {console.log(error);
+      .catch((error) => {
+        notifyError(error)
         //ganti ke swal
         if (error.message === "Network Error") {
           return notifyError(error.message)
@@ -444,12 +439,12 @@ export function saveTravelStep(travelStepData) {
       data: { name, HotelId, DestinationIds },
     })
       .then((res) => {
-        console.log("Successfully saved travel step")
+        notifySuccess("Successfully saved travel step")
         return "ok"
       })
       .catch((error) => {
         //ganti ke swal
-        console.log(error)
+        notifyError(error)
         return "error"
       })
   }
@@ -468,7 +463,7 @@ export function fetchTopics() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -502,7 +497,7 @@ export function fetchMessages(id) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -515,3 +510,42 @@ export function insertMessage(message) {
     })
   }
 }
+
+// export function fetchWeatherData(geocoding) {
+  // return async (dispatch, getState) => {
+  //   try {
+  //     const latLong = geocoding?.split(", ")
+  //     const { data } = await axios.get(
+  //       `https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`,
+  //       {
+  //         headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
+  //       }
+  //     )
+  //     dispatch({
+  //       type: FETCH_WEATHER_DATA,
+  //       payload: data,
+  //     })
+  //   } catch (error) {
+  //     notifyError(error)
+  //   }
+  // }
+// }
+
+// export function fetchWeatherData(geocoding) {
+//   return (dispatch, getState) => {
+//     const latLong = geocoding?.split(", ")
+//     return axios
+//       .get(`https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`, {
+//         headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
+//       })
+//       .then((res) => {
+//         dispatch({
+//           type: FETCH_WEATHER_DATA,
+//           payload: res.data,
+//         })
+//       })
+//       .catch((error) => {
+//         notifyError(error.response.data?.msg)
+//       })
+//   }
+// }

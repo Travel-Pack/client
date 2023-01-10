@@ -29,8 +29,8 @@ export default function Cards({ type, cities, destinations }) {
                   src={el.image}
                   alt={el.name}
                 />
-                <div className="absolute inset-0 flex w-full h-full items-start justify-end">
-                  <h1 className="text-white bg-black bg-opacity-70 text-3xl text-left w-full block pl-5 py-2">
+                <div className="absolute inset-0 flex w-full h-full backdrop-brightness-75 backdrop-contrast-75 items-center justify-center">
+                  <h1 className="text-white font-bold text-4xl text-center w-full block pl-5 py-2">
                     {el.name}
                   </h1>
                 </div>
@@ -60,7 +60,7 @@ export default function Cards({ type, cities, destinations }) {
                 key={el.id}
                 className="duration-300 ease-out cursor-pointer h-full group-hover:scale-105  ">
                 <img
-                  className="object-cover h-full w-full brightness-105 contrast-125 group-hover:scale-105 duration-700"
+                  className="object-cover h-full w-full contrast-125 group-hover:scale-105 duration-700"
                   src={el.mainImg}
                   alt={el.name}
                 />

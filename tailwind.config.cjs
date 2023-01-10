@@ -10,6 +10,9 @@ module.exports = {
       colors: {
         yelloku: "#ffe500",
       },
+      animation:{
+        pulseslow : "pulse 3s ease-in-out infinite;"
+      }
       
     },
   },

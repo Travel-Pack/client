@@ -3,22 +3,24 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useEffect } from "react"
-
-function weatherRandom() {
-  const weather = ["rainy", "cloudy", "normal"]
-  return weather[Math.floor(Math.random() * weather.length)]
-}
+import axios from "axios"
+import Skeleton from "../Skeleton"
+// import { fetchWeatherData } from "../../stores/actions/actionCreator"
 
 export function DestinationInformation() {
   const currentDate = new Date()
-
+  const [weatherData, setWeatherData] = useState({})
+  const [dayStatus, setDayStatus] = useState("")
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
+  const weatherLatLong = useSelector((state) => state.others.weatherData)
   const dispatch = useDispatch()
-  
+
+  const destGeocoding = destination.destination.geocoding
+
   let data
 
   const { type } = useParams()
@@ -44,19 +46,43 @@ export function DestinationInformation() {
     }
   }
 
-  useEffect(()=>{
-    // dispatch()
-  },[])
+  async function fetchWeather(geocoding) {
+    try {
+      const latLong = geocoding?.split(", ")
+      const { data } = await axios.get(
+        `https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`,
+        {
+          headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
+        }
+      )
+      setWeatherData(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    fetchWeather(destGeocoding)
+
+    //  dispatch(fetchWeatherData(destGeocoding))
+  }, [destGeocoding, dayStatus])
+
+  useEffect(() => {
+    if (weatherData.temp < 22) {
+      setDayStatus("rainy")
+    } else if (weatherData.temp > 22) {
+      setDayStatus("sunny")
+    }
+  }, [weatherData])
 
   return (
-    <section className="min-h-screen bg-stone-100 md:ml-96 w-full mx-auto">
-      <section className="flex gap-10 detail-inside mt-20 pt-5 md:px-32">
-        <div className="w-full">
+    <section className="min-h-screen bg-stone-50 mx-auto w-screen">
+      <section className="gap-10 flex flex-col-reverse md:flex-row detail-inside mt-20 py-5 md:px-32">
+        <div className="left-side w-11/12">
           <h1 className="font-bold font-caveat text-6xl">
             {/* edit */}
             {data.name}, {data.city}
           </h1>
-          <p className="text-justify mt-8">
+          <p className="text-justify text-xl mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit
             pharetra, pulvinar lacus non, rutrum magna. Vestibulum quis elit lacinia,
             dignissim elit iaculis, efficitur massa. Ut aliquam purus sed tincidunt
@@ -85,7 +111,7 @@ export function DestinationInformation() {
               <div>
                 <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
                 <div className="my-10">
-                  <div className="h-30 sm:h-64 xl:h-80 2xl:h-[1000px]">
+                  <div className="h-30 sm:h-64 xl:h-64 2xl:h-[500px]">
                     <Carousel slideInterval={5000} className="overflow-hidden">
                       {data.Images.map((el) => {
                         return (
@@ -128,103 +154,75 @@ export function DestinationInformation() {
           ) : (
             <></>
           )}
-          {/*Highlights*/}
-          <section className="highlight">
-            {data.Reviews.length ? (
-              <>
-                <h1 className="font-bold font-caveat mt-10 text-6xl">Highlights</h1>
-                <div className="my-10">
-                  <div
-                    id="carouselHighlights"
-                    className="carousel slide relative"
-                    data-bs-ride="carousel">
-                    <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                      <button
-                        type="button"
-                        data-bs-target="#carouselHighlights"
-                        data-bs-slide-to={0}
-                        className="active"
-                        aria-current="true"
-                        aria-label="Slide 1"
-                      />
-                      <button
-                        type="button"
-                        data-bs-target="#carouselHighlights"
-                        data-bs-slide-to={1}
-                        aria-label="Slide 2"
-                      />
-                      <button
-                        type="button"
-                        data-bs-target="#carouselHighlights"
-                        data-bs-slide-to={2}
-                        aria-label="Slide 3"
-                      />
-                    </div>
-                    <div className="carousel-inner relative w-full overflow-hidden">
-                      {data.Reviews.map((el, index) => {
-                        let classCarouselItem =
-                          "carousel-item relative float-left w-full "
-                        if (index === 0) {
-                          classCarouselItem += "active"
-                        }
-                        return (
-                          <div className={classCarouselItem} key={index}>
-                            <blockquote className="bg-gray-100 px-20 py-8">
-                              <div className="flex items-center">
-                                <img
-                                  alt="User"
-                                  src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                                  className="h-16 w-16 rounded-full object-cover"
-                                />
-                                <div className="ml-4 text-sm">
-                                  <p className="font-medium">{type === "destination"? el.user : el.User.fullName}</p>
-                                </div>
-                              </div>
-                              <p className="relative mt-4 text-gray-500">{el.comment}</p>
-                            </blockquote>
-                          </div>
-                        )
-                      })}
-                    </div>
-                    <button
-                      className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0 -ml-6"
-                      type="button"
-                      data-bs-target="#carouselHighlights"
-                      data-bs-slide="prev">
-                      <span
-                        className="carousel-control-prev-icon inline-block bg-black"
-                        aria-hidden="true"
-                      />
-                      <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button
-                      className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0 -mr-6"
-                      type="button"
-                      data-bs-target="#carouselHighlights"
-                      data-bs-slide="next">
-                      <span
-                        className="carousel-control-next-icon inline-block bg-black"
-                        aria-hidden="true"
-                      />
-                      <span className="visually-hidden">Next</span>
-                    </button>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </section>
         </div>
-        <div className="weather w-1/3 bg-amber-200 rounded-xl overflow-hidden pt-10 px-14 self-center">
-          <div className="backdrop-blur-lg flex flex-col items-center w-full h-full">
+
+        <div className="right-side md:w-1/3 bg-slate-200 rounded-xl py-10 h-fit">
+          <div className=" flex flex-col items-center">
             <h1 className="text-3xl font-semibold text-black">{data.city}</h1>
             <h1 className="text-lg font-light text-sky-600">
               {currentDate.toLocaleDateString("id-ID", options)}
             </h1>
-            <WiDayRain className="w-36 h-36 text-sky-600" />
-            {/* <WiDayCloudyWindy className="w-36 h-36 text-sky-600" />
-            <WiDaySunny className="w-36 h-36 text-sky-600" /> */}
+            <div className="flex flex-col items-center justify-center">
+              {dayStatus === "rainy" ? (
+                <>
+                  <WiDayRain className="w-36 h-36 text-sky-600" />
+                  <h1 className="text-xl text-center">
+                    Today Will be rainy! dont forget coat for travel!
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
+              {dayStatus === "sunny" ? (
+                <>
+                  <WiDaySunny className="w-36 h-36 text-sky-600" />
+                  <h1 className="text-xl text-center">
+                    Today Will be sunny! Enjoy the trip
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
+              {dayStatus === "windy" ? (
+                <>
+                  <WiDaySunny className="w-36 h-36 text-sky-600" />
+                  <h1 className="text-xl text-center">
+                    Today Will be windy! Prepare urself for the wind!
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+          <div className="my-10 bg-white p-3">
+            <h1 className="text-xl mb-7">Reviews</h1>
+            {data.Reviews.length ? (
+              <>
+                {data.Reviews?.map((el, index) => {
+                  const formatDate = new Date(el.createdAt).toLocaleDateString("id-ID", {
+                    month: "long",
+                    day: "2-digit",
+                    year: "numeric",
+                  })
+                  return (
+                    <div className="w-full h-full" key={index}>
+                      <div className="flex items-center justify-between mb-1">
+                        <h1 className="font-semibold text-xl">
+                          {type === "destination" ? el.user : el.User.fullName}
+                        </h1>
+                        <h1 className=" text-gray-400">{formatDate}</h1>
+                      </div>
+                      <h1 className="font-light text-lg mb-5">{el.comment}</h1>
+                    </div>
+                  )
+                })}
+              </>
+            ) : (
+              <>
+                <h1 className="text-center text-xl">No review from user yet</h1>
+              </>
+            )}
           </div>
         </div>
       </section>

@@ -4,12 +4,13 @@ import { GoChevronUp } from "react-icons/go"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader"
-import { FaAngleLeft } from "react-icons/fa"
+import { FaAngleDoubleLeft } from "react-icons/fa"
 import {
   fetchCities,
   fetchCity,
   generateTravelStep,
 } from "../stores/actions/actionCreator"
+import { yellowButton } from "../helpers/buttonStyle"
 
 export default function TravelStep() {
   const [citySelected, setCitySelected] = useState("")
@@ -181,14 +182,14 @@ export default function TravelStep() {
 
               {topText ? (
                 <div>
-                  <button className="text-xl bg-yelloku w-full mx-auto text-black py-1.5 active:scale-95 duration-200">
+                  <button className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
                     new budget
                   </button>
                 </div>
               ) : (
                 <button
                   onClick={showCity}
-                  className="text-xl bg-yelloku w-full mx-auto text-black py-1.5 active:scale-95 duration-200">
+                  className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
                   choose city
                 </button>
               )}
@@ -221,10 +222,10 @@ export default function TravelStep() {
                     <img
                       src={el.image}
                       alt={el.name}
-                      className="w-full h-full brightness-90 group-hover:brightness-100 duration-100"
+                      className="w-full h-full brightness-75 contrast-75 group-hover:brightness-100 duration-100"
                     />
-                    <div className="absolute inset-0 flex flex-col justify-end items-center">
-                      <h1 className="text-yelloku bg-black w-full text-center">
+                    <div className="absolute inset-0 flex flex-col justify-center items-center">
+                      <h1 className="text-white w-full text-2xl font-bold text-center px-2 capitalize">
                         {el.name}
                       </h1>
                     </div>
@@ -281,6 +282,14 @@ export default function TravelStep() {
           )}
         </div>
       </div>
+      <span
+        className={`fixed bottom-3 flex items-center gap-1 text-white right-3 bg-black z-50 duration-200 cursor-pointer ${
+          showDest ? "opacity-100" : "opacity-0"
+        }`}
+        onClick={resetAll}>
+        <FaAngleDoubleLeft className="w-6 h-6 text-yelloku" />
+        <h1 className="block text-xl font-semibold text-yelloku pr-2">Back</h1>
+      </span>
     </div>
   )
 }
