@@ -18,7 +18,7 @@ export function fetchCities() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/publics/cities`,
+      url: `${baseUrl}/cities`,
     })
       .then((res) => {
         dispatch({
@@ -54,12 +54,12 @@ export function fetchHighlightedDestination() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/publics/destinations`,
+      url: `${baseUrl}/publics/destinations/best`,
     })
       .then((res) => {
         dispatch({
           type: FETCH_HIGHLIGHTED_DESTINATION,
-          payload: res.data,
+          payload: res.data.slice(0, 6),
         })
       })
       .catch((error) => {
@@ -201,11 +201,36 @@ export function postReview(review) {
   }
 }
 
-export function fetcDestinations() {
+export function fetcDestinations(params, data) {
   return (dispatch, getState) => {
+    let url = `${baseUrl}/publics/destinations`;
+    let addedFilter = false;
+    if(params){
+      url += `?orderBy=${params}`;
+      addedFilter = true;
+    }
+    if(data){
+      if(addedFilter){
+        url += "&";
+        addedFilter = false;
+      }
+      else{
+        url += "?";
+      }
+      for(let key in data){
+        if(data[key]){
+          if(addedFilter){
+            url += "&";
+            addedFilter = false;
+          }
+          url += `${key}=${data[key]}`;
+          addedFilter = true;
+        }
+      }
+    }console.log(url);
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations`,
+      url,
     })
       .then((res) => {
         dispatch({

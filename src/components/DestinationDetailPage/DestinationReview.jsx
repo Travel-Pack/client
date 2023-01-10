@@ -34,10 +34,10 @@ export function DestinationReview() {
     data = {
       name: hotel.name,
       slug: hotel.slug,
-      avg_cost: hotel.avg_cost,
-      avg_fun: hotel.avg_fun,
-      avg_internet: hotel.avg_internet,
-      avg_safety: hotel.avg_safety,
+      avg_cost: +hotel.avg_cost,
+      avg_fun: +hotel.avg_fun,
+      avg_internet: +hotel.avg_internet,
+      avg_safety: +hotel.avg_safety,
       comments: hotel.Reviews,
       HotelId: hotel.id
     }
@@ -108,7 +108,7 @@ export function DestinationReview() {
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  {data.avg_cost}
+                  {data.avg_cost? data.avg_cost.toFixed(2): 0}
                 </span>
               </dd>
             </dl>
@@ -124,7 +124,7 @@ export function DestinationReview() {
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.avg_fun}
+                {data.avg_fun? data.avg_fun.toFixed(2): 0}
                 </span>
               </dd>
             </dl>
@@ -142,7 +142,7 @@ export function DestinationReview() {
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.avg_internet}
+                {data.avg_internet? data.avg_internet.toFixed(2): 0}
                 </span>
               </dd>
             </dl>
@@ -158,7 +158,7 @@ export function DestinationReview() {
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.avg_safety}
+                {data.avg_safety? data.avg_safety.toFixed(2): 0}
                 </span>
               </dd>
             </dl>
@@ -178,7 +178,7 @@ export function DestinationReview() {
                 />
                 <div className="w-full">
                   <div className="flex justify-between mb-4">
-                    <p className="font-bold">{"John Doe"}</p>
+                    <p className="font-bold">{type === "destination"? el.user : el.User.fullName}</p>
                     <p>
                       {new Date(el.createdAt).toLocaleString("en-IE", {
                         dateStyle: "short",

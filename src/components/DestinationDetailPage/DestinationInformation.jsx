@@ -24,9 +24,10 @@ export function DestinationInformation() {
       name: destination.destination.name,
       slug: destination.destination.slug,
       price: destination.destination.cost,
-      Reviews: destination.destination.Reviews,
+      Reviews: destination.comment,
       geocoding: destination.destination.geocoding,
-      Images: destination.destination.Images
+      Images: destination.destination.Images,
+      city: destination.destination.City.name
     }
   } else {
     data = {
@@ -35,7 +36,8 @@ export function DestinationInformation() {
       price: hotel.price,
       Reviews: hotel.Reviews,
       geocoding: hotel.geocoding,
-      Images: hotel.Images
+      Images: hotel.Images,
+      city: hotel.City.name
     }
   }
 
@@ -45,7 +47,7 @@ export function DestinationInformation() {
         <div className="w-full">
           <h1 className="font-bold font-caveat text-6xl">
             {/* edit */}
-            {data.name}, {"City Name"}
+            {data.name}, {data.city}
           </h1>
           <p className="text-justify mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit
@@ -101,7 +103,7 @@ export function DestinationInformation() {
             <h1 className="font-bold font-caveat my-10 text-5xl">Location</h1>
             <MapContainer
               id="map"
-              center={[-1.7443032632194848, 120.80736489269272]}
+              center={data.geocoding.split(", ")}
               zoom={5}
               scrollWheelZoom={false}>
               <TileLayer
@@ -155,7 +157,7 @@ export function DestinationInformation() {
                           classCarouselItem += "active"
                         }
                         return (
-                          <div className={classCarouselItem} key={el.id}>
+                          <div className={classCarouselItem} key={index}>
                             <blockquote className="bg-gray-100 px-20 py-8">
                               <div className="flex items-center">
                                 <img
@@ -164,7 +166,7 @@ export function DestinationInformation() {
                                   className="h-16 w-16 rounded-full object-cover"
                                 />
                                 <div className="ml-4 text-sm">
-                                  <p className="font-medium">John Doe</p>
+                                  <p className="font-medium">{el.user}</p>
                                 </div>
                               </div>
                               <p className="relative mt-4 text-gray-500">
