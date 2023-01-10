@@ -1,18 +1,39 @@
 import { useEffect, useState } from "react"
 import { BsBinoculars, BsCompass, BsSearch } from "react-icons/bs"
+import { useDispatch } from "react-redux"
+import { fetcDestinations, fetchDestination } from "../../stores/actions/actionCreator"
+import Loader from "../Loader"
 
 export default function SearchForm() {
-  const [sliderVal, setSliderVal] = useState(undefined)
-  const [data, setData] = useState([])
+  const [sliderVal, setSliderVal] = useState(50000)
+  const [load, setLoad] = useState(false);
+  const [data, setData] = useState({
+    searchByDest: "",
+    searchByCity: "",
+    filterCost: sliderVal
+  })
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, [sliderVal])
+  useEffect(() => { 
+    setData({...data, filterCost: sliderVal})
+  }, [sliderVal])
   function handleSearch(e) {
-    e.preventDefault()
-    setData("abc", "abdsdaisdj", "filterr!!")
+    e.preventDefault();
+    setLoad(true);
+    dispatch(fetcDestinations("", data))
+      .then(_=>{
+        setLoad(false);
+      })
   }
 
-  const arr = ["searchTour", "destination", "city"]
+  const onChangeHandler = (e)=>{
+    const updatedData = {...data, [e.target.name]: e.target.value};
+    setData(updatedData);
+  }
 
+  if(load){
+    return <Loader/>
+  }
   return (
     <form action="" className="w-1/5 hidden xl:block" onSubmit={handleSearch}>
       <div className="bg-white -mt-24">
@@ -21,25 +42,34 @@ export default function SearchForm() {
             <h1 className="text-3xl font-light capitalize">
               Find Your <br /> destination
             </h1>
-            {arr.map((el, index) => {
-              return (
-                <div className="relative w-full my-5" key={el}>
-                  <input
-                    type="text"
-                    name={el}
-                    id={el}
-                    className="bg-transparent border-0 border-b-4 border-black w-full placeholder:text-black pl-5 placeholder:capitalize"
-                    placeholder={el}
-                  />
-                  <div className="absolute top-3">
-                    {el === "searchTour" ? <BsSearch/> : ""}
-                    {el === "destination" ? <BsCompass/> : ""}
-                    {el === "city" ? <BsBinoculars/> : ""}
-                  </div>
-                </div>
-              )
-            })}
-
+            <div className="relative w-full my-5">
+              <input
+                type="text"
+                name="searchByDest"
+                id="searchByDest"
+                value={data.searchByDest}
+                onChange={onChangeHandler}
+                className="bg-transparent border-0 border-b-4 border-black w-full placeholder:text-black pl-5 placeholder:capitalize"
+                placeholder="Enter Destination"
+              />
+              <div className="absolute top-3">
+                <BsCompass />
+              </div>
+            </div>
+            <div className="relative w-full my-5">
+              <input
+                type="text"
+                name="searchByCity"
+                id="searchByCity"
+                value={data.searchByCity}
+                onChange={onChangeHandler}
+                className="bg-transparent border-0 border-b-4 border-black w-full placeholder:text-black pl-5 placeholder:capitalize"
+                placeholder="Enter City Name"
+              />
+              <div className="absolute top-3">
+                <BsBinoculars />
+              </div>
+            </div>
             <div className="slider">
               <label
                 htmlFor="default-range"
@@ -52,7 +82,7 @@ export default function SearchForm() {
                 onChange={(e) => setSliderVal(e.target.value * 100)}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
               />
-              <h1 className="">IDR {sliderVal ? sliderVal + "k" : ""}</h1>
+              <h1 className="">IDR {sliderVal + "k"}</h1>
             </div>
           </div>
           <button

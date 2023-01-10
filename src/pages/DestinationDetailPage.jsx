@@ -18,7 +18,7 @@ export function DestinationDetailPage() {
   }
   const [load, setLoad] = useState(true);
   const dispatch = useDispatch();
-console.log(data);
+
   useEffect(()=>{
     let fetch = fetchDestination;
     if(type !== "destination"){
@@ -40,7 +40,7 @@ console.log(data);
           <div className="max-w-lg text-center sm:text-left">
             <div className="font-caramel text-xl font-bold text-white md:text-7xl">
               {type === "destination"? data.destination.name : data.name},{" "}
-              <h3 className="text-4xl font-light">City Name</h3>
+              <h3 className="text-4xl font-light">{type === "destination"? data.destination.City.name : data.City.name}</h3>
             </div>
             <div className="mt-14 sm:mt-6">
               <div className="flex gap-6" id="NavDetail">
