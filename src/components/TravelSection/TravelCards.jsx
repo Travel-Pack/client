@@ -42,7 +42,7 @@ export default function TravelCards() {
 
   return (
     <div className="flex gap-6 flex-wrap w-full xl:w-4/5">
-      {!data.length? <h1 className="mx-auto text-2xl font-bold">{`Sorry, no ${type} in this city yet.`}</h1>
+      {!data.length? <h1 className="mx-auto text-2xl font-bold">{`Sorry, no ${type === "hotel" || type === "destination"? `${type} in this city yet.` : "destination matched"} `}</h1>
       :
       data.map((el) => {
         return (

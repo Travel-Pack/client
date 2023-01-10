@@ -1,10 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PaginatedItems from "../components/PaginatedItems"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
+import ScrollToBottom from "react-scroll-to-bottom";
+import axios from "axios";
+import { useParams, useRoutes } from "react-router";
+import io from "socket.io-client";
+
+const serverUrl = "http://localhost:3000/"
+const socket = io.connect(serverUrl)
 
 export default function ForumDetail() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
   const [isShow, setIsShow] = useState(false)
+  let {slug} = useParams()
 
   const destination = ["Gili", "Nusa Dua", "Bundaran HI"]
   const member = [
@@ -25,7 +33,45 @@ export default function ForumDetail() {
     e.preventDefault()
   }
 
-  return (
+  // Edit Start
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
+
+  const fetchMessages = async () => {
+    try {
+      let { data } = await axios.get(serverUrl + 'publics/topic/3' )
+      setMessageList(data.Messages)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const sendMessage = async () => {
+    if (currentMessage !== "") {
+      const messageData = {
+        slug,
+        email: localStorage.email || "qomar@gmail.com",
+        text: currentMessage,
+      };
+
+      await socket.emit("send_message", messageData);
+      setCurrentMessage("");
+    }
+  };
+
+  useEffect(() => {
+    socket.emit("join_room", slug)
+    fetchMessages()
+  }, [])
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      console.log(data);
+      setMessageList((list) => [...list, data]);
+    });
+  }, [socket]);
+
+  // Edit End
+  if (messageList) return (
     <div className="flex flex-col xl:mt-20 bg-gray-100">
       <ScrollToTopBtn />
       <div className="w-full xl:h-72 relative">
@@ -61,40 +107,44 @@ export default function ForumDetail() {
               submit!
             </button>
           </form>
-          <div className="mx-auto flex flex-col gap-5 w-fit">
-            {arr.map((el) => {
-              return (
-                <div
-                  className="flex items-center bg-white shadow-md py-5 px-4 justify-between"
-                  key={el}>
-                  <div className="w-fit px-3">
-                    <div className="rounded-full w-6 h-6">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/en/1/15/Dipper_Pines.png"
-                        alt="avatarProfile"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+          <div className="forum-window">
+      <div className="forum-header">
+        <p>Live Forum Room</p>
+      </div>
+      <div className="forum-body">
+        <ScrollToBottom className="message-container">
+          {messageList.map((messageContent) => {
+            return (
+              <div
+                className="message px-1 py-2 border rounded-sm my-1"
+                id={messageContent.id}
+              >
+                <div>
+                  <div className="message-content">
+                    <p>{messageContent.text}</p>
                   </div>
-                  <div className="div flex flex-col">
-                    <h1 className="text-lg font-medium">
-                      10 Kids Unaware of Their Halloween Costume
-                    </h1>
-                    <h1>👌❤️💕👍🤩</h1>
-                    <p className="font-light">
-                      It's one thing to subject yourself to a Halloween costume
-                      mishap because, hey, that's your prerogative.
-                    </p>
-                  </div>
-                  <div className="border-l border-stone-300 w-1/5 justify-evenly items-center flex flex-col">
-                    <h1>560</h1>
-                    <h1>15568</h1>
-                    <h1>⭐⭐⭐⭐⭐</h1>
+                  <div className="message-meta">
+                    <p id="time">{messageContent.createdAt}</p>
+                    <p id="author">{messageContent.User.fullName}</p>
                   </div>
                 </div>
-              )
-            })}
-          </div>
+              </div>
+            );
+          })}
+        </ScrollToBottom>
+      </div>
+      <div className="forum-footer mb-10 p-5">
+        <input
+          type="text"
+          value={currentMessage}
+          placeholder="Hey..."
+          onChange={(event) => {
+            setCurrentMessage(event.target.value);
+          }}
+        />
+        <button onClick={sendMessage} className="p-2 border rounded bg-green-500">Send Message</button>
+      </div>
+    </div>
         </section>
         <section id="leftSide" className="hidden 2xl:block">
           <div className="bg-white w-full p-3">

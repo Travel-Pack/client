@@ -43,7 +43,7 @@ export default function Cards({ type, cities, destinations }) {
   }
   if (type === "destination") {
     return (
-      <section className="grid px-2 mt-3 xl:grid-cols-5 gap-7 overflow-hidden py-3">
+      <section className="grid px-2 mt-3 md:grid-cols-5 gap-7 overflow-hidden py-3">
         {destinations.map((el) => {
           const currencyFormat = el.cost.toLocaleString("id-ID", {
             style: "currency",
@@ -51,7 +51,7 @@ export default function Cards({ type, cities, destinations }) {
           })
           return (
             <div
-              className="overflow-hidden relative group"
+              className="overflow-hidden relative group h-[400px]"
               key={el.id}
               onClick={() => {
                 handleNavDestination(el.slug)

@@ -1,8 +1,10 @@
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react"
 import React, { useState, useEffect } from "react"
+import { GoChevronUp } from "react-icons/go"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader"
+import { FaAngleLeft } from "react-icons/fa"
 import {
   fetchCities,
   fetchCity,
@@ -12,7 +14,6 @@ import {
 export default function TravelStep() {
   const [citySelected, setCitySelected] = useState("")
   const [load, setLoad] = useState(true)
-  const [showModal, setShowModal] = useState(false)
   const dispatch = useDispatch()
   const cities = useSelector((state) => state.cities.cities)
   const city = useSelector((state) => state.cities.city)
@@ -79,11 +80,24 @@ export default function TravelStep() {
     setTravelStepData(updatedTravelStepData)
   }
 
+  function resetAll() {
+    setTopText(false),
+      setShowDest(false),
+      setCitySelected(""),
+      setTravelStepData({
+        budget: "",
+        numberOfDestination: "",
+        allocationDestination: 50,
+        CityId: "",
+        DestinationIds: [],
+      })
+  }
+
   if (load) {
     return <Loader />
   }
   return (
-    <div className="">
+    <div className="md:overflow-hidden">
       <div className="flex flex-col xl:flex-row ease-in-out md:h-screen">
         <div
           className={`duration-100 ease-in-out min-h-screen md:h-auto relative ${
@@ -98,9 +112,7 @@ export default function TravelStep() {
           </div>
           <div className="absolute inset-0 flex flex-col justify-center w-full h-full items-center gap-2 2xl:gap-24">
             <div
-              onClick={() => {
-                setTopText(false), setShowDest(false)
-              }}
+              onClick={resetAll}
               className={`pb-5 text-3xl border-b-2 border-white 2xl:text-7xl cursor-pointer`}>
               <h1 className="text-white font-semibold text-center">Preparing</h1>
               <div className="">
@@ -196,16 +208,27 @@ export default function TravelStep() {
             topText ? "block md:w-3/4 w-full" : "hidden w-0"
           }`}>
           <div
-            className={`${showDest ? "w-0 hidden" : "w-full block overflow-y-auto"}`}
+            className={`md:h-screen ${
+              showDest ? "w-0 hidden" : "w-full block overflow-y-auto"
+            }`}
             id="scrollStyle">
-            <div className="flex flex-wrap gap-2 justify-center mt-20">
+            <div className="flex flex-wrap gap-2 justify-center mt-20 pb-10">
               {cities.map((el) => {
                 return (
                   <div
-                    className="max-w-xs aspect-square"
+                    className="max-w-xs aspect-square relative group"
                     onClick={() => displayDest(el.name, el.id, el.slug)}
                     key={el.id}>
-                    <img src={el.image} alt={el.name} className="w-full h-full" />
+                    <img
+                      src={el.image}
+                      alt={el.name}
+                      className="w-full h-full brightness-90 group-hover:brightness-100 duration-100"
+                    />
+                    <div className="absolute inset-0 flex flex-col justify-end items-center">
+                      <h1 className="text-yelloku bg-black w-full text-center">
+                        {el.name}
+                      </h1>
+                    </div>
                   </div>
                 )
               })}
@@ -213,60 +236,46 @@ export default function TravelStep() {
           </div>
           {showDest ? (
             <form onSubmit={(e) => handleSubmit(e)}>
-              <div className="w-full block mt-20 overflow-y-auto" id="scrollStyle">
-                <div className="flex flex-wrap gap-2 justify-center max-h-[800px]">
-                  {city.destination.map((el) => {
-                    let classDestinationCard = "max-w-xs aspect-square "
-                    if (
-                      travelStepData.DestinationIds.findIndex(
-                        (destinationId) => destinationId === el.id
-                      ) !== -1
-                    ) {
-                      classDestinationCard += "border border-8 border-yelloku"
-                    }
-                    return (
-                      <div
-                        className={classDestinationCard}
-                        onClick={() => {
-                          selectDest(el.id)
-                        }}
-                        key={el.id}>
-                        <img src={el.mainImg} alt="" className="w-full h-full" />
-                      </div>
-                    )
-                  })}
+              <div className="mt-20 pb-5 h-screen overflow-y-auto">
+                <button
+                  type="submit"
+                  className="w-full text-lg font-medium underline text-black bg-yelloku py-3 mb-2 mx-auto block">
+                  Generate
+                </button>
+                <div className="block w-full pb-24" id="scrollStyle">
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {city.destination.map((el) => {
+                      let classDestinationCard = ""
+                      if (
+                        travelStepData.DestinationIds.findIndex(
+                          (destinationId) => destinationId === el.id
+                        ) !== -1
+                      ) {
+                        classDestinationCard += "border border-8 border-yelloku"
+                      }
+                      return (
+                        <div
+                          className={`w-72 aspect-square ${classDestinationCard} relative group`}
+                          onClick={() => {
+                            selectDest(el.id)
+                          }}
+                          key={el.id}>
+                          <img
+                            src={el.mainImg}
+                            alt=""
+                            className="w-full h-full brightness-75 group-hover:brightness-100 duration-100"
+                          />
+                          <div className="absolute inset-0 flex flex-col justify-end items-center">
+                            <h1 className="text-yelloku bg-black w-full text-center">
+                              {el.name}
+                            </h1>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
-              <button
-                onClick={() => setShowModal(!showModal)}
-                className="w-full text-lg font-medium underline text-black bg-yelloku py-3 mt-2 mx-auto block">
-                Set name for your travel
-              </button>
-              <React.Fragment>
-                <Modal
-                  show={showModal}
-                  size="md"
-                  popup={true}
-                  onClose={() => setShowModal(!showModal)}>
-                  <Modal.Header />
-                  <Modal.Body>
-                    <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
-                      <div>
-                        <label
-                          htmlFor="travelPackName"
-                          className="text-center font-medium block mb-2">
-                          Give Travel Pack name
-                        </label>
-
-                        <TextInput id="travelPackName" type="name" required={true} />
-                      </div>
-                      <div className="w-full">
-                        <button className="bg-yelloku w-full py-2 font-medium active:scale-95 duration-100" type="submit">Generate</button>
-                      </div>
-                    </div>
-                  </Modal.Body>
-                </Modal>
-              </React.Fragment>
             </form>
           ) : (
             ""
