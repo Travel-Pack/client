@@ -9,7 +9,7 @@ export default function TravelItenerary() {
           <h1 className="text-4xl font-medium">Travel Step</h1>
         </div>
       </section>
-      <section id="cards" className="container mx-auto">
+      <section id="cards" className="mx-auto">
         <IteneraryCards />
       </section>
     </div>

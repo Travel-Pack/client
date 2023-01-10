@@ -39,7 +39,7 @@ export default function IteneraryCards({ type }) {
     return <Loader />
   }
   return (
-    <div className="grid grid-cols-2 gap-5">
+    <div className="grid grid-cols-3 gap-20 px-10">
       {data.map((el, index) => {
         let total = el.hotel.price
         return (

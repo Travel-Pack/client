@@ -16,7 +16,7 @@ export function DestinationInformation() {
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
-  let data;
+  let data
 
   const { type } = useParams()
   if (type === "destination") {
@@ -27,7 +27,7 @@ export function DestinationInformation() {
       Reviews: destination.comment,
       geocoding: destination.destination.geocoding,
       Images: destination.destination.Images,
-      city: destination.destination.City.name
+      city: destination.destination.City.name,
     }
   } else {
     data = {
@@ -37,10 +37,11 @@ export function DestinationInformation() {
       Reviews: hotel.Reviews,
       geocoding: hotel.geocoding,
       Images: hotel.Images,
-      city: hotel.City.name
+      city: hotel.City.name,
     }
   }
 
+  console.log(data.geocoding.split(", "))
   return (
     <section className="min-h-screen bg-stone-100 md:ml-96 w-full mx-auto">
       <section className="flex gap-10 detail-inside mt-20 pt-5 md:px-32">
@@ -99,24 +100,28 @@ export function DestinationInformation() {
             )}
           </section>
           {/*Location*/}
-          <section className="location">
-            <h1 className="font-bold font-caveat my-10 text-5xl">Location</h1>
-            <MapContainer
-              id="map"
-              center={data.geocoding.split(", ")}
-              zoom={5}
-              scrollWheelZoom={false}>
-              <TileLayer
-                attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={data.geocoding.split(", ")}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-            </MapContainer>
-          </section>
+          {data.geocoding.split(", ").length === 2 ? (
+            <section className="location">
+              <h1 className="font-bold font-caveat my-10 text-5xl">Location</h1>
+              <MapContainer
+                id="map"
+                center={data.geocoding.split(", ")}
+                zoom={5}
+                scrollWheelZoom={false}>
+                <TileLayer
+                  attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={data.geocoding.split(", ")}>
+                  <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </section>
+          ) : (
+            <></>
+          )}
           {/*Highlights*/}
           <section className="highlight">
             {data.Reviews.length ? (
@@ -169,9 +174,7 @@ export function DestinationInformation() {
                                   <p className="font-medium">{el.user}</p>
                                 </div>
                               </div>
-                              <p className="relative mt-4 text-gray-500">
-                                {el.comment}
-                              </p>
+                              <p className="relative mt-4 text-gray-500">{el.comment}</p>
                             </blockquote>
                           </div>
                         )

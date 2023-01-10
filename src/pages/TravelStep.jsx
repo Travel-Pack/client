@@ -80,6 +80,19 @@ export default function TravelStep() {
     setTravelStepData(updatedTravelStepData)
   }
 
+  function resetAll() {
+    setTopText(false),
+      setShowDest(false),
+      setCitySelected(""),
+      setTravelStepData({
+        budget: "",
+        numberOfDestination: "",
+        allocationDestination: 50,
+        CityId: "",
+        DestinationIds: [],
+      })
+  }
+
   if (load) {
     return <Loader />
   }
@@ -99,9 +112,7 @@ export default function TravelStep() {
           </div>
           <div className="absolute inset-0 flex flex-col justify-center w-full h-full items-center gap-2 2xl:gap-24">
             <div
-              onClick={() => {
-                setTopText(false), setShowDest(false)
-              }}
+              onClick={resetAll}
               className={`pb-5 text-3xl border-b-2 border-white 2xl:text-7xl cursor-pointer`}>
               <h1 className="text-white font-semibold text-center">Preparing</h1>
               <div className="">
@@ -276,7 +287,7 @@ export default function TravelStep() {
           className={`fixed bottom-2 right-2 bg-black z-50 duration-200 cursor-pointer 
         }`}>
           <button
-            onClick={() => setShowDest(false)}
+            onClick={resetAll}
             className=" text-yelloku flex items-center gap-2 px-2">
             <FaAngleLeft className="w-5 h-5" /> Back
           </button>
