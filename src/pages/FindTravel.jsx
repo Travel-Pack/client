@@ -10,8 +10,13 @@ export default function FindTravel() {
   const dispatch = useDispatch()
   const [load, setLoad] = useState(true)
 
-  function handleSort() {
-    setActive("bg-white text-black")
+  function handleSort(params) {
+    setActive("bg-white text-black");
+    setLoad(true)
+    dispatch(fetcDestinations(params))
+      .then(_ => {
+        setLoad(false)
+      })
   }
 
   useEffect(() => {
@@ -35,7 +40,7 @@ export default function FindTravel() {
             className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
-            onClick={() => handleSort}>
+            onClick={() => handleSort("costLowToHigh")}>
             <h1 className="">Price Low to High</h1>
           </div>
 
@@ -43,14 +48,14 @@ export default function FindTravel() {
             className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
-            onClick={() => handleSort}>
+            onClick={() => handleSort("costHighToLow")}>
             <h1 className="">Price High to Low</h1>
           </div>
           <div
             className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
               active ? "active" : ""
             }`}
-            onClick={() => handleSort}>
+            onClick={() => handleSort("name")}>
             <h1 className="">Name (A-Z)</h1>
           </div>
         </div>

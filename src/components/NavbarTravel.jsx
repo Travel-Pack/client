@@ -61,7 +61,7 @@ export default function NavbarTravel() {
             <NavLink
               className="font-medium hover:border-b-4 border-yelloku duration-400"
               to={"/find-travel"}>
-              Find Tour
+              Find Destination
             </NavLink>
           </div>
           <div className="mr-16">

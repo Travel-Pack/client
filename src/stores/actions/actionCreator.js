@@ -18,7 +18,7 @@ export function fetchCities() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/publics/cities`,
+      url: `${baseUrl}/cities`,
     })
       .then((res) => {
         dispatch({
@@ -54,12 +54,12 @@ export function fetchHighlightedDestination() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/publics/destinations`,
+      url: `${baseUrl}/publics/destinations/best`,
     })
       .then((res) => {
         dispatch({
           type: FETCH_HIGHLIGHTED_DESTINATION,
-          payload: res.data,
+          payload: res.data.slice(0, 6),
         })
       })
       .catch((error) => {
@@ -200,11 +200,15 @@ export function postReview(review) {
   }
 }
 
-export function fetcDestinations() {
+export function fetcDestinations(params) {
   return (dispatch, getState) => {
+    let url = `${baseUrl}/publics/destinations`;
+    if(params){
+      url += `?orderBy=${params}`
+    }
     return axios({
       method: "GET",
-      url: `${baseUrl}/destinations`,
+      url,
     })
       .then((res) => {
         dispatch({

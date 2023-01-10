@@ -32,7 +32,7 @@ export default function SearchForm() {
                     placeholder={el}
                   />
                   <div className="absolute top-3">
-                    {el === "searchTour" ? <BsSearch/> : ""}
+                    {/* {el === "searchTour" ? <BsSearch/> : ""} */}
                     {el === "destination" ? <BsCompass/> : ""}
                     {el === "city" ? <BsBinoculars/> : ""}
                   </div>
