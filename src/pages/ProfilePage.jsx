@@ -8,13 +8,7 @@ export function ProfilePage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((state) => state.others.user);
-  const [updateData, setUpdateData] = useState({
-    fullName: user.fullName,
-    phoneNumber: user.phoneNumber,
-    email: user.email,
-    password: "",
-    passwordConfirmation: "",
-  })
+  const [updateData, setUpdateData] = useState({})
   const [load, setLoad] = useState(true)
   const [inputActive1, setInputActive1] = useState(false)
   const [inputActive2, setInputActive2] = useState(false)
@@ -32,17 +26,12 @@ export function ProfilePage() {
   function handleUpdateProfile(e) {
     e.preventDefault()
     dispatch(updateUser(updateData)).then((res) => {
-      setLoad(true)
+      setLoad(true);
+      console.log(res);
       if (res === "ok") {
         dispatch(fetchUserData())
           .then(_ => {
-            setUpdateData({
-              fullName: user.fullName,
-              phoneNumber: user.phoneNumber,
-              email: user.email,
-              password: "",
-              passwordConfirmation: "",
-            });
+            navigate('/profile')
           })
       }
       setLoad(false)
@@ -56,8 +45,11 @@ export function ProfilePage() {
         console.log("Succefully upgraded to premium");
         setLoad(true);
         dispatch(activatePremium())
-          .finally(_ => {
-            setLoad(false);
+          .then(_ => {
+            dispatch(fetchUserData())
+              .finally(_=>{
+                setLoad(false);
+              })
           })
       },
       onPending: function (result) {
@@ -78,6 +70,16 @@ export function ProfilePage() {
         setLoad(false);
       })
   }, [])
+
+  useEffect(()=>{
+    setUpdateData({
+      fullName: user.fullName,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      password: "",
+      passwordConfirmation: "",
+    })
+  }, [user])
 
   if (load) {
     return <Loader />
