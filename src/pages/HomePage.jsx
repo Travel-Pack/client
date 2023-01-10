@@ -60,34 +60,7 @@ export function HomePage() {
         </div>
       </div>
       <div className="flex-col flex pb-10">
-        <div className="bg-yelloku flex flex-col xl:flex-row items-center justify-center py-10 xl:gap-14 gap-3">
-          <div className="flex items-center">
-            <Compass />
-            <input
-              type="text"
-              placeholder="Where to?"
-              className="bg-transparent border-0 border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Province?"
-              className="bg-transparent border-0 border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="City?"
-              className="bg-transparent border-0 border-b-2  pr-20 border-zinc-900 py-2 placeholder:text-lg placeholder:text-zinc-900 focus:outline-none"
-            />
-          </div>
-          <div>
-            <button className="bg-zinc-900 text-yellow-50 px-14 py-2.5 active:scale-95 duration-200">
-              find now
-            </button>
-          </div>
+        <div className="bg-yelloku flex flex-col xl:flex-row items-center justify-center py-10 xl:gap-14 gap-3 h-10">
         </div>
         <section className="destination-text bg-white w-full">
           <div className="container mx-auto py-4">

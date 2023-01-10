@@ -78,7 +78,7 @@ export default function IteneraryCards({ type }) {
     <>
       {!data.length ? <h1 className="font-bold text-center text-2xl">Sorry, no matched travel steps.</h1>
         :
-        <div className="grid grid-cols-3 gap-20 px-10">
+        <div className="grid grid-cols-2 gap-20 px-10">
           {data.map((el, index) => {
             let total = el.hotel.price;
             return (
@@ -86,18 +86,8 @@ export default function IteneraryCards({ type }) {
                 <h1 className="text-lg font-bold text-center w-full bg-yelloku">
                   {type === "wishlist" ? el.name : `Travel Step ${index + 1}`}
                 </h1>
-                {type === "wishlist" ? (
-                  // <button className="bg-black px-7 py-2 text-white" onClick={() => saveHandler(el)}>
-                  //   Add Travel Name
-                  // </button>
-                  <></>
-                ) : (
-                  <button className="bg-black px-7 py-2 text-white" onClick={() => saveHandler(el)}>
-                    Add Travel Name
-                  </button>
-                )}
 
-                <h1 className="font-bold text-lg text-center py-2 underline">
+                {/* <h1 className="font-bold text-lg text-center py-2 underline">
                   Destination(s)
                 </h1>
                 <div className="h-full w-full">
@@ -126,16 +116,18 @@ export default function IteneraryCards({ type }) {
                       </div>
                     )
                   })}
-                </div>
-                <section>
+                </div> */}
+                <section id="hotelCard">
                   <h1 className="font-bold text-lg text-center py-2 underline">Hotel</h1>
-                  <div className="w-full h-60 relative">
+                  <div className="flex w-full">
+                  <div className="h-32 w-32 relative">
                     <img
                       src={el.hotel.image}
                       className="w-full h-full object-cover object-top"
                       alt=""
                     />
-                    <div className="flex items-end w-full h-full absolute inset-0">
+                  </div>
+                  <div className="flex items-end w-full h-full absolute inset-0">
                       <div className="text-sm bg-black bg-opacity-80 text-white w-full flex justify-between py-2 px-3">
                         <h1 className="truncate">{el.hotel.name}</h1>
                         <h3 className="">
@@ -154,6 +146,16 @@ export default function IteneraryCards({ type }) {
                     {total.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
                   </h3>
                 </section>
+                {type === "wishlist" ? (
+                  // <button className="bg-black px-7 py-2 text-white" onClick={() => saveHandler(el)}>
+                  //   Add Travel Name
+                  // </button>
+                  <></>
+                ) : (
+                  <button className="bg-black px-7 py-2 text-white" onClick={() => saveHandler(el)}>
+                    Add Travel Name
+                  </button>
+                )}
               </div>
             )
           })}
