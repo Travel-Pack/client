@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { fetchTravelSteps } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
+import { Button, Label, Modal, TextInput } from "flowbite-react"
 
 export default function IteneraryCards({ type }) {
   const [load, setLoad] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const dispatch = useDispatch()
   useEffect(() => {
     if (type === "wishlist") {
@@ -24,10 +26,11 @@ export default function IteneraryCards({ type }) {
     data = travelSteps
   }
   const nav = useNavigate()
-  function handleSave() {
-    nav("/my-travel-step")
+  function handleSave(e) {
+    e.preventDefault()
+    
   }
-  const arr = [1, 2, 3, 4]
+
 
   if (!data.length) {
     return (
@@ -48,12 +51,12 @@ export default function IteneraryCards({ type }) {
               Travel Step {index + 1}
             </h1>
             {type === "wishlist" ? (
-              <button className="bg-black px-7 py-2 text-white" onClick={handleSave}>
-                Save
+              <button className="bg-black px-7 py-2 text-white" onClick={()=> setShowModal(!showModal)}>
+                Add Travel Name
               </button>
             ) : (
-              <button className="bg-black px-7 py-2 text-white" onClick={handleSave}>
-                Save
+              <button className="bg-black px-7 py-2 text-white" onClick={()=> setShowModal(!showModal)}>
+                Add Travel Name
               </button>
             )}
             <section id="subtotal " className="w-full px-1 text-lg flex justify-between">
@@ -63,7 +66,9 @@ export default function IteneraryCards({ type }) {
               </h3>
             </section>
 
-            <h1 className="font-bold text-lg text-center py-2 underline">Destination(s)</h1>
+            <h1 className="font-bold text-lg text-center py-2 underline">
+              Destination(s)
+            </h1>
             <div className="h-full w-full">
               {el.destination.map((destination) => {
                 total += destination.cost
@@ -115,6 +120,36 @@ export default function IteneraryCards({ type }) {
           </div>
         )
       })}
+      <React.Fragment>
+        <Modal
+          show={showModal}
+          size="md"
+          popup={true}
+          onClose={() => setShowModal(!showModal)}>
+          <Modal.Header />
+          <Modal.Body>
+            <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
+              <h3 className="text-xl font-medium text-center text-gray-900 dark:text-white">
+                Travel Pack Name
+              </h3>
+              <form onSubmit={(e)=> handleSave(e)}>
+                <div>
+                  <TextInput
+                    id="nameTravel"
+                    name="nameTravel"
+                    placeholder="Next destination 2024"
+                    required={true}
+                  />
+                </div>
+
+                <button className="bg-yelloku py-2 w-full mt-5" type="submit">
+                  Add!
+                </button>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+      </React.Fragment>
     </div>
   )
 }

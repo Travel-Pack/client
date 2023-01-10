@@ -6,7 +6,7 @@ export default function ErrorPage() {
 
   
   return (
-    <div className="bg-[url('./assets/images/errorPage.jpg')] min-h-screen bg-no-repeat bg-cover">
+    <div className="bg-[url('./assets/images/errorPage.jpg')] h-screen w-screen bg-no-repeat bg-cover fixed">
       <div className="w-full mx-auto flex flex-col gap-3 items-center justify-center min-h-screen backdrop-brightness-75 backdrop-saturate-150">
       <h1 className="text-[10rem] font-bold text-yelloku mb-0">Oops!</h1>
         <p className="text-5xl font-light text-white">Sorry, were losing the destination.</p>
