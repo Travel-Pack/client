@@ -47,21 +47,7 @@ export function DestinationInformation() {
 
   useEffect(() => {
     // dispatch()
-    async function fetchWeatherData() {
-      try {
-        const { data } = await axios.get(
-          `https://api.api-ninjas.com/v1/weather?lat=-7.70251914381839&lon=110.44913175490338`,
-          {
-            headers: { "X-API-KEY": "kPVxzSr3Kcu25cCTh+hiMg==IXgVlTxk1lBJXIqe" },
-          }
-        )
-        console.log(data)
-        setWeatherData(data)
-        return
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    
   }, [weatherData])
 
   return (
