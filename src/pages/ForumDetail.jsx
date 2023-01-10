@@ -2,18 +2,22 @@ import { useEffect, useState } from "react"
 import PaginatedItems from "../components/PaginatedItems"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
 import ScrollToBottom from "react-scroll-to-bottom";
-import axios from "axios";
-import { useParams, useRoutes } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMessages, insertMessage } from "../stores/actions/actionCreator";
 import io from "socket.io-client";
 
-const serverUrl = "http://localhost:3000/"
-const socket = io.connect(serverUrl)
+const socket = io.connect("http://localhost:3000/")
 
 export default function ForumDetail() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
   const [isShow, setIsShow] = useState(false)
-  let {slug} = useParams()
-
+  let navigate = useNavigate()
+  let { slug } = useParams()
+  let { id } = useSelector((state) => state.forums)
+  let { messages, topic } = useSelector((state) => state.forums)
+  let dispatch = useDispatch()
+  
   const destination = ["Gili", "Nusa Dua", "Bundaran HI"]
   const member = [
     "alamo",
@@ -35,21 +39,13 @@ export default function ForumDetail() {
 
   // Edit Start
   const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
 
-  const fetchMessages = async () => {
-    try {
-      let { data } = await axios.get(serverUrl + 'publics/topic/3' )
-      setMessageList(data.Messages)
-    } catch (error) {
-      console.log(error);
-    }
-  }
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
+        id,
         slug,
-        email: localStorage.email || "qomar@gmail.com",
+        email: localStorage.email,
         text: currentMessage,
       };
 
@@ -57,21 +53,23 @@ export default function ForumDetail() {
       setCurrentMessage("");
     }
   };
-
+  useEffect(() => {
+    if (!id) navigate('/forum/')
+  })
   useEffect(() => {
     socket.emit("join_room", slug)
-    fetchMessages()
+    dispatch(fetchMessages(id))
   }, [])
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      console.log(data);
-      setMessageList((list) => [...list, data]);
+      dispatch(insertMessage(data))
+      // setMessageList((list) => [...list, data]);
     });
   }, [socket]);
 
   // Edit End
-  if (messageList) return (
+  if (topic) return (
     <div className="flex flex-col xl:mt-20 bg-gray-100">
       <ScrollToTopBtn />
       <div className="w-full xl:h-72 relative">
@@ -81,8 +79,7 @@ export default function ForumDetail() {
           className="object-cover w-full xl:h-full brightness-50"
         />
         <h1 className="absolute bottom-[10%] left-5 text-3xl font-medium text-white">
-          {destination[Math.floor(Math.random() * destination.length)] +
-            " Reviews"}
+          {topic.title}
         </h1>
       </div>
       <div className="container mx-auto mt-10 flex justify-evenly">
@@ -108,12 +105,9 @@ export default function ForumDetail() {
             </button>
           </form>
           <div className="forum-window">
-      <div className="forum-header">
-        <p>Live Forum Room</p>
-      </div>
       <div className="forum-body">
-        <ScrollToBottom className="message-container">
-          {messageList.map((messageContent) => {
+        <ScrollToBottom className="message-container h-96 overflow-auto">
+          {messages.map((messageContent) => {
             return (
               <div
                 className="message px-1 py-2 border rounded-sm my-1"
@@ -133,6 +127,8 @@ export default function ForumDetail() {
           })}
         </ScrollToBottom>
       </div>
+      {
+        localStorage.email ? 
       <div className="forum-footer mb-10 p-5">
         <input
           type="text"
@@ -144,6 +140,7 @@ export default function ForumDetail() {
         />
         <button onClick={sendMessage} className="p-2 border rounded bg-green-500">Send Message</button>
       </div>
+      : null }
     </div>
         </section>
         <section id="leftSide" className="hidden 2xl:block">

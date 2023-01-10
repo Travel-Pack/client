@@ -17,7 +17,6 @@ import TravelStep from "../pages/TravelStep"
 import FindDestination from "../components/CityPages/FindDestination"
 import TravelCards from "../components/TravelSection/TravelCards"
 import { ProfilePage } from "../pages/ProfilePage"
-import ForumSection from "../components/Forum/ForumSection"
 
 const router = createBrowserRouter([
   {
