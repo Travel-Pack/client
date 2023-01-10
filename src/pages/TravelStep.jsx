@@ -282,19 +282,6 @@ export default function TravelStep() {
           )}
         </div>
       </div>
-      {showDest ? (
-        <span
-          className={`fixed bottom-2 right-2 bg-black z-50 duration-200 cursor-pointer 
-        }`}>
-          <button
-            onClick={resetAll}
-            className=" text-yelloku flex items-center gap-2 px-2">
-            <FaAngleLeft className="w-5 h-5" /> Back
-          </button>
-        </span>
-      ) : (
-        ""
-      )}
     </div>
   )
 }

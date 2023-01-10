@@ -180,7 +180,8 @@ export function loginUser(loginData) {
 
 export function postReview(review) {
   return (dispatch, getState) => {
-    const { cost, fun, internet, safety, comment, DestinationId, HotelId } = review
+    const { cost, fun, internet, safety, comment, DestinationId, HotelId } =
+      review
     return axios({
       method: "POST",
       url: `${baseUrl}/reviews`,
@@ -247,8 +248,13 @@ export function fetcDestinations(params, data) {
 
 export function generateTravelStep(inputData) {
   return (dispatch, getState) => {
-    const { budget, numberOfDestination, allocationDestination, CityId, DestinationIds } =
-      inputData
+    const {
+      budget,
+      numberOfDestination,
+      allocationDestination,
+      CityId,
+      DestinationIds,
+    } = inputData
     const budgetDestination = (budget * allocationDestination) / 100
     const budgetHotel = budget - budgetDestination
     return axios({
