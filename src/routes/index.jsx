@@ -17,6 +17,7 @@ import TravelStep from "../pages/TravelStep"
 import FindDestination from "../components/CityPages/FindDestination"
 import TravelCards from "../components/TravelSection/TravelCards"
 import { ProfilePage } from "../pages/ProfilePage"
+import ForumSection from "../components/Forum/ForumSection"
 
 const router = createBrowserRouter([
   {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "forum/1",
+        path: "forum/:slug",
         element: <ForumDetail />,
         errorElement: <ErrorPage />,
       },
