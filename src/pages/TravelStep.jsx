@@ -4,7 +4,7 @@ import { GoChevronUp } from "react-icons/go"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader"
-import { FaAngleLeft } from "react-icons/fa"
+import { FaAngleDoubleLeft } from "react-icons/fa"
 import {
   fetchCities,
   fetchCity,
@@ -281,6 +281,14 @@ export default function TravelStep() {
           )}
         </div>
       </div>
+      <span
+        className={`fixed bottom-3 flex items-center gap-1 text-white right-3 bg-black z-50 duration-200 cursor-pointer ${
+          showDest ? "opacity-100" : "opacity-0"
+        }`}
+        onClick={resetAll}>
+        <FaAngleDoubleLeft className="w-6 h-6 text-yelloku" />
+        <h1 className="block text-xl font-semibold text-yelloku pr-2">Back</h1>
+      </span>
     </div>
   )
 }
