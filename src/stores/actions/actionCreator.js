@@ -10,6 +10,7 @@ import {
   FETCH_HOTEL,
   FETCH_REVIEWS,
   FETCH_TRAVELSTEPS,
+  FETCH_USER,
   GENERATES_TRAVELSTEPS,
 } from "./actionType"
 const baseUrl = "http://localhost:3000"
@@ -346,5 +347,64 @@ export function activatePremium(){
       .catch((error) => {
         console.log(error)
       })
+  }
+}
+
+export function fetchUserData(){
+  return (dispatch, getState) => {
+    return axios({
+      method: "GET",
+      url: `${baseUrl}/users`,
+      headers: {
+        access_token: localStorage.access_token,
+      },
+    })
+      .then(res=> {
+        dispatch({
+          type: FETCH_USER,
+          payload: res.data.userById
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+export function updateUser(updateData) {
+  return (dispatch, getState) => {
+    try {
+      const { fullName, phoneNumber, email, password, passwordConfirmation } = updateData;
+      let data = { fullName, phoneNumber, email, password, passwordConfirmation };
+      if(password){
+        if (password !== passwordConfirmation) {
+          throw { msg: "Password not match" }
+        }
+        data.password = password;
+      }
+      return axios({
+        method: "PUT",
+        url: `${baseUrl}/users`,
+        data,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((res) => {
+          //ganti ke swal
+          notifySuccess("Successfully updated profile!")
+          return "ok"
+        })
+        .catch((error) => {
+          //ganti ke swal
+          if (error.message === "Network Error") {
+            return notifyError(error.message)
+          }
+          notifyError(error.response.data?.msg)
+          return "error"
+        })
+    } catch (error) {
+      notifyError(error.msg)
+    }
   }
 }

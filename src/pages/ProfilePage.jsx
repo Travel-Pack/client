@@ -1,73 +1,83 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { activatePremium, getTransactionToken, registerUser } from "../stores/actions/actionCreator"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { activatePremium, fetchUserData, getTransactionToken, updateUser } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
-import { useEffect } from "react"
-
 export function ProfilePage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [registerData, setRegisterData] = useState({
-    fullName: "",
-    phoneNumber: "",
-    email: "",
+  const user = useSelector((state) => state.others.user);
+  const [updateData, setUpdateData] = useState({
+    fullName: user.fullName,
+    phoneNumber: user.phoneNumber,
+    email: user.email,
     password: "",
     passwordConfirmation: "",
   })
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(true)
   const [inputActive1, setInputActive1] = useState(false)
   const [inputActive2, setInputActive2] = useState(false)
   const [inputActive3, setInputActive3] = useState(false)
   const [inputActive4, setInputActive4] = useState(false)
 
   const onChangeHandler = (e) => {
-    const updatedRegisterData = {
-      ...registerData,
+    const updatedupdateData = {
+      ...updateData,
       [e.target.name]: e.target.value,
     }
-    setRegisterData(updatedRegisterData)
+    setUpdateData(updatedupdateData);
   }
 
-  function handleRegister(e) {
+  function handleUpdateProfile(e) {
     e.preventDefault()
-    dispatch(registerUser(registerData)).then((_) => {
+    dispatch(updateUser(updateData)).then((res) => {
       setLoad(true)
-      setRegisterData({
-        fullName: "",
-        phoneNumber: "",
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      })
+      if (res === "ok") {
+        dispatch(fetchUserData())
+          .then(_ => {
+            setUpdateData({
+              fullName: user.fullName,
+              phoneNumber: user.phoneNumber,
+              email: user.email,
+              password: "",
+              passwordConfirmation: "",
+            });
+          })
+      }
       setLoad(false)
-      navigate("/login")
     })
   }
 
-  const paymentHandler = async ()=>{
+  const paymentHandler = async () => {
     const token = await getTransactionToken();
     window.snap.pay(token, {
-      onSuccess: function(result){
+      onSuccess: function (result) {
         console.log("Succefully upgraded to premium");
         setLoad(true);
         dispatch(activatePremium())
-          .finally(_=>{
+          .finally(_ => {
             setLoad(false);
           })
       },
-      onPending: function(result){
+      onPending: function (result) {
         console.log("Payment status pending");
       },
-      onError: function(result){
+      onError: function (result) {
         console.log("Payment status error");
       },
-      onClose: function(){
+      onClose: function () {
         console.log("Payment window closed");
       }
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchUserData())
+      .then(_ => {
+        setLoad(false);
+      })
+  }, [])
 
   if (load) {
     return <Loader />
@@ -122,11 +132,19 @@ export function ProfilePage() {
               </h1>
             </div>
             <form
-              onSubmit={handleRegister}
+              onSubmit={handleUpdateProfile}
               className="mt-2 grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <h1 className="font-medium text-gray-700 text-center text-lg">
-                  Hallo {"Alam"}!
+                  Hallo {user.fullName}!
+                  {user.isPremium ?
+                    <span
+                      className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700"
+                    >
+                      <img src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png" className="-ml-1 mr-1.5 h-4 w-4" />
+                      <p className="whitespace-nowrap text-sm">Premium</p>
+                    </span> : <></>
+                  }
                 </h1>
                 <label
                   htmlFor="Name"
@@ -136,7 +154,7 @@ export function ProfilePage() {
                 <div className="flex justify-between gap-2 items-center">
                   <input
                     onChange={onChangeHandler}
-                    value={"Abdullah Alam"}
+                    value={updateData.fullName}
                     type="text"
                     id="Full Name"
                     name="fullName"
@@ -159,7 +177,7 @@ export function ProfilePage() {
                 <div className="flex justify-between gap-2 items-center">
                   <input
                     onChange={onChangeHandler}
-                    value={registerData.phoneNumber}
+                    value={updateData.phoneNumber}
                     type="text"
                     id="phoneNumber"
                     name="phoneNumber"
@@ -182,7 +200,7 @@ export function ProfilePage() {
                 <div className="flex justify-between gap-2 items-center">
                   <input
                     onChange={onChangeHandler}
-                    value={registerData.email}
+                    value={updateData.email}
                     type="email"
                     id="Email"
                     name="email"
@@ -211,7 +229,7 @@ export function ProfilePage() {
 
                 <input
                   onChange={onChangeHandler}
-                  value={registerData.password}
+                  value={updateData.password}
                   type="password"
                   id="Password"
                   name="password"
@@ -228,7 +246,7 @@ export function ProfilePage() {
                 </label>
                 <input
                   onChange={onChangeHandler}
-                  value={registerData.passwordConfirmation}
+                  value={updateData.passwordConfirmation}
                   type="password"
                   id="PasswordConfirmation"
                   name="passwordConfirmation"
