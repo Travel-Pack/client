@@ -14,3 +14,4 @@ export const FETCH_TOPIC_BY_ID = 'fetch/topic/id';
 export const FETCH_MESSAGES = 'fetch/messages';
 export const FETCH_FORUM_ID = 'fetch/forum/id';
 export const FETCH_NEW_MESSAGE = 'fetch/new-message';
+export const FETCH_NEED_PREMIUM = 'fetch/need-premium';
