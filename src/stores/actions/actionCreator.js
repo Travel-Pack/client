@@ -16,7 +16,8 @@ import {
   FETCH_MESSAGES,
   FETCH_FORUM_ID,
   FETCH_NEW_MESSAGE,
-  FETCH_TOPIC_BY_ID
+  FETCH_TOPIC_BY_ID,
+  FETCH_NEED_PREMIUM
 } from "./actionType"
 const baseUrl = "http://localhost:3000"
 
@@ -279,6 +280,10 @@ export function generateTravelStep(inputData) {
         dispatch({
           type: GENERATES_TRAVELSTEPS,
           payload: res.data.travelStep,
+        })
+        dispatch({
+          type: FETCH_NEED_PREMIUM,
+          payload: res.data.needPremium
         })
         return "ok"
       })
