@@ -1,13 +1,21 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { activatePremium, fetchUserData, getTransactionToken, updateUser } from "../stores/actions/actionCreator"
+import {
+  activatePremium,
+  fetchUserData,
+  getTransactionToken,
+  updateUser,
+} from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
+import { blackButton } from "../helpers/buttonStyle"
+import { FaStar } from "react-icons/fa"
+
 export function ProfilePage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const user = useSelector((state) => state.others.user);
+  const user = useSelector((state) => state.others.user)
   const [updateData, setUpdateData] = useState({})
   const [load, setLoad] = useState(true)
   const [inputActive1, setInputActive1] = useState(false)
@@ -20,58 +28,54 @@ export function ProfilePage() {
       ...updateData,
       [e.target.name]: e.target.value,
     }
-    setUpdateData(updatedupdateData);
+    setUpdateData(updatedupdateData)
   }
 
   function handleUpdateProfile(e) {
     e.preventDefault()
     dispatch(updateUser(updateData)).then((res) => {
-      setLoad(true);
-      console.log(res);
+      setLoad(true)
+      console.log(res)
       if (res === "ok") {
-        dispatch(fetchUserData())
-          .then(_ => {
-            navigate('/profile')
-          })
+        dispatch(fetchUserData()).then((_) => {
+          navigate("/profile")
+        })
       }
       setLoad(false)
     })
   }
 
   const paymentHandler = async () => {
-    const token = await getTransactionToken();
+    const token = await getTransactionToken()
     window.snap.pay(token, {
       onSuccess: function (result) {
-        console.log("Succefully upgraded to premium");
-        setLoad(true);
-        dispatch(activatePremium())
-          .then(_ => {
-            dispatch(fetchUserData())
-              .finally(_=>{
-                setLoad(false);
-              })
+        console.log("Succefully upgraded to premium")
+        setLoad(true)
+        dispatch(activatePremium()).then((_) => {
+          dispatch(fetchUserData()).finally((_) => {
+            setLoad(false)
           })
+        })
       },
       onPending: function (result) {
-        console.log("Payment status pending");
+        console.log("Payment status pending")
       },
       onError: function (result) {
-        console.log("Payment status error");
+        console.log("Payment status error")
       },
       onClose: function () {
-        console.log("Payment window closed");
-      }
+        console.log("Payment window closed")
+      },
     })
   }
 
   useEffect(() => {
-    dispatch(fetchUserData())
-      .then(_ => {
-        setLoad(false);
-      })
+    dispatch(fetchUserData()).then((_) => {
+      setLoad(false)
+    })
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     setUpdateData({
       fullName: user.fullName,
       phoneNumber: user.phoneNumber,
@@ -133,24 +137,23 @@ export function ProfilePage() {
                 Let's go TravelPacking!
               </h1>
             </div>
-            <form
-              onSubmit={handleUpdateProfile}
-              className="mt-2 grid grid-cols-6 gap-6">
+            <form onSubmit={handleUpdateProfile} className="mt-2 grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <h1 className="font-medium text-gray-700 text-center text-lg">
                   Hallo {user.fullName}!
-                  {user.isPremium ?
-                    <span
-                      className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700"
-                    >
-                      <img src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png" className="-ml-1 mr-1.5 h-4 w-4" />
+                  {user.isPremium ? (
+                    <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                        className="-ml-1 mr-1.5 h-4 w-4"
+                      />
                       <p className="whitespace-nowrap text-sm">Premium</p>
-                    </span> : <></>
-                  }
+                    </span>
+                  ) : (
+                    <></>
+                  )}
                 </h1>
-                <label
-                  htmlFor="Name"
-                  className="block font-medium text-gray-700">
+                <label htmlFor="Name" className="block font-medium text-gray-700">
                   Name
                 </label>
                 <div className="flex justify-between gap-2 items-center">
@@ -171,9 +174,7 @@ export function ProfilePage() {
                 </div>
               </div>
               <div className="col-span-6">
-                <label
-                  htmlFor="phoneNumber"
-                  className="block font-medium text-gray-700">
+                <label htmlFor="phoneNumber" className="block font-medium text-gray-700">
                   Phone Number
                 </label>
                 <div className="flex justify-between gap-2 items-center">
@@ -194,9 +195,7 @@ export function ProfilePage() {
                 </div>
               </div>
               <div className="col-span-6">
-                <label
-                  htmlFor="Email"
-                  className="block font-medium text-gray-700">
+                <label htmlFor="Email" className="block font-medium text-gray-700">
                   Email
                 </label>
                 <div className="flex justify-between gap-2 items-center">
@@ -218,9 +217,7 @@ export function ProfilePage() {
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <div className="flex items-center gap-5">
-                  <label
-                    htmlFor="Password"
-                    className="block font-medium text-gray-700">
+                  <label htmlFor="Password" className="block font-medium text-gray-700">
                     Password
                   </label>
                   <VscEdit
@@ -263,7 +260,13 @@ export function ProfilePage() {
                 </button>
               </div>
             </form>
-            <button id="pay-button" className="inline-block shrink-0 rounded-md mx-auto bg-yelloku px-12 py-3 font-medium  hover:bg-black hover:text-yelloku duration-200 mt-6" onClick={paymentHandler}>Upgrade to premium!</button>
+            <button
+              id="pay-button"
+              className={`w-full flex rounded-md mx-auto gap justify-center py-3 font-medium mt-6 ${blackButton}`}
+              onClick={paymentHandler}>
+              <FaStar className="stroke-1 stroke-black w-5 h-5 animate-pulseslow"/>
+              <h1>Upgrade to premium!</h1>
+            </button>
           </div>
         </main>
       </div>

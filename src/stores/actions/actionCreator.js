@@ -35,7 +35,7 @@ export function fetchCities() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -53,7 +53,7 @@ export function fetchCity(slug) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -71,7 +71,7 @@ export function fetchHighlightedDestination() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -89,7 +89,7 @@ export function fetchDestination(slug) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -110,7 +110,7 @@ export function fetchTravelSteps() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -203,7 +203,7 @@ export function postReview(review) {
       })
       .catch((error) => {
         //ganti ke swal
-        console.log(error)
+        notifyError(error)
         return "error"
       })
   }
@@ -247,7 +247,7 @@ export function fetcDestinations(params, data) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -306,7 +306,7 @@ export function fetchReviews() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -328,7 +328,7 @@ export function fetchHotel(slug) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -357,7 +357,7 @@ export function activatePremium() {
         console.log("Successfully updated")
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -378,7 +378,7 @@ export function fetchUserData() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -416,7 +416,7 @@ export function updateUser(updateData) {
         return "ok"
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
         //ganti ke swal
         if (error.message === "Network Error") {
           return notifyError(error.message)
@@ -444,7 +444,7 @@ export function saveTravelStep(travelStepData) {
       })
       .catch((error) => {
         //ganti ke swal
-        console.log(error)
+        notifyError(error)
         return "error"
       })
   }
@@ -463,7 +463,7 @@ export function fetchTopics() {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -497,7 +497,7 @@ export function fetchMessages(id) {
         })
       })
       .catch((error) => {
-        console.log(error)
+        notifyError(error)
       })
   }
 }
@@ -511,22 +511,41 @@ export function insertMessage(message) {
   }
 }
 
-export function fetchWeatherData() {
+export function fetchWeatherData(geocoding) {
   return async (dispatch, getState) => {
     try {
+      const latLong = geocoding?.split(", ")
       const { data } = await axios.get(
-        `https://api.api-ninjas.com/v1/weather?lat=-7.70251914381839&lon=110.44913175490338`,
+        `https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`,
         {
-          headers: { "X-API-KEY": "kPVxzSr3Kcu25cCTh+hiMg==IXgVlTxk1lBJXIqe" },
+          headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
         }
       )
-
       dispatch({
         type: FETCH_WEATHER_DATA,
         payload: data,
       })
     } catch (error) {
-      console.log(error)
+      notifyError(error)
     }
   }
 }
+
+// export function fetchWeatherData(geocoding) {
+//   return (dispatch, getState) => {
+//     const latLong = geocoding?.split(", ")
+//     return axios
+//       .get(`https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`, {
+//         headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
+//       })
+//       .then((res) => {
+//         dispatch({
+//           type: FETCH_WEATHER_DATA,
+//           payload: res.data,
+//         })
+//       })
+//       .catch((error) => {
+//         notifyError(error.response.data?.msg)
+//       })
+//   }
+// }

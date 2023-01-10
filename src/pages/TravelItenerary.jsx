@@ -1,9 +1,11 @@
+import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import IteneraryCards from "../components/TravelSection/IteneraryCards"
 import { blackButton } from "../helpers/buttonStyle"
 
 export default function TravelItenerary() {
+  const [showModal, setShowModal] = useState(false)
   const needPremium = useSelector((state) => state.others.needPremium)
 
   return (
@@ -16,7 +18,7 @@ export default function TravelItenerary() {
         </section>
         <section id="cards" className="mx-auto">
           <IteneraryCards />
-          {needPremium ? (
+          {!needPremium ? (
             <section>
               <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
@@ -32,8 +34,8 @@ export default function TravelItenerary() {
                     <p className="mt-4 text-gray-600">
                       Join travel pack family for more travel steps and many more!
                     </p>
-                    <a
-                      href="#"
+                    <button
+                      onClick={setShowModal(!showModal)}
                       className={`mt-8 inline-flex items-center rounded border px-8 py-3 ${blackButton}`}>
                       <span className="text-sm font-medium"> Upgrade now </span>
                       <svg
@@ -49,7 +51,7 @@ export default function TravelItenerary() {
                           d="M17 8l4 4m0 0l-4 4m4-4H3"
                         />
                       </svg>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

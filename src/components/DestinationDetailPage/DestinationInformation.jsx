@@ -3,22 +3,22 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { WiDayCloudyWindy, WiDayRain, WiDaySunny } from "react-icons/wi"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
-
-function weatherRandom() {
-  const weather = ["rainy", "cloudy", "normal"]
-  return weather[Math.floor(Math.random() * weather.length)]
-}
+// import { fetchWeatherData } from "../../stores/actions/actionCreator"
 
 export function DestinationInformation() {
   const currentDate = new Date()
   const [weatherData, setWeatherData] = useState({})
+  const [dayStatus, setDayStatus] = useState("")
   const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
+  const weatherLatLong = useSelector((state) => state.others.weatherData)
   const dispatch = useDispatch()
+
+  const destGeocoding = destination.destination.geocoding
 
   let data
 
@@ -45,10 +45,33 @@ export function DestinationInformation() {
     }
   }
 
+  async function fetchWeather(geocoding) {
+    try {
+      const latLong = geocoding?.split(", ")
+      const { data } = await axios.get(
+        `https://api.api-ninjas.com/v1/weather?lat=${latLong[0]}&lon=${latLong[1]}`,
+        {
+          headers: { "X-API-KEY": "LM70771SiGLHsyf0tUdFvw==pYI4irjldWvqfANa" },
+        }
+      )
+      setWeatherData(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
-    // dispatch()
-    
-  }, [weatherData])
+    fetchWeather(destGeocoding)
+
+    //  dispatch(fetchWeatherData(destGeocoding))
+  }, [destGeocoding, dayStatus])
+
+  useEffect(() => {
+    if (weatherData.temp < 22) {
+      setDayStatus("rainy")
+    } else if (weatherData.temp > 22) {
+      setDayStatus("sunny")
+    }
+  },[weatherData])
 
   return (
     <section className="min-h-screen bg-stone-100 md:ml-96 w-full mx-auto">
@@ -229,9 +252,38 @@ export function DestinationInformation() {
               {currentDate.toLocaleDateString("id-ID", options)}
             </h1>
             <div className="flex flex-col items-center justify-center">
-              <WiDayRain className="w-36 h-36 text-sky-600" />
-              <h1 className="text-xl text-center">Today Will be sunny! Enjoy the trip</h1>
+              {dayStatus === "rainy" ? (
+                <>
+                  <WiDayRain className="w-36 h-36 text-sky-600" />
+                  <h1 className="text-xl text-center">
+                    Today Will be rainy! dont forget coat for travel!
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
+              {dayStatus === "sunny" ? (
+                <>
+                  <WiDaySunny className="w-36 h-36 text-sky-600" />
+                  <h1 className="text-xl text-center">
+                    Today Will be sunny! Enjoy the trip
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
+              {dayStatus === "windy" ? (
+                <>
+                  <WiDaySunny className="w-36 h-36 text-sky-600" />
+                  <h1 className="text-xl text-center">
+                    Today Will be windy! Prepare urself for the wind!
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
             </div>
+            {/* <h1>{weather}</h1> */}
             {/* <WiDayCloudyWindy className="w-36 h-36 text-sky-600" />
             <WiDaySunny className="w-36 h-36 text-sky-600" /> */}
           </div>
