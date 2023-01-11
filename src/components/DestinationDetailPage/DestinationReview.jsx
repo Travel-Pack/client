@@ -195,6 +195,7 @@ export function DestinationReview() {
             No review for this {type} yet.
           </h1>
         )}
+        <h1 className="font-bold font-caveat text-5xl mt-14">Write Your Review</h1>
         <form className="my-10" onSubmit={submitReviewHandler}>
           <section className="rating-star pb-5 grid grid-cols-2 max-w-4xl mx-auto gap-5">
             <div className="flex items-center">
@@ -234,7 +235,7 @@ export function DestinationReview() {
               onChange={onChangeHandler}
               id="comment"
               name="comment"
-              className="block w-full p-3 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+              className="bg-gray-200 block w-full p-3 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your review message here ..."
               required
             />
