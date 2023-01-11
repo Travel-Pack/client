@@ -1,21 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  activatePremium,
-  fetchUserData,
-  getTransactionToken,
-  updateUser,
-} from "../stores/actions/actionCreator"
+import { fetchUserData, updateUser } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
 import { blackButton } from "../helpers/buttonStyle"
-import { FaStar } from "react-icons/fa"
+import PremiumModal from "../components/PremiumModal"
 
 export function ProfilePage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((state) => state.others.user)
+  const [showModal, setShowModal] = useState(false)
   const [updateData, setUpdateData] = useState({})
   const [load, setLoad] = useState(true)
   const [inputActive1, setInputActive1] = useState(false)
@@ -45,28 +41,8 @@ export function ProfilePage() {
     })
   }
 
-  const paymentHandler = async () => {
-    const token = await getTransactionToken()
-    window.snap.pay(token, {
-      onSuccess: function (result) {
-        console.log("Succefully upgraded to premium")
-        setLoad(true)
-        dispatch(activatePremium()).then((_) => {
-          dispatch(fetchUserData()).finally((_) => {
-            setLoad(false)
-          })
-        })
-      },
-      onPending: function (result) {
-        console.log("Payment status pending")
-      },
-      onError: function (result) {
-        console.log("Payment status error")
-      },
-      onClose: function () {
-        console.log("Payment window closed")
-      },
-    })
+  function toggleModal() {
+    setShowModal(!showModal)
   }
 
   useEffect(() => {
@@ -121,7 +97,7 @@ export function ProfilePage() {
         <main
           aria-label="Main"
           className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6 bg-stone-50 min-h-screen">
-          <div className="max-w-xl lg:max-w-3xl shadow-xl p-5 bg-white">
+          <div className="max-w-xl lg:max-w-3xl p-5 bg-white">
             <div className="relative -mt-16 block lg:hidden">
               <a
                 className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
@@ -137,7 +113,9 @@ export function ProfilePage() {
                 Let's go TravelPacking!
               </h1>
             </div>
-            <form onSubmit={handleUpdateProfile} className="mt-2 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleUpdateProfile}
+              className="mt-2 grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <h1 className="font-medium text-gray-700 text-center text-lg">
                   Hallo {user.fullName}!
@@ -153,7 +131,9 @@ export function ProfilePage() {
                     <></>
                   )}
                 </h1>
-                <label htmlFor="Name" className="block font-medium text-gray-700">
+                <label
+                  htmlFor="Name"
+                  className="block font-medium text-gray-700">
                   Name
                 </label>
                 <div className="flex justify-between gap-2 items-center">
@@ -169,12 +149,14 @@ export function ProfilePage() {
                   />
                   <VscEdit
                     onClick={() => setInputActive1(!inputActive1)}
-                    className="cursor-pointer w-5 h-5"
+                    className="cursor-pointer w-8 h-8"
                   />
                 </div>
               </div>
               <div className="col-span-6">
-                <label htmlFor="phoneNumber" className="block font-medium text-gray-700">
+                <label
+                  htmlFor="phoneNumber"
+                  className="block font-medium text-gray-700">
                   Phone Number
                 </label>
                 <div className="flex justify-between gap-2 items-center">
@@ -190,12 +172,14 @@ export function ProfilePage() {
                   />
                   <VscEdit
                     onClick={() => setInputActive2(!inputActive2)}
-                    className="cursor-pointer w-5 h-5"
+                    className="cursor-pointer w-8 h-8"
                   />
                 </div>
               </div>
               <div className="col-span-6">
-                <label htmlFor="Email" className="block font-medium text-gray-700">
+                <label
+                  htmlFor="Email"
+                  className="block font-medium text-gray-700">
                   Email
                 </label>
                 <div className="flex justify-between gap-2 items-center">
@@ -211,13 +195,15 @@ export function ProfilePage() {
                   />
                   <VscEdit
                     onClick={() => setInputActive3(!inputActive3)}
-                    className="cursor-pointer w-5 h-5"
+                    className="cursor-pointer w-8 h-8"
                   />
                 </div>
               </div>
               <div className="col-span-6 sm:col-span-3">
                 <div className="flex items-center gap-5">
-                  <label htmlFor="Password" className="block font-medium text-gray-700">
+                  <label
+                    htmlFor="Password"
+                    className="block font-medium text-gray-700">
                     Password
                   </label>
                   <VscEdit
@@ -261,15 +247,14 @@ export function ProfilePage() {
               </div>
             </form>
             <button
-              id="pay-button"
               className={`w-full flex rounded-md mx-auto gap justify-center py-3 font-medium mt-6 ${blackButton}`}
-              onClick={paymentHandler}>
-              <FaStar className="stroke-1 stroke-black w-5 h-5 animate-pulseslow"/>
+              onClick={toggleModal}>
               <h1>Upgrade to premium!</h1>
             </button>
           </div>
         </main>
       </div>
+      <PremiumModal toggleModal={toggleModal} showModal={showModal} />
     </section>
   )
 }

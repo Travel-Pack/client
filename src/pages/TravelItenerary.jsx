@@ -1,12 +1,18 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import PremiumModal from "../components/PremiumModal"
+import Skeleton from "../components/Skeleton"
 import IteneraryCards from "../components/TravelSection/IteneraryCards"
 import { blackButton } from "../helpers/buttonStyle"
 
 export default function TravelItenerary() {
   const [showModal, setShowModal] = useState(false)
   const needPremium = useSelector((state) => state.others.needPremium)
+
+  function toggleModal(){
+    setShowModal(!showModal)
+  }
 
   return (
     <div className="bg-[url('https://img.freepik.com/free-vector/abstract-background-with-squares_23-2148995948.jpg?w=1800&t=st=1673367124~exp=1673367724~hmac=1eb149ec475353213df55a1a7d2aadbdc30131bbe9b4cffee40a80fd132a2ece')] bg-cover bg-fixed">
@@ -20,6 +26,10 @@ export default function TravelItenerary() {
           <IteneraryCards />
           {needPremium ? (
             <section>
+              <div className="grid gap-20 px-10 mt-20 grid-cols-2">
+                <Skeleton />
+                <Skeleton />
+              </div>
               <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
                   <div className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
@@ -30,12 +40,15 @@ export default function TravelItenerary() {
                     />
                   </div>
                   <div className="lg:py-24">
-                    <h2 className="text-3xl font-bold sm:text-4xl">Upgrade to premium</h2>
+                    <h2 className="text-3xl font-bold sm:text-4xl">
+                      Upgrade to premium
+                    </h2>
                     <p className="mt-4 text-gray-600">
-                      Join travel pack family for more travel steps and many more!
+                      Join travel pack family for more travel steps and many
+                      more!
                     </p>
                     <button
-                      onClick={()=>{setShowModal(!showModal)}}
+                      onClick={toggleModal}
                       className={`mt-8 inline-flex items-center rounded border px-8 py-3 ${blackButton}`}>
                       <span className="text-sm font-medium"> Upgrade now </span>
                       <svg
@@ -61,6 +74,7 @@ export default function TravelItenerary() {
           )}
         </section>
       </div>
+      <PremiumModal toggleModal={toggleModal} showModal={showModal}/>
     </div>
   )
 }

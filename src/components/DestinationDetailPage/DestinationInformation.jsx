@@ -76,7 +76,6 @@ export function DestinationInformation() {
   }, [destGeocoding, dayStatus])
 
   useEffect(() => {
-    console.log(weatherData)
     if (weatherData.temp < 22) {
       setDayStatus("rainy")
     } else if (weatherData.temp > 22) {
