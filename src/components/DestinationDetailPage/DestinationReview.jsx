@@ -1,6 +1,10 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
-import { fetchDestination, fetchHotel, postReview } from "../../stores/actions/actionCreator"
+import {
+  fetchDestination,
+  fetchHotel,
+  postReview,
+} from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 import { useParams } from "react-router-dom"
 import RatingStar from "../RatingStar/RatingStar"
@@ -15,10 +19,10 @@ export function DestinationReview() {
     internet: 0,
     safety: 0,
     fun: 0,
-    comment: ""
+    comment: "",
   })
-  const [score, setScore] = useState(0);
-  let data;
+  const [score, setScore] = useState(0)
+  let data
   if (type === "destination") {
     data = {
       name: destination.destination.name,
@@ -28,7 +32,7 @@ export function DestinationReview() {
       avg_internet: destination.reviews.averageInternet,
       avg_safety: destination.reviews.averageSafety,
       comments: destination.comment,
-      DestinationId: destination.destination.id
+      DestinationId: destination.destination.id,
     }
   } else {
     data = {
@@ -39,7 +43,7 @@ export function DestinationReview() {
       avg_internet: +hotel.avg_internet,
       avg_safety: +hotel.avg_safety,
       comments: hotel.Reviews,
-      HotelId: hotel.id
+      HotelId: hotel.id,
     }
   }
   const onChangeHandler = (e) => {
@@ -49,18 +53,24 @@ export function DestinationReview() {
   const dispatch = useDispatch()
   const submitReviewHandler = (e) => {
     e.preventDefault()
-    dispatch(postReview({...review, DestinationId: data.DestinationId, HotelId: data.HotelId})).then((res) => {
-      if(res === "ok"){
+    dispatch(
+      postReview({
+        ...review,
+        DestinationId: data.DestinationId,
+        HotelId: data.HotelId,
+      })
+    ).then((res) => {
+      if (res === "ok") {
         setLoad(true)
         setReview({
           cost: 0,
           internet: 0,
           safety: 0,
           fun: 0,
-          comment: ""
-        });
-        let fetch = fetchDestination;
-        if(type !== "destination"){
+          comment: "",
+        })
+        let fetch = fetchDestination
+        if (type !== "destination") {
           fetch = fetchHotel
         }
         dispatch(fetch(data.slug)).then((_) => {
@@ -70,16 +80,17 @@ export function DestinationReview() {
     })
   }
 
-  useEffect(()=>{
-    let average = (data.avg_cost + data.avg_fun + data.avg_internet + data.avg_safety) / 4;
-    setScore(average);
+  useEffect(() => {
+    let average =
+      (data.avg_cost + data.avg_fun + data.avg_internet + data.avg_safety) / 4
+    setScore(average)
   }, [data])
   if (load) {
     return <Loader />
   }
   return (
-    <section className="min-h-screen bg-stone-50 w-full mx-auto">
-      <div className="mt-20 pt-5 md:px-32">
+    <section className="min-h-screen bg-stone-50 w-full ">
+      <div className="mt-20 pt-5 md:px-32 container mx-auto ">
         <h1 className="font-bold font-caveat text-6xl">
           {data.name}, {"City Name"}
         </h1>
@@ -88,7 +99,9 @@ export function DestinationReview() {
           <p className="bg-yelloku text-sm font-semibold inline-flex items-center p-1.5 rounded">
             {score.toFixed(2)}
           </p>
-          <p className="ml-2 font-medium text-gray-900">{score > 4? "Excellent" : score < 3? "Bad": "Good"}</p>
+          <p className="ml-2 font-medium text-gray-900">
+            {score > 4 ? "Excellent" : score < 3 ? "Bad" : "Good"}
+          </p>
           <span className="w-1 h-1 mx-2 bg-gray-900 rounded-full" />
           <p className="text-sm font-medium text-gray-500">
             {data.comments.length} reviews
@@ -97,68 +110,60 @@ export function DestinationReview() {
         <div className="gap-8 sm:grid sm:grid-cols-2">
           <div>
             <dl>
-              <dt className="text-sm font-medium text-gray-500">
-                Cost
-              </dt>
+              <dt className="text-sm font-medium text-gray-500">Cost</dt>
               <dd className="flex items-center mb-3">
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded transition-colors"
-                    style={{ width: `${data.avg_cost / 5 * 100}%` }}
+                    style={{ width: `${(data.avg_cost / 5) * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                  {data.avg_cost? data.avg_cost.toFixed(2): 0}
+                  {data.avg_cost ? data.avg_cost.toFixed(2) : 0}
                 </span>
               </dd>
             </dl>
             <dl>
-              <dt className="text-sm font-medium text-gray-500">
-                Fun
-              </dt>
+              <dt className="text-sm font-medium text-gray-500">Fun</dt>
               <dd className="flex items-center mb-3">
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: `${data.avg_fun / 5 * 100}%` }}
+                    style={{ width: `${(data.avg_fun / 5) * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.avg_fun? data.avg_fun.toFixed(2): 0}
+                  {data.avg_fun ? data.avg_fun.toFixed(2) : 0}
                 </span>
               </dd>
             </dl>
           </div>
           <div>
             <dl>
-              <dt className="text-sm font-medium text-gray-500">
-                Internet
-              </dt>
+              <dt className="text-sm font-medium text-gray-500">Internet</dt>
               <dd className="flex items-center mb-3">
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: `${data.avg_internet / 5 * 100}%` }}
+                    style={{ width: `${(data.avg_internet / 5) * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.avg_internet? data.avg_internet.toFixed(2): 0}
+                  {data.avg_internet ? data.avg_internet.toFixed(2) : 0}
                 </span>
               </dd>
             </dl>
             <dl>
-              <dt className="text-sm font-medium text-gray-500">
-                Safety
-              </dt>
+              <dt className="text-sm font-medium text-gray-500">Safety</dt>
               <dd className="flex items-center mb-3">
                 <div className="w-full bg-gray-200 rounded h-2.5 mr-2">
                   <div
                     className="bg-yelloku h-2.5 rounded"
-                    style={{ width: `${data.avg_safety / 5 * 100}%` }}
+                    style={{ width: `${(data.avg_safety / 5) * 100}%` }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-500">
-                {data.avg_safety? data.avg_safety.toFixed(2): 0}
+                  {data.avg_safety ? data.avg_safety.toFixed(2) : 0}
                 </span>
               </dd>
             </dl>
@@ -178,7 +183,9 @@ export function DestinationReview() {
                 />
                 <div className="w-full">
                   <div className="flex justify-between mb-4">
-                    <p className="font-bold">{type === "destination"? el.user : el.User.fullName}</p>
+                    <p className="font-bold">
+                      {type === "destination" ? el.user : el.User.fullName}
+                    </p>
                     <p>
                       {new Date(el.createdAt).toLocaleString("en-IE", {
                         dateStyle: "short",
@@ -195,31 +202,53 @@ export function DestinationReview() {
             No review for this {type} yet.
           </h1>
         )}
-        <h1 className="font-bold font-caveat text-5xl mt-14">Write Your Review</h1>
+        <h1 className="font-bold font-caveat text-5xl mt-14">
+          Write Your Review
+        </h1>
         <form className="my-10" onSubmit={submitReviewHandler}>
           <section className="rating-star pb-5 grid grid-cols-2 max-w-4xl mx-auto gap-5">
             <div className="flex items-center">
               <p className="text-xl w-20">Cost</p>
               <div className="flex items-center">
-                <RatingStar key="1" name="cost" setReview={setReview} review={review} />
+                <RatingStar
+                  key="1"
+                  name="cost"
+                  setReview={setReview}
+                  review={review}
+                />
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Fun</p>
               <div className="flex items-center">
-                <RatingStar key="2" name="fun" setReview={setReview} review={review}/>
+                <RatingStar
+                  key="2"
+                  name="fun"
+                  setReview={setReview}
+                  review={review}
+                />
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Intenet</p>
               <div className="flex items-center">
-                <RatingStar key="3" name="internet" setReview={setReview} review={review}/>
+                <RatingStar
+                  key="3"
+                  name="internet"
+                  setReview={setReview}
+                  review={review}
+                />
               </div>
             </div>
             <div className="flex items-center">
               <p className="text-xl w-20">Safety</p>
               <div className="flex items-center">
-              <RatingStar key="4" name="safety" setReview={setReview} review={review}/>
+                <RatingStar
+                  key="4"
+                  name="safety"
+                  setReview={setReview}
+                  review={review}
+                />
               </div>
             </div>
           </section>

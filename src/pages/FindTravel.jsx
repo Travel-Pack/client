@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import TravelCards from "../components/TravelSection/TravelCards"
+import TravelCards from "../components/CityPages/TravelCards"
 import SearchForm from "../components/TravelSection/SearchForm"
 import { useDispatch } from "react-redux"
 import { fetcDestinations } from "../stores/actions/actionCreator"

@@ -51,9 +51,9 @@ export default function FindDestination() {
           
         </div>
       </div>
-      <div className="mx-auto px-16 flex justify-center py-10 gap-5 min-h-full">
+      
         <Outlet/>
-      </div>
+      
     </div>
   )
 }

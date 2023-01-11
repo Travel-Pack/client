@@ -71,54 +71,56 @@ export default function ForumDetail() {
           </h1>
         </div>
         <div className="container mx-auto mt-10 flex justify-evenly h-fit overflow-hidden">
-          <div className="forum-window">
-            <div className="forum-body">
-              <ScrollToBottom className="message-container max-h-[600px] w-[700px] bg-white overflow-auto mb-2 p-5">
-                {messages.map((messageContent) => {
-                  const newDate = new Date(messageContent.createdAt).toLocaleDateString(
-                    "id-ID",
-                    { year: "numeric", month: "long", weekday: "long" }
-                  )
-                  return (
-                    <div
-                      className="message px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
-                      id={messageContent.id}>
-                      <div className="message-meta flex justify-between">
-                        <p id="author" className="text-xl capitalize">
-                          {messageContent.User.fullName}
-                        </p>
-                        <p id="time" className="text-lg font-light text-gray-400">
-                          {newDate}
-                        </p>
-                      </div>
+          <ScrollToBottom className="message-container max-h-[600px] w-[700px] bg-white overflow-auto mb-2 p-5">
+            {messages.map((messageContent) => {
+              const newDate = new Date(
+                messageContent.createdAt
+              ).toLocaleDateString("id-ID", {
+                year: "numeric",
+                month: "long",
+                weekday: "long",
+              })
+              return (
+                <div
+                  className="message px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
+                  id={messageContent.id}>
+                  <div className="message-meta flex justify-between">
+                    <p id="author" className="text-xl capitalize">
+                      {messageContent.User.fullName}
+                    </p>
+                    <p id="time" className="text-lg font-light text-gray-400">
+                      {newDate}
+                    </p>
+                  </div>
 
-                      <div className="message-content pt-7">
-                        <p className="text-lg text-gray-400 whitespace-normal focus:ring-0 focus:border-0 focus:outline-0">{messageContent.text}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-              </ScrollToBottom>
+                  <div className="message-content pt-7">
+                    <p className="text-lg text-gray-400 whitespace-normal break-words focus:ring-0 focus:border-0 focus:outline-0">
+                      {messageContent.text}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </ScrollToBottom>
+
+          {localStorage.email ? (
+            <div className="forum-footer mb-10 p-5 w-full flex">
+              <input
+                type="text"
+                value={currentMessage}
+                placeholder="Hey..."
+                onChange={(event) => {
+                  setCurrentMessage(event.target.value)
+                }}
+                className="w-full border-0 border-b-2 border-yelloku"
+              />
+              <button
+                onClick={sendMessage}
+                className={`px-10 whitespace-nowrap w-fit border rounded ${blackButton}`}>
+                Send Message
+              </button>
             </div>
-            {localStorage.email ? (
-              <div className="forum-footer mb-10 p-5 w-full flex">
-                <input
-                  type="text"
-                  value={currentMessage}
-                  placeholder="Hey..."
-                  onChange={(event) => {
-                    setCurrentMessage(event.target.value)
-                  }}
-                  className="w-full border-0 border-b-2 border-yelloku"
-                />
-                <button
-                  onClick={sendMessage}
-                  className={`px-10 whitespace-nowrap w-fit border rounded ${blackButton}`}>
-                  Send Message
-                </button>
-              </div>
-            ) : null}
-          </div>
+          ) : null}
         </div>
       </div>
     )
