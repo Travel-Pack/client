@@ -1,6 +1,4 @@
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react"
 import React, { useState, useEffect } from "react"
-import { GoChevronUp } from "react-icons/go"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Loader from "../components/Loader"
@@ -9,6 +7,7 @@ import {
   fetchCities,
   fetchCity,
   generateTravelStep,
+  saveTravelStepCriteria,
 } from "../stores/actions/actionCreator"
 import { yellowButton } from "../helpers/buttonStyle"
 import { NumericFormat } from 'react-number-format';
@@ -26,12 +25,22 @@ export default function TravelStep() {
     CityId: "",
     DestinationIds: [],
   })
+  const [travelStepCriteria, setTravelStepCriteria] = useState({
+    budget: "",
+    numberOfDestination: "",
+    allocationDestination: 0,
+    City: "",
+    Destination: [],
+    CityId: "",
+    DestinationIds: []
+  })
   const [topText, setTopText] = useState(false)
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
   function handleSubmit(e) {
     e.preventDefault();
     setLoad(true);
+    dispatch(saveTravelStepCriteria(travelStepCriteria))
     dispatch(generateTravelStep(travelStepData)).then((res) => {
       setLoad(false)
       if (res === "ok") {
@@ -46,7 +55,6 @@ export default function TravelStep() {
       [e.target.name]: e.target.value,
     }
     setTravelStepData(updatedTravelStepData);
-    console.log(updatedTravelStepData);
   }
 
   useEffect(() => {
@@ -68,6 +76,7 @@ export default function TravelStep() {
     setCitySelected(cityName)
     const updatedTravelStepData = { ...travelStepData, CityId }
     setTravelStepData(updatedTravelStepData)
+    setTravelStepCriteria({...travelStepCriteria, City: cityName})
     setLoad(true)
     dispatch(fetchCity(citySlug)).then((_) => {
       setLoad(false)
@@ -75,18 +84,33 @@ export default function TravelStep() {
     })
   }
 
-  function selectDest(destinationId) {
-    const updatedTravelStepData = { ...travelStepData }
+  function selectDest(destinationId, destinationName) {
+    const updatedTravelStepData = { ...travelStepData };
+    const updatedTravelStepCriteria = {...travelStepCriteria};
     const index = updatedTravelStepData.DestinationIds.findIndex(
       (el) => el === destinationId
     )
     if (index === -1) {
-      updatedTravelStepData.DestinationIds.push(destinationId)
+      updatedTravelStepData.DestinationIds.push(destinationId);
+      updatedTravelStepCriteria.DestinationIds.push(destinationId);
+      updatedTravelStepCriteria.Destination.push(destinationName);
     } else {
-      updatedTravelStepData.DestinationIds.splice(index, 1)
+      updatedTravelStepData.DestinationIds.splice(index, 1);
+      updatedTravelStepCriteria.DestinationIds.splice(index, 1);
+      updatedTravelStepCriteria.Destination.splice(index, 1);
     }
-    setTravelStepData(updatedTravelStepData)
+    setTravelStepData(updatedTravelStepData);
+    setTravelStepCriteria(updatedTravelStepCriteria);
   }
+
+  useEffect(()=>{
+    const updatedTravelStepCriteria = {...travelStepCriteria,
+      budget: travelStepData.budget,
+      CityId: travelStepData.CityId,
+      numberOfDestination: travelStepData.numberOfDestination,
+      allocationDestination: travelStepData.allocationDestination,}
+    setTravelStepCriteria(updatedTravelStepCriteria);
+  }, [travelStepData])
 
   function resetAll() {
     setTopText(false),
@@ -98,6 +122,15 @@ export default function TravelStep() {
         allocationDestination: 50,
         CityId: "",
         DestinationIds: [],
+      })
+      setTravelStepCriteria({
+        budget: "",
+        numberOfDestination: "",
+        allocationDestination: 0,
+        City: "",
+        Destination: [],
+        CityId: "",
+        DestinationIds: []
       })
   }
 
@@ -269,7 +302,7 @@ export default function TravelStep() {
                         <div
                           className={`w-72 aspect-square ${classDestinationCard} relative group cursor-pointer`}
                           onClick={() => {
-                            selectDest(el.id)
+                            selectDest(el.id, el.name)
                           }}
                           key={el.id}>
                           <img
