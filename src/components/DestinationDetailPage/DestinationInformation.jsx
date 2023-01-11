@@ -19,10 +19,9 @@ export function DestinationInformation() {
   const weatherLatLong = useSelector((state) => state.others.weatherData)
   const dispatch = useDispatch()
 
-  const destGeocoding = destination.destination.geocoding
-
+  
   let data
-
+  
   const { type } = useParams()
   if (type === "destination") {
     data = {
@@ -45,7 +44,8 @@ export function DestinationInformation() {
       city: hotel.City.name,
     }
   }
-
+  
+  const destGeocoding = data.geocoding
   async function fetchWeather(geocoding) {
     try {
       const latLong = geocoding?.split(", ")
