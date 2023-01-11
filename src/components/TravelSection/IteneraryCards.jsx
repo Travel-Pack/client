@@ -90,17 +90,17 @@ export default function IteneraryCards({ type }) {
       ) : (
         <>
           {type === "wishlist" ? <></> :
-            <div className="px-10 pt-5 pb-8">
-              <h1 className="text-3xl font-bold">Let's Pack and Travel!</h1>
-              <h1 className="pt-4 text-xl">Travel Step for trip in {generatedTravelStepCriteria.City}</h1>
-              <h1 className="text-lg">Budget
+            <div className="px-10 pb-3">
+              <h1 className="text-4xl font-bold">Let's Pack and Travel!</h1>
+              <h1 className="pt-4 text-2xl">Travel Step for trip in {generatedTravelStepCriteria.City}</h1>
+              <h1 className="text-xl">Budget
                 {" " + generatedTravelStepCriteria.budget.toLocaleString("id-ID", {
                   style: "currency",
                   currency: "IDR",
                 })} and budget allocation {generatedTravelStepCriteria.allocationDestination}%</h1>
             </div>
           }
-          <div className="grid grid-cols-2 gap-20 px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 px-10">
             {data.map((el, index) => {
               let total = el.hotel.price
               return (
@@ -114,7 +114,7 @@ export default function IteneraryCards({ type }) {
                   </h1>
                   <section id="">
                     <h1 className="text-2xl font-semibold py-2 text-center">Hotel</h1>
-                    <div className="flex w-full gap-4 items-center bg-stone-100 p-3">
+                    <div className="flex flex-col md:flex-row w-full gap-4 items-center bg-stone-100 p-3">
                       <div
                         className="h-48 aspect-square p-2 shadow-md bg-white">
                         <img
@@ -143,7 +143,7 @@ export default function IteneraryCards({ type }) {
                     {el.destination.map((destination) => {
                       total += destination.cost
                       return (
-                        <div className="flex w-full gap-4 items-center bg-stone-100 p-3 mb-2 " key={destination.id}>
+                        <div className="flex w-full flex-col md:flex-row gap-4 items-center bg-stone-100 p-3 mb-2 " key={destination.id}>
                           <div
                             className="h-48 aspect-square p-2 shadow-md bg-white"
                             key={destination.id}>

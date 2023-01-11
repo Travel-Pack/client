@@ -2,6 +2,7 @@ import { Button, Modal } from "flowbite-react"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { yellowButton } from "../helpers/buttonStyle"
+import { notifySuccess } from "../helpers/notify"
 import { activatePremium, fetchUserData, generateTravelStep, getTransactionToken } from "../stores/actions/actionCreator"
 import Loader from "./Loader"
 
@@ -17,7 +18,7 @@ export default function ({ toggleModal, showModal }) {
     const token = await getTransactionToken()
     window.snap.pay(token, {
       onSuccess: function (result) {
-        console.log("Succefully upgraded to premium", result)
+        notifySuccess("Succefully upgraded to premium")
         setLoad(true)
         dispatch(activatePremium()).then((_) => {
           dispatch(fetchUserData())

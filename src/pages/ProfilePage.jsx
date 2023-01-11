@@ -32,7 +32,6 @@ export function ProfilePage() {
     e.preventDefault()
     dispatch(updateUser(updateData)).then((res) => {
       setLoad(true)
-      console.log(res)
       if (res === "ok") {
         dispatch(fetchUserData()).then((_) => {
           navigate("/profile")

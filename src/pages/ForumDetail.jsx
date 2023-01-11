@@ -29,18 +29,26 @@ export default function ForumDetail() {
   const [currentMessage, setCurrentMessage] = useState("")
 
   const setDate = (createdAt) => {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ]
     const day = new Date(createdAt).getDay()
     const newday = new Date(createdAt).getDate()
-    const dayName = days[day];
+    const dayName = days[day]
     const month = new Date(createdAt).getMonth()
-    console.log(month);
     const year = new Date(createdAt).getFullYear()
     const hours = new Date(createdAt).getHours()
     const minute = new Date(createdAt).getMinutes()
 
     // return createdAt
-    if (minute < 10) return `${hours}:0${minute} on ${dayName}, ${newday}/${month + 1}/${year}`
+    if (minute < 10)
+      return `${hours}:0${minute} on ${dayName}, ${newday}/${month + 1}/${year}`
     else return `${hours}:${minute} on ${dayName}, ${newday}/${month + 1}/${year}`
   }
   const sendMessage = async () => {
@@ -56,10 +64,6 @@ export default function ForumDetail() {
       setCurrentMessage("")
     }
   }
-
-  useEffect(() => {
-    console.log(messages)
-  })
 
   useEffect(() => {
     if (!id) navigate("/forum/")
@@ -86,7 +90,9 @@ export default function ForumDetail() {
           {topic.title}
         </h1>
 
-        <div className="container px-10 mt-32 flex gap-5 h-fit overflow-hidden w-1/2" id="scrollStyle">
+        <div
+          className="container px-10 mt-32 flex gap-5 h-fit overflow-hidden w-full md:w-1/2"
+          id="scrollStyle">
           <ScrollToBottom className="w-full bg-stone-900 bg-opacity-75 backdrop-blur-sm overflow-auto mb-2 p-5">
             {messages.map((messageContent) => {
               return (
@@ -126,7 +132,7 @@ export default function ForumDetail() {
           </ScrollToBottom>
         </div>
         {localStorage.email ? (
-          <div className="flex flex-col px-10 container w-1/2">
+          <div className="flex flex-col px-10 container w-full  md:w-1/2">
             <div className=" h-fit flex full mb-40">
               <input
                 type="text"

@@ -7,6 +7,7 @@ import { useCallback, useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
 import { yellowButton } from "../../helpers/buttonStyle"
+import { notifyError } from "../../helpers/notify"
 // import { fetchWeatherData } from "../../stores/actions/actionCreator"
 
 export function DestinationInformation() {
@@ -60,7 +61,7 @@ export function DestinationInformation() {
       )
       setWeatherData(data)
     } catch (error) {
-      console.log(error)
+      notifyError(error)
     }
   }
   useEffect(() => {

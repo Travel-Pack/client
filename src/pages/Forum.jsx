@@ -33,7 +33,7 @@ export default function Forum() {
           <div className="flex flex-col gap-5 container mx-auto max-w-7xl">
             <div className="md:mr-96">
             <button onClick={()=> setShowInput(!showInput)} className={`${blackButton} py-3 w-full`}>Add Topic</button>
-            <input type="text" className={`${showInput ? "h-28" : "h-0 hidden"} transition-transform w-full flex`}/>
+            <input type="text" className={`${showInput ? "h-11" : "h-0 hidden"} transition-transform w-full flex`} placeholder="write your forum title here..."/>
             </div>
             {topics.map((el, index) => {
               return (

@@ -51,7 +51,7 @@ export default function Cards({ type, cities, destinations }) {
           })
           return (
             <div
-              className="overflow-hidden relative group h-[400px]"
+              className="overflow-hidden relative group h-[400px] shadow-md"
               key={el.id}
               onClick={() => {
                 handleNavDestination(el.slug)
