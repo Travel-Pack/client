@@ -144,10 +144,10 @@ export default function IteneraryCards({ type }) {
                         <div className="flex flex-col justify-center w-3/4 h-full">
                           <h1 className="text-2xl font-medium">{destination.name}</h1>
                           <h3 className="text-xl">
-                            {destination.cost.toLocaleString("id-ID", {
+                            {destination.cost? destination.cost.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
-                            })}
+                            }) : "Free"}
                           </h3>
                         </div>
                       </div>
