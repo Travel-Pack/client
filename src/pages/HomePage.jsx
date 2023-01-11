@@ -135,10 +135,6 @@ export function HomePage() {
               {reviews.slice(0,10).map((el, index) => {
                 return (
                   <div className="bg-opacity-20" key={index}>
-<<<<<<< HEAD
-                    <p className="xl:text-3xl text-lg mb-10">{el.comment}</p>
-                    <h3 className="text-xl">By {el.user}</h3>
-=======
                     <p className="xl:text-3xl text-lg mb-10">
                       {el.comment}
                     </p>
@@ -156,7 +152,6 @@ export function HomePage() {
                         <></>
                       )}
                     </div>
->>>>>>> a4108e5993b1c3955f68dff8e5177c2817058f54
                   </div>
                 )
               })}
