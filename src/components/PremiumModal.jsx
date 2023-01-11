@@ -40,21 +40,30 @@ export default function ({ toggleModal, showModal }) {
   return (
     <React.Fragment>
       <Modal show={showModal} size="2xl" onClose={toggleModal}>
-        <Modal.Header>Small modal</Modal.Header>
+        <Modal.Header>Join Travel Pack Family!</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6 p-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              With less than a month to go before the European Union enacts new
-              consumer privacy laws for its citizens, companies around the world
-              are updating their terms of service agreements to comply.
-            </p>
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.)
-              goes into effect on May 25 and is meant to ensure a common set of
-              data rights in the European Union. It requires organizations to
-              notify users as soon as possible of high-risk data breaches that
-              could personally affect them.
-            </p>
+          <img src="https://images.unsplash.com/photo-1583452924150-c86772c4fab6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=628&q=80"
+            alt="image"
+            className="h-48 w-full object-cover"
+          />
+          <div className="flex items-center gap-3">
+            <img src="/assets/travelPack.ico" alt="logo" className="h-12 mt-5" />
+            <h1 className="mt-4 text-2xl">
+              Travel <span className="font-bold">Pack</span>
+            </h1>
+          </div>
+          <div className="pt-4">
+            <p className="text-base leading-relaxed">Premium Feature(s)</p>
+            <ul className="list-disc ml-4">
+              <li>Generates more travel steps</li>
+              <ul>
+                <li>- You can generate more travel steps than non premium users</li>
+                <li>- Premium user generate 10 travel steps</li>
+                <li>- Non premium user generate 4 travel steps</li>
+              </ul>
+              <li className="mt-4">Premium badge</li>
+              <p>- User can get a special premium badge on forum, profile page, and review page</p>
+            </ul>
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -62,7 +71,7 @@ export default function ({ toggleModal, showModal }) {
             id="pay-button"
             onClick={paymentHandler}
             className={`${yellowButton}`}>
-            I accept
+            Proceed Payment
           </Button>
         </Modal.Footer>
       </Modal>
