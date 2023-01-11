@@ -1,16 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  activatePremium,
-  fetchUserData,
-  getTransactionToken,
-  updateUser,
-} from "../stores/actions/actionCreator"
+import { fetchUserData, updateUser } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
 import { blackButton } from "../helpers/buttonStyle"
-import { FaStar } from "react-icons/fa"
 import PremiumModal from "../components/PremiumModal"
 
 export function ProfilePage() {
@@ -44,30 +38,6 @@ export function ProfilePage() {
         })
       }
       setLoad(false)
-    })
-  }
-
-  const paymentHandler = async () => {
-    const token = await getTransactionToken()
-    window.snap.pay(token, {
-      onSuccess: function (result) {
-        console.log("Succefully upgraded to premium")
-        setLoad(true)
-        dispatch(activatePremium()).then((_) => {
-          dispatch(fetchUserData()).finally((_) => {
-            setLoad(false)
-          })
-        })
-      },
-      onPending: function (result) {
-        console.log("Payment status pending")
-      },
-      onError: function (result) {
-        console.log("Payment status error")
-      },
-      onClose: function () {
-        console.log("Payment window closed")
-      },
     })
   }
 
@@ -277,7 +247,6 @@ export function ProfilePage() {
               </div>
             </form>
             <button
-              id="pay-button"
               className={`w-full flex rounded-md mx-auto gap justify-center py-3 font-medium mt-6 ${blackButton}`}
               onClick={toggleModal}>
               <h1>Upgrade to premium!</h1>
@@ -285,7 +254,7 @@ export function ProfilePage() {
           </div>
         </main>
       </div>
-      <PremiumModal toggleModal={toggleModal} showModal={showModal}/>
+      <PremiumModal toggleModal={toggleModal} showModal={showModal} />
     </section>
   )
 }

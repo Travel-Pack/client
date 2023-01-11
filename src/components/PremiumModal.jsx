@@ -1,19 +1,45 @@
 import { Button, Modal } from "flowbite-react"
 import React, { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { yellowButton } from "../helpers/buttonStyle"
+import { activatePremium, fetchUserData, getTransactionToken } from "../stores/actions/actionCreator"
+import Loader from "./Loader"
 
-export default function ({ toggleModal , showModal}) {
-  function handlePayment() {
-    setShowPayment(!showPayment)
+export default function ({ toggleModal, showModal }) {
+  const [load, setLoad] = useState(false)
+  const dispatch = useDispatch()
+
+  const paymentHandler = async () => {
+    const token = await getTransactionToken()
+    window.snap.pay(token, {
+      onSuccess: function (result) {
+        console.log("Succefully upgraded to premium", result)
+        setLoad(true)
+        dispatch(activatePremium()).then((_) => {
+          dispatch(fetchUserData()).finally((_) => {
+            setLoad(false)
+            toggleModal()
+          })
+        })
+      },
+      onPending: function (result) {
+        console.log("Payment status pending")
+      },
+      onError: function (result) {
+        console.log("Payment status error")
+      },
+      onClose: function () {
+        console.log("Payment window closed")
+      },
+    })
   }
 
-
+  if (load) {
+    return <Loader />
+  }
   return (
     <React.Fragment>
-      <Modal
-        show={showModal}
-        size="2xl"  
-        onClose={toggleModal}>
+      <Modal show={showModal} size="2xl" onClose={toggleModal}>
         <Modal.Header>Small modal</Modal.Header>
         <Modal.Body>
           <div className="space-y-6 p-6">
@@ -32,7 +58,10 @@ export default function ({ toggleModal , showModal}) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handlePayment} className={`${yellowButton}`}>
+          <Button
+            id="pay-button"
+            onClick={paymentHandler}
+            className={`${yellowButton}`}>
             I accept
           </Button>
         </Modal.Footer>
