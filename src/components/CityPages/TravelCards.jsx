@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { FaMapMarker } from "react-icons/fa"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import ScrollToTopBtn from "../ScrollToTopBtn"
@@ -31,9 +32,7 @@ export default function TravelCards() {
     }
   }
 
-  const wordCount = hRef.current
-    ? hRef.current.textContent.split(" ").length
-    : 0
+  const wordCount = hRef.current ? hRef.current.textContent.split(" ").length : 0
 
   // useEffect(() => {
   //   window.clamp(moduleRef.current, { clamp: 3 })
@@ -84,10 +83,16 @@ export default function TravelCards() {
                 <h1
                   className="text-stone-500 font-light py-5 line-clamp overflow-ellipsis"
                   ref={hRef}>
+
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae fuga
+                  provident animi quae doloremque esse sit
+
                   {type === "destination"? el.description.length >= 100? el.description.slice(0,100) + "..." : el.description : <></>}
+
                 </h1>
               </div>
               <div className="flex bg-yelloku w-full gap-10 px-5 py-4">
+                <FaMapMarker />
                 <h1>
                   {type === "destination" || type === "hotel"
                     ? city.city.name
