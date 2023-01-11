@@ -1,11 +1,15 @@
 import { Button, Modal } from "flowbite-react"
 import React, { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { yellowButton } from "../helpers/buttonStyle"
-import { activatePremium, fetchUserData, getTransactionToken } from "../stores/actions/actionCreator"
+import { activatePremium, fetchUserData, generateTravelStep, getTransactionToken } from "../stores/actions/actionCreator"
 import Loader from "./Loader"
 
 export default function ({ toggleModal, showModal }) {
+
+  const generatedTravelStepCriteria = useSelector(
+    (state) => state.travelSteps.generatedTravelStepCriteria
+  )
   const [load, setLoad] = useState(false)
   const dispatch = useDispatch()
 
@@ -16,10 +20,16 @@ export default function ({ toggleModal, showModal }) {
         console.log("Succefully upgraded to premium", result)
         setLoad(true)
         dispatch(activatePremium()).then((_) => {
-          dispatch(fetchUserData()).finally((_) => {
-            setLoad(false)
-            toggleModal()
-          })
+          dispatch(fetchUserData())
+            .then((_) => {
+              if (generatedTravelStepCriteria.budget) {
+                dispatch(generateTravelStep(generatedTravelStepCriteria))
+                  .then(_ => {
+                    toggleModal()
+                  })
+                }
+                setLoad(false)
+              })
         })
       },
       onPending: function (result) {
