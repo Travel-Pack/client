@@ -1,34 +1,49 @@
-export default function CouponCard(promo) {
+import { useState } from "react";
+
+export default function CouponCard({ promo }) {
+    const [isShown, setIsShown] = useState(false)
+
+    const showCode = (value) => {
+        setIsShown(value)
+    }
     return (
-        <div className="flex items-center justify-center">
-            <div className="" style={{ 
-                    "background": "linear-gradient(135deg, #7158fe, #9d4de6)",
-                    "color": "#fff",
-                    "text-align": "center",
-                    "padding": "40px 80px",
-                    "border-radius": "15px",
-                    "box-shadow": "0 10px 10px 0 rgba(0,0,0,0.15)",
-                    "position": "relative"
-                }}>
-                    <div className="flex justify-center items-center">
-                <img src="https://i.postimg.cc/KvTqpZq9/uber.png" className="w-20 rounded-lg mb-5 items-center justify-center" />
-                    </div>
-                <h3 className="text-2xl font-normal leading-10 mx-8 my-2">20% flat off on all rides within the city<br />using HDFC Credit Card</h3>
-                <div className="m-2 items-center">
-                    <span id="cpnCode" style={{
-                          "border": "1px dashed #fff",
-                          "padding": "10px 20px",
-                          "border-right": "0"
-                    }}>STEALDEAL20</span>
-                    <span id="cpnBtn" style={{
-                          "border": "1px solid #fff",
-                          "background": "#fff",
-                          "padding": "10px 20px",
-                          "color": "#7158fe",
-                          "cursor": "pointer"
-                    }}>Use Coupon</span>
+        <div className="flex items-center justify-center m-2">
+            <div className="" style={{
+                "background": "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 33%, rgba(0,212,255,1) 100%)",
+                "color": "#fff",
+                "text-align": "center",
+                "padding": "40px 80px",
+                "border-radius": "15px",
+                "box-shadow": "0 10px 10px 0 rgba(0,0,0,0.15)",
+                "position": "relative",
+                "height": "300px"
+            }}>
+                <div className="flex justify-center items-center">
+                    <img
+                        src="../assets/travelPack.png"
+                        alt="travelPack-Logo"
+                        className="h-16 sm:h-16 bg-white rounded-full p-1"
+                    />
+                    <p className="mx-3 text-3xl">&</p>
+                    <img src={promo.logo} className="h-10 rounded-lg mb-3 items-center justify-center" />
                 </div>
-                <p className="text-sm">Valid Till: 20Dec, 2021</p>
+                <h3 className="text-2xl font-normal leading-10 mx-8 my-2">{promo.value}</h3>
+                <p>{promo.desc}</p>
+                <div className="m-5 items-center" onClick={() => showCode(!isShown)}>
+                    {
+                        isShown ? <span id="cpnCode" style={{
+                            "border": "1px dashed #fff",
+                            "padding": "10px 20px",
+                        }}>{promo.code}</span> : <span id="cpnBtn" style={{
+                            "border": "1px solid #fff",
+                            "background": "#fff",
+                            "padding": "10px 20px",
+                            "color": "#7158fe",
+                            "cursor": "pointer"
+                        }}>Show Code</span>
+                    }
+                </div>
+                <p className="text-sm">{promo.period}</p>
                 <div className="" style={{
                     'background': '#f0fff3',
                     'width': '50px',
