@@ -139,9 +139,8 @@ export function DestinationInformation() {
               <div className="flex items-center">
                 <h1 className="font-bold font-caveat my-10 text-5xl">Location</h1>
                 <a
-                  href={`https://maps.google.com/?q=${data.geocoding.split(", ")[0]},${
-                    data.geocoding.split(", ")[1]
-                  }`}
+                  href={`https://maps.google.com/?q=${data.geocoding.split(", ")[0]},${data.geocoding.split(", ")[1]
+                    }`}
                   target="_blank"
                   className={`group flex items-center ml-10 ${yellowButton} p-4 rounded-2xl text-lg hover:font-bold`}>
                   <h2>Open on Google Maps</h2>
@@ -248,7 +247,24 @@ export function DestinationInformation() {
                         </h1>
                         <h1 className=" text-gray-400">{formatDate}</h1>
                       </div>
-                      <h1 className="font-light text-lg mb-5">{el.comment}</h1>
+                        {type === "destination" ? el.isPremium ?
+                          <div className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                              className="-ml-1 mr-1.5 h-4 w-4"
+                            />
+                            <p className="whitespace-nowrap text-sm">Premium</p>
+                          </div> : <></> :
+                          el.User.isPremium ?
+                            <div className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                              <img
+                                src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                                className="-ml-1 mr-1.5 h-4 w-4"
+                              />
+                              <p className="whitespace-nowrap text-sm">Premium</p>
+                            </div> : <></>
+                        }
+                      <h1 className="font-light text-lg mb-5">{el.comment.length > 40? `${el.comment.slice(0, 40)}...` : el.comment}</h1>
                     </div>
                   )
                 })}

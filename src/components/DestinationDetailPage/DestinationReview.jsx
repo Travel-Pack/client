@@ -188,9 +188,26 @@ export function DestinationReview() {
                 />
                 <div className="w-full">
                   <div className="flex justify-between mb-4">
-                    <p className="font-bold">
+                    <span className="font-bold">
                       {type === "destination" ? el.user : el.User.fullName}
-                    </p>
+                      {type === "destination" ? el.isPremium ?
+                        <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                            className="-ml-1 mr-1.5 h-4 w-4"
+                          />
+                          <p className="whitespace-nowrap text-sm">Premium</p>
+                        </span> : <></> :
+                        el.User.isPremium?
+                        <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                            className="-ml-1 mr-1.5 h-4 w-4"
+                          />
+                          <p className="whitespace-nowrap text-sm">Premium</p>
+                        </span> : <></>
+                      }
+                    </span>
                     <p>
                       {new Date(el.createdAt).toLocaleString("en-IE", {
                         dateStyle: "short",

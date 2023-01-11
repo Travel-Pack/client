@@ -294,11 +294,7 @@ export function fetchReviews() {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/publics/reviews`,
-      //nanti hapus
-      headers: {
-        access_token: localStorage.access_token,
-      },
+      url: `${baseUrl}/publics/reviews`
     })
       .then((res) => {
         dispatch({
