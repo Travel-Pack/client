@@ -21,9 +21,17 @@ export function HomePage() {
   const cities = useSelector((state) => state.cities.cities)
   const reviews = useSelector((state) => state.others.reviews)
 
+  const filteredCity = cities.map((el)=>{
+    return el.name.includes("")
+  })
+  
   function navToStep() {
     nav("/travel-step")
   }
+
+  useEffect(()=>{
+    console.log(cities)
+  }, [cities])
 
   /* Fetch data from API */
   const destinations = useSelector(

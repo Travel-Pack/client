@@ -10,8 +10,6 @@ import { blackButton } from "../helpers/buttonStyle"
 const socket = io.connect("http://localhost:3000/")
 
 export default function ForumDetail() {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-  const [isShow, setIsShow] = useState(false)
   let navigate = useNavigate()
   let { slug } = useParams()
   let { id } = useSelector((state) => state.forums)
@@ -58,28 +56,24 @@ export default function ForumDetail() {
   // Edit End
   if (topic)
     return (
-      <div className="flex flex-col bg-gray-100 h-screen">
+      <div className="flex flex-col bg-gray-100 h-screen bg-[url('https://img.freepik.com/free-photo/psychedelic-paper-shapes-with-copy-space_23-2149378246.jpg?w=2000&t=st=1673447025~exp=1673447625~hmac=6a6efb6593c6adf27d1eb3761ce95eb0b516451ce5d931b70bfb32bffef0faa3')]">
         <ScrollToTopBtn />
-        <div className="w-full xl:h-72 relative">
-          <img
-            src="https://img.freepik.com/free-photo/travel-concept-with-landmarks_23-2149153256.jpg?w=2000&t=st=1672978137~exp=1672978737~hmac=6fe7322da5662ae038075362c74d87c92080674444aa7b8a15486de3918fd6d3"
-            alt=""
-            className="object-cover w-full xl:h-full brightness-50"
-          />
-          <h1 className="absolute bottom-[10%] left-5 text-3xl font-medium text-white">
-            {topic.title}
-          </h1>
-        </div>
+
+        <h1 className="absolute bottom-[10%] left-5 text-3xl font-medium text-white">
+          {topic.title}
+        </h1>
+
         <div className="container mx-auto mt-10 flex justify-evenly h-fit overflow-hidden">
           <ScrollToBottom className="message-container max-h-[600px] w-[700px] bg-white overflow-auto mb-2 p-5">
             {messages.map((messageContent) => {
-              const newDate = new Date(
-                messageContent.createdAt
-              ).toLocaleDateString("id-ID", {
-                year: "numeric",
-                month: "long",
-                weekday: "long",
-              })
+              const newDate = new Date(messageContent.createdAt).toLocaleDateString(
+                "id-ID",
+                {
+                  year: "numeric",
+                  month: "long",
+                  weekday: "long",
+                }
+              )
               return (
                 <div
                   className="message px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"

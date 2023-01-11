@@ -30,7 +30,7 @@ export default function Cards({ type, cities, destinations }) {
                   alt={el.name}
                 />
                 <div className="absolute inset-0 flex w-full h-full backdrop-brightness-75 backdrop-contrast-75 items-center justify-center">
-                  <h1 className="text-white font-bold text-4xl text-center w-full block pl-5 py-2">
+                  <h1 className="text-white font-bold text-4xl text-center w-full block pl-5 py-2 capitalize">
                     {el.name}
                   </h1>
                 </div>
@@ -67,7 +67,7 @@ export default function Cards({ type, cities, destinations }) {
               </div>
               <div className="absolute inset-0 flex w-full h-full items-end duration-200">
                 <div className="flex w-full justify-between px-3 py-5 gap-10 bg-white">
-                  <h1 className="text-black text-lg duration-200 truncate">{el.name}</h1>
+                  <h1 className="text-black text-lg duration-200 truncate capitalize">{el.name}</h1>
                   <h1 className="text-red-500">
                   {currencyFormat}
                   </h1>
