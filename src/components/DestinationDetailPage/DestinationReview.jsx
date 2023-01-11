@@ -6,7 +6,7 @@ import {
   postReview,
 } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import RatingStar from "../RatingStar/RatingStar"
 
 export function DestinationReview() {
@@ -14,6 +14,7 @@ export function DestinationReview() {
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
   const [load, setLoad] = useState(false)
+  const nav = useNavigate()
   const [review, setReview] = useState({
     cost: 0,
     internet: 0,
@@ -53,6 +54,10 @@ export function DestinationReview() {
   const dispatch = useDispatch()
   const submitReviewHandler = (e) => {
     e.preventDefault()
+    if(!localStorage.access_token) {
+      nav("/login")
+      return
+    }
     dispatch(
       postReview({
         ...review,

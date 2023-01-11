@@ -36,8 +36,9 @@ export default function NavbarTravel() {
   return (
     <nav>
       <nav
-        className={`hidden md:flex bg-white bg-opacity-90 items-center z-50 justify-between fixed w-full px-20 shadow-sm backdrop-blur-md duration-200 h-[80px] ${visible ? "top-0" : "-top-[80px]"
-          }`}>
+        className={`hidden md:flex bg-white bg-opacity-90 items-center z-50 justify-between fixed w-full px-20 shadow-sm backdrop-blur-md duration-200 h-[80px] ${
+          visible ? "top-0" : "-top-[80px]"
+        }`}>
         <NavLink to={"/"} className="text-2xl">
           Travel <span className="font-bold">Pack</span>
         </NavLink>
@@ -50,13 +51,11 @@ export default function NavbarTravel() {
             </NavLink>
           </div>
           <div>
-            {loggedIn ?
-              <NavLink
-                className="font-medium hover:border-b-4 border-yelloku duration-400"
-                to={"/travel-step"}>
-                Travel Step
-              </NavLink> : <></>
-            }
+            <NavLink
+              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              to={"/travel-step"}>
+              Travel Step
+            </NavLink>
           </div>
           <div>
             <NavLink
@@ -66,29 +65,23 @@ export default function NavbarTravel() {
             </NavLink>
           </div>
           <div>
-            {loggedIn ?
-              <NavLink
-                className="font-medium hover:border-b-4 border-yelloku duration-400"
-                to={"/my-travel-step"}>
-                My Travel
-              </NavLink> : <></>
-            }
+            <NavLink
+              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              to={"/my-travel-step"}>
+              My Travel
+            </NavLink>
           </div>
           <div className="mr-16">
-            {loggedIn ?
-              <NavLink
-                className="font-medium hover:border-b-4 border-yelloku duration-400"
-                to={"/forum"}>
-                Forum
-              </NavLink> : <></>
-            }
+            <NavLink
+              className="font-medium hover:border-b-4 border-yelloku duration-400"
+              to={"/forum"}>
+              Forum
+            </NavLink>
           </div>
           <div>
-            {loggedIn ?
-              <NavLink className="font-medium" to={"/profile"}>
-                <BsFillPersonFill className="w-5 h-5 hover:text-yelloku duration-400" />
-              </NavLink> : <></>
-            }
+            <NavLink className="font-medium" to={"/profile"}>
+              <BsFillPersonFill className="w-5 h-5 hover:text-yelloku duration-400" />
+            </NavLink>
           </div>
           <div>
             {loggedIn ? (

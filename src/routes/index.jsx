@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Navigate } from "react-router-dom"
 import App from "../App"
 import { HomePage } from "../pages/HomePage"
 import { LoginPage } from "../pages/LoginPage"
@@ -6,7 +6,6 @@ import { RegisterPage } from "../pages/RegisterPage"
 import { DestinationDetailPage } from "../pages/DestinationDetailPage"
 import { DestinationInformation } from "../components/DestinationDetailPage/DestinationInformation"
 import { DestinationReview } from "../components/DestinationDetailPage/DestinationReview"
-import { DestinationCovid } from "../components/DestinationDetailPage/DestinationCovid"
 import ErrorPage from "../pages/ErrorPage"
 import FindTravel from "../pages/FindTravel"
 import MyTravelStep from "../pages/MyTravelStep"
@@ -18,6 +17,17 @@ import FindDestination from "../components/CityPages/FindDestination"
 import TravelCards from "../components/CityPages/TravelCards"
 import { ProfilePage } from "../pages/ProfilePage"
 
+function Protect({ children }) {
+  const access_token = localStorage.getItem("access_token")
+  if (!access_token) return <Navigate to="/login" replace />
+  return children
+}
+
+function Authorized({ children }) {
+  const access_token = localStorage.getItem("access_token")
+  if (access_token) return <Navigate to="/" replace />
+  return children
+}
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,27 +60,47 @@ const router = createBrowserRouter([
       },
       {
         path: "travel-step",
-        element: <TravelStep />,
+        element: (
+          <Protect>
+            <TravelStep />
+          </Protect>
+        ),
         errorElement: <ErrorPage />,
       },
       {
         path: "travel-step/generated",
-        element: <TravelItenerary />,
+        element: (
+          <Protect>
+            <TravelItenerary />
+          </Protect>
+        ),
         errorElement: <ErrorPage />,
       },
       {
         path: "my-travel-step",
-        element: <MyTravelStep />,
+        element: (
+          <Protect>
+            <MyTravelStep />
+          </Protect>
+        ),
         errorElement: <ErrorPage />,
       },
       {
         path: "forum",
-        element: <Forum />,
+        element: (
+          <Protect>
+            <Forum />
+          </Protect>
+        ),
         errorElement: <ErrorPage />,
       },
       {
         path: "forum/:slug",
-        element: <ForumDetail />,
+        element: (
+          <Protect>
+            <ForumDetail />
+          </Protect>
+        ),
         errorElement: <ErrorPage />,
       },
       {
@@ -98,7 +128,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <Authorized>
+        <LoginPage />
+      </Authorized>
+    ),
     errorElement: <ErrorPage />,
   },
   {
