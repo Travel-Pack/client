@@ -40,7 +40,10 @@ export default function TravelStep() {
   }
 
   const onChangeHandler = (e) => {
-    const updatedTravelStepData = { ...travelStepData, [e.target.name]: e.target.value }
+    const updatedTravelStepData = {
+      ...travelStepData,
+      [e.target.name]: e.target.value,
+    }
     setTravelStepData(updatedTravelStepData)
   }
 
@@ -51,7 +54,10 @@ export default function TravelStep() {
   }, [])
 
   function showCity() {
-    if (travelStepData.budget !== "" || travelStepData.numberOfDestination !== "") {
+    if (
+      travelStepData.budget !== "" ||
+      travelStepData.numberOfDestination !== ""
+    ) {
       setTopText(!topText)
     }
   }
@@ -114,7 +120,9 @@ export default function TravelStep() {
             <div
               onClick={resetAll}
               className={`pb-5 text-3xl border-b-2 border-white 2xl:text-7xl cursor-pointer`}>
-              <h1 className="text-white font-semibold text-center">Preparing</h1>
+              <h1 className="text-white font-semibold text-center">
+                Preparing
+              </h1>
               <div className="">
                 <h1 className="text-white font-semibold">
                   <span className="font-light">the next</span> Travel
@@ -134,12 +142,13 @@ export default function TravelStep() {
                 <input
                   type="number"
                   id="inputBudget"
-                  style={{"border-bottom": '1px solid yellow'}}
+                  style={{ "border-bottom": "1px solid yellow" }}
                   onChange={onChangeHandler}
                   value={travelStepData.budget}
                   name="budget"
                   className="w-3/4 mx-auto shadow-md border-none bg-transparent text-white text-center focus:ring-0 focus:border-b-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                   placeholder="ex. 25000000"
+                  required
                 />
               </div>
 
@@ -152,23 +161,24 @@ export default function TravelStep() {
                 <input
                   type="number"
                   id="inputBudget"
-                  style={{"border-bottom": '1px solid yellow'}}
+                  style={{ "border-bottom": "1px solid yellow" }}
                   value={travelStepData.numberOfDestination}
                   onChange={onChangeHandler}
                   name="numberOfDestination"
                   className="w-3/4 mx-auto shadow-md border-none border-b-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-b-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                   placeholder="ex. 2"
+                  required
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="rangeDest" className="text-white text-lg">
+                <label htmlFor="rangeDest" className="text-white text-2xl">
                   Allocation
                 </label>
-                <div className="flex justitfy-between w-full text-white">
-                  <h1 className="flex-1">
+                <div className="flex justitfy-between w-full text-white mb-2.5">
+                  <h1 className="flex-1 text-xl">
                     Destination : {travelStepData.allocationDestination + "%"}
                   </h1>
-                  <h1 className="flex-1">
+                  <h1 className="flex-1 text-xl">
                     Hotel : {100 - travelStepData.allocationDestination + "%"}
                   </h1>
                 </div>
@@ -178,20 +188,21 @@ export default function TravelStep() {
                   onChange={onChangeHandler}
                   value={travelStepData.allocationDestination}
                   name="allocationDestination"
-                  className="w-full mx-auto h-1 bg-white rounded-lg appearance-none cursor-pointer"
+                  className="w-full mx-auto h-2.5 bg-white rounded-lg appearance-none cursor-pointer slider"
                 />
               </div>
 
               {topText ? (
                 <div>
-                  <button className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
+                  <button
+                    className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
                     new budget
                   </button>
                 </div>
               ) : (
                 <button
                   onClick={showCity}
-                  className={`text-xl w-full mx-auto py-1.5 ${yellowButton}`}>
+                  className={`text-xl font-medium w-full mx-auto py-2 ${yellowButton}`}>
                   choose city
                 </button>
               )}
@@ -214,11 +225,11 @@ export default function TravelStep() {
               showDest ? "w-0 hidden" : "w-full block overflow-y-auto"
             }`}
             id="scrollStyle">
-            <div className="flex flex-wrap gap-2 justify-center mt-20 pb-10">
+            <div className="flex flex-wrap gap-2 justify-center mt-20 pb-10 ">
               {cities.map((el) => {
                 return (
                   <div
-                    className="max-w-xs aspect-square relative group"
+                    className="max-w-xs aspect-square relative group cursor-pointer"
                     onClick={() => displayDest(el.name, el.id, el.slug)}
                     key={el.id}>
                     <img
@@ -257,7 +268,7 @@ export default function TravelStep() {
                       }
                       return (
                         <div
-                          className={`w-72 aspect-square ${classDestinationCard} relative group`}
+                          className={`w-72 aspect-square ${classDestinationCard} relative group cursor-pointer`}
                           onClick={() => {
                             selectDest(el.id)
                           }}

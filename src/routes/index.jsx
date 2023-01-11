@@ -15,7 +15,7 @@ import ForumDetail from "../pages/ForumDetail"
 import TravelItenerary from "../pages/TravelItenerary"
 import TravelStep from "../pages/TravelStep"
 import FindDestination from "../components/CityPages/FindDestination"
-import TravelCards from "../components/TravelSection/TravelCards"
+import TravelCards from "../components/CityPages/TravelCards"
 import { ProfilePage } from "../pages/ProfilePage"
 
 const router = createBrowserRouter([

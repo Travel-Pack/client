@@ -169,7 +169,7 @@ export function ProfilePage() {
                   />
                   <VscEdit
                     onClick={() => setInputActive1(!inputActive1)}
-                    className="cursor-pointer w-8 h-8"
+                    className="cursor-pointer w-5 h-5"
                   />
                 </div>
               </div>
@@ -190,7 +190,7 @@ export function ProfilePage() {
                   />
                   <VscEdit
                     onClick={() => setInputActive2(!inputActive2)}
-                    className="cursor-pointer w-8 h-8"
+                    className="cursor-pointer w-5 h-5"
                   />
                 </div>
               </div>
@@ -211,7 +211,7 @@ export function ProfilePage() {
                   />
                   <VscEdit
                     onClick={() => setInputActive3(!inputActive3)}
-                    className="cursor-pointer w-8 h-8"
+                    className="cursor-pointer w-5 h-5"
                   />
                 </div>
               </div>

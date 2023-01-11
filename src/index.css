@@ -7,6 +7,32 @@
 @tailwind components;
 @tailwind utilities;
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield !important;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 26px !important; /* Set a specific slider handle width */
+  height: 26px !important; /* Slider handle height */
+  background: #ffe500 !important; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 26px !important; /* Set a specific slider handle width */
+  height: 26px !important; /* Slider handle height */
+  background: #ffe500 !important; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
 .font-lucky-guy {
   font-family: "Luckiest Guy", "cursive";
 }
@@ -27,7 +53,7 @@
   height: 600px;
 }
 
-#NavDetail > .active {
+/* #NavDetail > .active {
   text-decoration: underline;
   text-decoration-thickness: 8px;
   text-decoration-color: #ffe500;
@@ -37,7 +63,7 @@
 
 #navbarLink > div > .active {
   border-bottom: 4px solid #ffe500;
-}
+} */
 
 .swiper {
   width: 100%;
