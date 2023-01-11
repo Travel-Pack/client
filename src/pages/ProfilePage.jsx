@@ -255,6 +255,9 @@ export function ProfilePage() {
                 <h1>Upgrade to premium!</h1>
               </button>
             }
+            <div className="flex justify-center items-center">
+              <CouponModal point={user.point}/>
+            </div>
           </div>
         </main>
       </div>
