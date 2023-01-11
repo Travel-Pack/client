@@ -180,13 +180,13 @@ export function DestinationInformation() {
           )}
         </div>
 
-        <div className="right-side md:w-1/3  rounded-xl py-10 h-fit sticky top-0">
+        <div className="right-side md:w-1/3 rounded-xl py-10 h-fit sticky top-0">
           <div className=" flex flex-col items-center bg-slate-100 shadow-md py-20 px-10">
             <h1 className="text-3xl font-semibold text-black">{data.city}</h1>
             <h1 className="text-lg font-light text-sky-600">
               {currentDate.toLocaleDateString("id-ID", options)}
             </h1>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center ">
               {dayStatus === "rainy" ? (
                 <>
                   <WiDayRain className="w-36 h-36 text-sky-600" />
