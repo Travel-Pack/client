@@ -12,7 +12,7 @@ import {
 } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
-import { yellowButton } from "../helpers/buttonStyle"
+import { blackButton, yellowButton } from "../helpers/buttonStyle"
 
 export function HomePage() {
   const [load, setLoad] = useState(true)
@@ -20,35 +20,38 @@ export function HomePage() {
   const dispatch = useDispatch()
   const cities = useSelector((state) => state.cities.cities)
   const reviews = useSelector((state) => state.others.reviews)
+  let tofilterCity = undefined
+ 
+  useEffect(()=>{
+    if(cities){
+      tofilterCity = cities.filter((el, index)=>{
+        index < 8
+      })
+    }
+  }, [])
 
-  const filteredCity = cities.map((el)=>{
-    return el.name.includes("Bali", "")
-  })
-  
+
+
+  useEffect(()=>{
+    console.log(tofilterCity)
+  }, [])
+
+
   function navToStep() {
     nav("/travel-step")
   }
 
-  useEffect(()=>{
-    console.log(cities)
-  }, [cities])
-
   /* Fetch data from API */
-  const destinations = useSelector(
-    (state) => state.destinations.highlightedDestinations
-  )
+  const destinations = useSelector((state) => state.destinations.highlightedDestinations)
   /*  */
   useEffect(() => {
-    dispatch(fetchCities())
-      .then((_) => {
-        dispatch(fetchHighlightedDestination())
-          .then((_) => {
-            dispatch(fetchReviews())
-              .then(_ => {
-                setLoad(false)
-              })
-          })
+    dispatch(fetchCities()).then((_) => {
+      dispatch(fetchHighlightedDestination()).then((_) => {
+        dispatch(fetchReviews()).then((_) => {
+          setLoad(false)
+        })
       })
+    })
   }, [])
 
   if (load) return <Loader />
@@ -64,15 +67,15 @@ export function HomePage() {
             Join Global community to list all worth destination in Nusantara
           </h1>
           <a href="#cities">
-            <button className={` py-2.5 px-11 block mx-auto mt-2 lowercase font-medium text-xl ${yellowButton}`}>
+            <button
+              className={` py-2.5 px-11 block mx-auto mt-2 lowercase font-medium text-xl ${yellowButton}`}>
               Let's Go!
             </button>
           </a>
         </div>
       </div>
       <div className="flex-col flex pb-10">
-        <div className="bg-yelloku flex flex-col xl:flex-row items-center justify-center py-10 xl:gap-14 gap-3 h-10">
-        </div>
+        <div className="bg-yelloku flex flex-col xl:flex-row items-center justify-center py-10 xl:gap-14 gap-3 h-10"></div>
         <section className="destination-text bg-white w-full" id="cities">
           <div className="container mx-auto py-4">
             <div className="max-w-3xl">
@@ -83,21 +86,24 @@ export function HomePage() {
                   For Your Vacation
                 </h1>
                 <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
-                  View destinations or hotels in the city of your choice. Click a city to see available destinations and hotels.
+                  View destinations or hotels in the city of your choice. Click a city to
+                  see available destinations and hotels.
                 </p>
               </div>
             </div>
           </div>
         </section>
         <Cards type="city" cities={cities} />
+        <button
+          className={`${blackButton} py-2 text-2xl font-medium w-fit self-end px-6 mr-5`}>
+          {/* {cities > 8 ? "Show all" : "hide cities"} */}
+        </button>
         <div className="container mx-auto my-4">
           <div className="max-w-3xl">
             <div className="py-10">
               <h1 className="xl:text-5xl text-3xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
                 Amazing{" "}
-                <span className="font-light">
-                  Destinations And Fun Adventures{" "}
-                </span>
+                <span className="font-light">Destinations And Fun Adventures </span>
                 Waiting For You
               </h1>
               <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
@@ -116,15 +122,12 @@ export function HomePage() {
           </div>
         </div>
         <div className="xl:w-1/2">
-          <div
-            className={`h-96 xl:h-full w-full bg-black px-5 xl:px-24 text-white`}>
+          <div className={`h-96 xl:h-full w-full bg-black px-5 xl:px-24 text-white`}>
             <Carousel slideInterval={5000}>
               {reviews.map((el, index) => {
                 return (
                   <div className="bg-opacity-20" key={index}>
-                    <p className="xl:text-3xl text-lg mb-10">
-                      {el.comment}
-                    </p>
+                    <p className="xl:text-3xl text-lg mb-10">{el.comment}</p>
                     <h3 className="text-xl">By {el.user}</h3>
                   </div>
                 )
