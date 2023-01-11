@@ -134,10 +134,11 @@ export default function TravelStep() {
                 <input
                   type="number"
                   id="inputBudget"
+                  style={{"border-bottom": '1px solid yellow'}}
                   onChange={onChangeHandler}
                   value={travelStepData.budget}
                   name="budget"
-                  className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
+                  className="w-3/4 mx-auto shadow-md border-none bg-transparent text-white text-center focus:ring-0 focus:border-b-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                   placeholder="ex. 25000000"
                 />
               </div>
@@ -151,10 +152,11 @@ export default function TravelStep() {
                 <input
                   type="number"
                   id="inputBudget"
+                  style={{"border-bottom": '1px solid yellow'}}
                   value={travelStepData.numberOfDestination}
                   onChange={onChangeHandler}
                   name="numberOfDestination"
-                  className="w-3/4 mx-auto shadow-md border-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
+                  className="w-3/4 mx-auto shadow-md border-none border-b-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-b-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                   placeholder="ex. 2"
                 />
               </div>
