@@ -1,8 +1,8 @@
 import { Navbar } from "flowbite-react"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
-import { BsFillPersonFill } from "react-icons/bs"
 import { notifySuccess } from "../helpers/notify"
+import { HiOutlineUserCircle } from "react-icons/hi"
 
 export default function NavbarTravel() {
   const [prevScrollpos, setPrevScrollpos] = useState(window.scrollY)
@@ -79,7 +79,7 @@ export default function NavbarTravel() {
           </div>
           <div>
             <NavLink className="font-medium" to={"/profile"}>
-              <BsFillPersonFill className="w-5 h-5 hover:text-yelloku duration-400" />
+              <HiOutlineUserCircle className="w-8 h-8 hover:text-yelloku duration-400" />
             </NavLink>
           </div>
           <div>

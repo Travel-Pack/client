@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { BsPinMapFill } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
@@ -62,20 +62,23 @@ export default function TravelCards() {
                   className="w-full h-full object-cover"
                   alt={el.name}
                 />
-              </div>
-              <div className="px-7">
-                <div className="flex justify-between pt-5">
+              <div className="px-7  pt-5">
+                <div className="flex justify-between">
                   <h1 className="text-xl tracking-wide">{el.name}</h1>
                   <h1 className="text-xl tracking-wide text-red-500">
                     {type === "hotel"
-                      ? el.price? el.price.toLocaleString("id-ID", {
+                      ? el.price
+                        ? el.price.toLocaleString("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                          })
+                        : "Free"
+                      : el.cost
+                      ? el.cost.toLocaleString("id-ID", {
                           style: "currency",
                           currency: "IDR",
-                        }) : "Free"
-                      : el.cost? el.cost.toLocaleString("id-ID", {
-                          style: "currency",
-                          currency: "IDR",
-                        }) : "Free"}
+                        })
+                      : "Free"}
                   </h1>
                 </div>
                 {/* <h1 className="text-red-500">7.5 Superb</h1> */}
@@ -83,13 +86,12 @@ export default function TravelCards() {
                 <h1
                   className="text-stone-500 font-light py-5 line-clamp overflow-ellipsis"
                   ref={hRef}>
-
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae fuga
-                  provident animi quae doloremque esse sit
-
-                  {type === "destination"? el.description.length >= 100? el.description.slice(0,100) + "..." : el.description : <></>}
-
+                  {el.description?.length >= 175
+                    ? el.description.slice(0, 175) + "..."
+                    : el.description} 
+                  {type === "hotel" ? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum iusto vitae ea necessitatibus eveniet itaque numquam dolores totam, corrupti vel omnis libero " : ""}
                 </h1>
+              </div>
               </div>
               <div className="flex bg-yelloku w-full gap-2 items-center px-5 py-4">
                 <BsPinMapFill />

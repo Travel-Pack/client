@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -13,7 +14,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield !important;
 }
 
@@ -31,6 +32,10 @@ input[type=number] {
   height: 26px !important; /* Slider handle height */
   background: #ffe500 !important; /* Green background */
   cursor: pointer; /* Cursor on hover */
+}
+
+.font-raleway {
+  font-family: "Raleway", sans-serif;
 }
 
 .font-lucky-guy {
@@ -156,7 +161,7 @@ input[type=number] {
   border: 2px solid #555555;
 }
 
-#preloader{
+#preloader {
   position: fixed;
   top: 0;
   left: 0;
@@ -171,4 +176,8 @@ input[type=number] {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.active {
+  border-bottom: 6px solid #ffe500;
 }

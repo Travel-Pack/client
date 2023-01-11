@@ -8,6 +8,7 @@ import {
 import Loader from "../Loader"
 import { useNavigate, useParams } from "react-router-dom"
 import RatingStar from "../RatingStar/RatingStar"
+import { yellowButton } from "../../helpers/buttonStyle"
 
 export function DestinationReview() {
   const { type } = useParams()
@@ -95,7 +96,7 @@ export function DestinationReview() {
   }
   return (
     <section className="min-h-screen bg-stone-50 w-full ">
-      <div className="mt-20 pt-5 md:px-32 container mx-auto ">
+      <div className="pt-5 md:px-32 container mx-auto bg-white">
         <h1 className="font-bold font-caveat text-6xl">
           {data.name}, {"City Name"}
         </h1>
@@ -188,7 +189,7 @@ export function DestinationReview() {
                 />
                 <div className="w-full">
                   <div className="flex justify-between mb-4">
-                    <span className="font-bold">
+                    <span className="font-bold capitalize flex gap-3">
                       {type === "destination" ? el.user : el.User.fullName}
                       {type === "destination" ? el.isPremium ?
                         <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
@@ -291,7 +292,7 @@ export function DestinationReview() {
               required
             />
           </div>
-          <button className="bg-yelloku py-3 px-6 rounded-xl my-4 block mx-auto">
+          <button className={`${yellowButton} py-2 px-20 rounded-md my-4 block mx-auto`}>
             Send
           </button>
         </form>
