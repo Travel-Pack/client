@@ -1,6 +1,6 @@
 export default function CouponCard(promo) {
     return (
-        <div className="flex items-center justify-center m-2 w-1/3">
+        <div className="flex items-center justify-center m-2">
             <div className="" style={{ 
                     "background": "linear-gradient(135deg, #7158fe, #9d4de6)",
                     "color": "#fff",
