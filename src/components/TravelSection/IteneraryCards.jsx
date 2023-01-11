@@ -103,7 +103,6 @@ export default function IteneraryCards({ type }) {
                   <h1 className="text-2xl font-semibold py-2 text-center">Hotel</h1>
                   <div className="flex w-full gap-4 items-center bg-stone-100 p-3">
                     <div
-                      onClick={() => navToDetailHotel(el.hotel.slug)}
                       className="h-48 aspect-square p-2 shadow-md bg-white">
                       <img
                         src={el.hotel.image}
@@ -119,6 +118,7 @@ export default function IteneraryCards({ type }) {
                           currency: "IDR",
                         })}
                       </h3>
+                      <button onClick={() => navToDetailHotel(el.hotel.slug)} className="bg-black text-white w-1/3 my-4 p-1">See Detail</button>
                     </div>
                   </div>
                 </section>
@@ -132,7 +132,6 @@ export default function IteneraryCards({ type }) {
                     return (
                       <div className="flex w-full gap-4 items-center bg-stone-100 p-3 mb-2 " key={destination.id}>
                         <div
-                          onClick={() => nav(`/destination/${destination.slug}`)}
                           className="h-48 aspect-square p-2 shadow-md bg-white"
                           key={destination.id}>
                           <img
@@ -149,6 +148,7 @@ export default function IteneraryCards({ type }) {
                               currency: "IDR",
                             }) : "Free"}
                           </h3>
+                          <button onClick={() => nav(`/destination/${destination.slug}`)} className="bg-black text-white w-1/3 my-4 p-1">See Detail</button>
                         </div>
                       </div>
                     )
