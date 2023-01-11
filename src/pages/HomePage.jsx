@@ -21,15 +21,15 @@ export function HomePage() {
   const cities = useSelector((state) => state.cities.cities)
   const reviews = useSelector((state) => state.others.reviews)
 
-  const filteredCity = cities.map((el)=>{
+  const filteredCity = cities.map((el) => {
     return el.name.includes("Bali", "")
   })
-  
+
   function navToStep() {
     nav("/travel-step")
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(cities)
   }, [cities])
 
@@ -119,13 +119,26 @@ export function HomePage() {
           <div
             className={`h-96 xl:h-full w-full bg-black px-5 xl:px-24 text-white`}>
             <Carousel slideInterval={5000}>
-              {reviews.map((el, index) => {
+              {reviews.slice(0,10).map((el, index) => {
                 return (
                   <div className="bg-opacity-20" key={index}>
                     <p className="xl:text-3xl text-lg mb-10">
                       {el.comment}
                     </p>
-                    <h3 className="text-xl">By {el.user}</h3>
+                    <div className="flex gap-3">
+                      <h3 className="text-xl">By {el.user}</h3>
+                      {el.isPremium ? (
+                        <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                            className="-ml-1 mr-1.5 h-4 w-4"
+                          />
+                          <p className="whitespace-nowrap text-sm">Premium</p>
+                        </span>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
                   </div>
                 )
               })}
