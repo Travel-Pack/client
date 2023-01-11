@@ -28,6 +28,21 @@ export default function ForumDetail() {
   // Edit Start
   const [currentMessage, setCurrentMessage] = useState("")
 
+  const setDate = (createdAt) => {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const day = new Date(createdAt).getDay()
+    const newday = new Date(createdAt).getDate()
+    const dayName = days[day];
+    const month = new Date(createdAt).getMonth()
+    console.log(month);
+    const year = new Date(createdAt).getFullYear()
+    const hours = new Date(createdAt).getHours()
+    const minute = new Date(createdAt).getMinutes()
+
+    // return createdAt
+    if (minute < 10) return `${hours}:0${minute} on ${dayName}, ${newday}/${month + 1}/${year}`
+    else return `${hours}:${minute} on ${dayName}, ${newday}/${month + 1}/${year}`
+  }
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
@@ -74,21 +89,13 @@ export default function ForumDetail() {
         <div className="container px-10 mt-32 flex gap-5 h-fit overflow-hidden w-1/2" id="scrollStyle">
           <ScrollToBottom className="w-full bg-stone-900 bg-opacity-75 backdrop-blur-sm overflow-auto mb-2 p-5">
             {messages.map((messageContent) => {
-              const newDate = new Date(messageContent.createdAt).toLocaleDateString(
-                "en-CA",
-                {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                }
-              )
               return (
                 <div
                   className="px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
                   id={messageContent.id}>
                   <div className="flex justify-between">
                     <div className="flex gap-3">
-                      <p id="author" className="text-xl text-yelloku capitalize">
+                      <p id="author" className="text-2xl text-yelloku capitalize">
                         {messageContent.User.fullName}
                       </p>
                       {messageContent.User.isPremium ? (
@@ -104,7 +111,7 @@ export default function ForumDetail() {
                       )}
                     </div>
                     <p id="time" className="text-lg font-light text-gray-400">
-                      {newDate}
+                      {setDate(messageContent.createdAt)}
                     </p>
                   </div>
 
