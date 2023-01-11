@@ -134,11 +134,30 @@ export function DestinationInformation() {
           {/*Location*/}
           {data.geocoding.split(", ").length === 2 ? (
             <section className="location">
+              <div className="flex items-center">
               <h1 className="font-bold font-caveat my-10 text-5xl">Location</h1>
+              <a href={`https://maps.google.com/?q=${data.geocoding.split(", ")[0]},${data.geocoding.split(", ")[1]}`} target="_blank" className="group flex items-center ml-10 bg-yelloku p-4 rounded-2xl text-lg hover:font-bold">
+              <h2>Open on Google Maps</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="ml-3 h-8 w-8 transform transition-transform group-hover:translate-x-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+              </div>
               <MapContainer
                 id="map"
                 center={data.geocoding.split(", ")}
-                zoom={5}
+                zoom={10}
                 scrollWheelZoom={false}>
                 <TileLayer
                   attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
