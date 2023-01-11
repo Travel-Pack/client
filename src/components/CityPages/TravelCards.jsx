@@ -69,14 +69,14 @@ export default function TravelCards() {
                   <h1 className="text-xl tracking-wide">{el.name}</h1>
                   <h1 className="text-xl tracking-wide text-red-500">
                     {type === "hotel"
-                      ? el.price.toLocaleString("id-ID", {
+                      ? el.price? el.price.toLocaleString("id-ID", {
                           style: "currency",
                           currency: "IDR",
-                        })
-                      : el.cost.toLocaleString("id-ID", {
+                        }) : "Free"
+                      : el.cost? el.cost.toLocaleString("id-ID", {
                           style: "currency",
                           currency: "IDR",
-                        })}
+                        }) : "Free"}
                   </h1>
                 </div>
                 {/* <h1 className="text-red-500">7.5 Superb</h1> */}
