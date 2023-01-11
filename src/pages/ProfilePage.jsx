@@ -6,6 +6,7 @@ import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
 import { blackButton } from "../helpers/buttonStyle"
 import PremiumModal from "../components/PremiumModal"
+import CouponModal from "../components/Coupon/CouponModal"
 
 export function ProfilePage() {
   const dispatch = useDispatch()
@@ -251,6 +252,9 @@ export function ProfilePage() {
               onClick={toggleModal}>
               <h1>Upgrade to premium!</h1>
             </button>
+          <div className="m-5 items-center justify-center flex">
+            <CouponModal/>
+          </div>
           </div>
         </main>
       </div>
