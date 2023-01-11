@@ -22,6 +22,7 @@ export function HomePage() {
   const cities = useSelector((state) => state.cities.cities)
   const reviews = useSelector((state) => state.others.reviews)
   const [filteredCity, setFilteredCity] = useState([])
+  const [isPremium, setIsPremium] = useState(false)
 
   useEffect(() => {
     if (cities.length) {
