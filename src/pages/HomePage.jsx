@@ -140,6 +140,7 @@ export function HomePage() {
                     </p>
                     <div className="flex gap-3">
                       <h3 className="text-xl">By {el.user}</h3>
+                      {/* check is premium */}
                       {el.isPremium ? (
                         <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
                           <img
