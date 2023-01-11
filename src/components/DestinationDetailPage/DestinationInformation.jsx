@@ -8,6 +8,7 @@ import {
   WiDaySunny,
   WiDayWindy,
   WiRaindrop,
+  WiRainWind,
   WiStrongWind,
   WiThermometer,
 } from "react-icons/wi"
@@ -77,11 +78,11 @@ export function DestinationInformation() {
   }, [destGeocoding, dayStatus])
 
   useEffect(() => {
-    if (weatherData.temp < 22) {
+    if (weatherData.temp < 20) {
       setDayStatus("rainy")
-    } else if (weatherData.temp > 22) {
+    } else if (weatherData.temp > 26) {
       setDayStatus("sunny")
-    } else if (weatherData.temp === 22) {
+    } else if (weatherData.temp >= 20 && weatherData.temp <= 26) {
       setDayStatus("windy")
     }
   }, [weatherData])
@@ -186,10 +187,21 @@ export function DestinationInformation() {
             <div className="flex flex-col items-center justify-center ">
               {dayStatus === "rainy" ? (
                 <>
-                  <WiDayRain className="w-36 h-36 " />
-                  <div className="flex">
-                    <WiThermometer className="w-9 h-9" />
-                    <h1>{weatherData.temp}°C</h1>
+                  <WiRainWind className="w-36 h-36 " />
+                  <div className="grid grid-cols-3 gap-3 mb-8">
+                    {/* <h1>{weatherData.humidity}°C</h1> */}
+                    <div className="flex justify-center items-center">
+                      <WiThermometer className="w-8 h-8" />
+                      <h1 className="text-xl">{weatherData.temp}°C</h1>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <WiStrongWind className="w-8 h-8" />
+                      <h1 className="text-xl">{weatherData.wind_speed}</h1>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <WiRaindrop className="w-8 h-8" />
+                      <h1 className="text-xl">{weatherData.humidity}</h1>
+                    </div>
                   </div>
                   <h1 className="text-xl text-center">
                     Today Will be rainy! dont forget coat for travel!
@@ -203,15 +215,15 @@ export function DestinationInformation() {
                   <WiDaySunny className="w-36 h-36" />
                   <div className="grid grid-cols-3 gap-3 mb-8">
                     {/* <h1>{weatherData.humidity}°C</h1> */}
-                    <div className="flex items-center">
+                    <div className="flex justify-center items-center">
                       <WiThermometer className="w-8 h-8" />
                       <h1 className="text-xl">{weatherData.temp}°C</h1>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex justify-center items-center">
                       <WiStrongWind className="w-8 h-8" />
                       <h1 className="text-xl">{weatherData.wind_speed}</h1>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex justify-center items-center">
                       <WiRaindrop className="w-8 h-8" />
                       <h1 className="text-xl">{weatherData.humidity}</h1>
                     </div>
@@ -226,6 +238,21 @@ export function DestinationInformation() {
               {dayStatus === "windy" ? (
                 <>
                   <WiDayWindy className="w-36 h-36 " />
+                  <div className="grid grid-cols-3 gap-3 mb-8">
+                    {/* <h1>{weatherData.humidity}°C</h1> */}
+                    <div className="flex justify-center items-center">
+                      <WiThermometer className="w-8 h-8" />
+                      <h1 className="text-xl">{weatherData.temp}°C</h1>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <WiStrongWind className="w-8 h-8" />
+                      <h1 className="text-xl">{weatherData.wind_speed}</h1>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <WiRaindrop className="w-8 h-8" />
+                      <h1 className="text-xl">{weatherData.humidity}</h1>
+                    </div>
+                  </div>
                   <h1 className="text-xl text-center">
                     Today Will be windy! Prepare yourself for the wind!
                   </h1>
@@ -289,7 +316,7 @@ export function DestinationInformation() {
               </>
             ) : (
               <>
-                <h1 className="text-center text-xl">No review from user yet</h1>
+                <h1 className="text-center text-xl py-5">No review from user yet</h1>
               </>
             )}
           </div>
