@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useEffect } from "react"
+import { HiOutlineChatAlt } from  "react-icons/hi";;
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
@@ -32,14 +33,24 @@ export default function Forum() {
 
           <div className="flex flex-col gap-5 container mx-auto max-w-7xl">
             <div className="md:mr-96">
-            <button onClick={()=> setShowInput(!showInput)} className={`${blackButton} py-3 w-full`}>Add Topic</button>
-            <input type="text" className={`${showInput ? "h-11" : "h-0 hidden"} transition-transform w-full flex`} placeholder="write your forum title here..."/>
+              <button
+                onClick={() => setShowInput(!showInput)}
+                className={`${blackButton} py-3 w-full`}>
+                Add Topic
+              </button>
+              <input
+                type="text"
+                className={`${
+                  showInput ? "h-11" : "h-0 hidden"
+                } transition-transform w-full flex`}
+                placeholder="write your forum title here..."
+              />
             </div>
             {topics.map((el, index) => {
               return (
                 <div
-                  className={`flex md:mr-96 items-center border bg-white shadow-md py-5 px-6 gap-10 justify-between ${
-                    (index + 1) % 2 === 0 ? "bg-yellow-50" : ""
+                  className={`flex md:mr-96 items-center border hover:bg-yelloku bg-white shadow-md py-5 px-6 gap-10 justify-between ${
+                    (index + 1) % 2 === 0 ? "bg-blue-100" : ""
                   }`}
                   key={el.id}
                   onClick={() => navToSection(el.slug, el.id)}>
@@ -50,10 +61,14 @@ export default function Forum() {
                     </p>
                   </div>
                   <div
-                    className={`border-l-2 border-gray-400 w-1/5 justify-evenly items-center flex flex-col `}>
+                    className={`border-l-2 border-gray-400 w-1/4 justify-center gap-2 items-center flex`}>
                     <h1 className="text-2xl">{el.Messages.length}</h1>
+                    <HiOutlineChatAlt className="w-6 h-6"/>
+                  <div className="w-24 ml-6">
+                  <img src="https://img.freepik.com/free-vector/summer-landscape-background-zoom_52683-41032.jpg?w=1800&t=st=1673476492~exp=1673477092~hmac=05271ee5d7f2edafcb0c9c0514906bffe905466a554a1c4c2ba1e1bfbfc12b46" alt="" className="w-full h-full" />
                   </div>
                 </div>
+                  </div>
               )
             })}
           </div>

@@ -11,12 +11,11 @@ export default function FindTravel() {
   const [load, setLoad] = useState(true)
 
   function handleSort(params) {
-    setActive("bg-white text-black");
+    setActive("bg-white text-black")
     setLoad(true)
-    dispatch(fetcDestinations(params))
-      .then(_ => {
-        setLoad(false)
-      })
+    dispatch(fetcDestinations(params)).then((_) => {
+      setLoad(false)
+    })
   }
 
   useEffect(() => {
@@ -37,24 +36,18 @@ export default function FindTravel() {
         </h1>
         <div className="flex justify-between md:justify-start">
           <div
-            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
-              active ? "active" : ""
-            }`}
+            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer `}
             onClick={() => handleSort("costLowToHigh")}>
             <h1 className="">Price Low to High</h1>
           </div>
 
           <div
-            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
-              active ? "active" : ""
-            }`}
+            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer `}
             onClick={() => handleSort("costHighToLow")}>
             <h1 className="">Price High to Low</h1>
           </div>
           <div
-            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer ${
-              active ? "active" : ""
-            }`}
+            className={`hover:bg-white hover:text-black text-white duration-200 md:py-2.5 px-1 py-1 md:px-9 font-medium relative block cursor-pointer `}
             onClick={() => handleSort("name")}>
             <h1 className="">Name (A-Z)</h1>
           </div>

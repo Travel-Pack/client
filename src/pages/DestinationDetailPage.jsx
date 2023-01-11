@@ -39,8 +39,8 @@ export function DestinationDetailPage() {
           })`,
         }}
         className={`bg-cover bg-center bg-no-repeat w-full`}>
-        <div className="flex-col flex mx-auto justify-start pt-20 px-10 backdrop-brightness-50">
-          <div className="font-caramel text-xl font-bold text-white md:text-7xl">
+        <div className="flex-col flex mx-auto justify-start pt-32 px-10 backdrop-brightness-50">
+          <div className="font-raleway text-xl text-white md:text-7xl">
             {type === "destination" ? data.destination.name : data.name},{" "}
             <h3 className="text-4xl font-light">
               {type === "destination" ? data.destination.City.name : data.City.name}
@@ -50,12 +50,12 @@ export function DestinationDetailPage() {
             <div className="flex gap-6" id="NavDetail">
               <NavLink
                 to={""}
-                className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
+                className="font-nunito cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
                 Information
               </NavLink>
               <NavLink
                 to="review"
-                className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
+                className="font-nunito cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
                 Review
               </NavLink>
               {/* <NavLink

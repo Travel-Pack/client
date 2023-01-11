@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { fetchTravelSteps, generateTravelStep, saveTravelStep } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 import { Button, Label, Modal, TextInput } from "flowbite-react"
+import { blackButton, yellowButton } from "../../helpers/buttonStyle"
 
 export default function IteneraryCards({ type }) {
   const generatedTravelStepCriteria = useSelector(
@@ -91,8 +92,8 @@ export default function IteneraryCards({ type }) {
         <>
           {type === "wishlist" ? <></> :
             <div className="px-10 pb-3">
-              <h1 className="text-4xl font-bold">Let's Pack and Travel!</h1>
-              <h1 className="pt-4 text-2xl">Travel Step for trip in {generatedTravelStepCriteria.City}</h1>
+              <h1 className="text-3xl font-bold mb-1">Let's Pack and Travel!</h1>
+              <h1 className="text-2xl">Travel Step for trip in {generatedTravelStepCriteria.City}</h1>
               <h1 className="text-xl">Budget
                 {" " + generatedTravelStepCriteria.budget.toLocaleString("id-ID", {
                   style: "currency",
@@ -131,7 +132,7 @@ export default function IteneraryCards({ type }) {
                             currency: "IDR",
                           })}
                         </h3>
-                        <button onClick={() => navToDetailHotel(el.hotel.slug)} className="bg-black text-white w-1/3 my-4 p-1">See Detail</button>
+                        <button onClick={() => navToDetailHotel(el.hotel.slug)} className={`${yellowButton} w-fit my-4 py-1 px-7`}>See Detail</button>
                       </div>
                     </div>
                   </section>
@@ -161,7 +162,7 @@ export default function IteneraryCards({ type }) {
                                 currency: "IDR",
                               }) : "Free"}
                             </h3>
-                            <button onClick={() => nav(`/destination/${destination.slug}`)} className="bg-black text-white w-1/3 my-4 p-1">See Detail</button>
+                            <button onClick={() => nav(`/destination/${destination.slug}`)} className={`${yellowButton} w-fit my-4 py-1 px-7`}>See Detail</button>
                           </div>
                         </div>
                       )
@@ -169,7 +170,7 @@ export default function IteneraryCards({ type }) {
                   </section>
                   <section
                     id="subtotal "
-                    className="w-full px-1 text-lg flex justify-between">
+                    className="w-full px-2 pb-2 text-lg flex justify-between">
                     <h1 className="font-medium text-2xl">Subtotal</h1>
                     <h3 className="font-medium text-2xl">
                       {total.toLocaleString("id-ID", {
@@ -202,7 +203,7 @@ export default function IteneraryCards({ type }) {
                 <Modal.Header />
                 <Modal.Body>
                   <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
-                    <h3 className="text-xl font-medium text-center text-gray-900 dark:text-white">
+                    <h3 className="text-2xl font-medium text-center text-gray-900 dark:text-white">
                       Travel Pack Name
                     </h3>
                     <form onSubmit={(e) => handleSave(e)}>
@@ -214,6 +215,7 @@ export default function IteneraryCards({ type }) {
                           required={true}
                           value={savedTravelStep.name}
                           onChange={onChangeHandler}
+                          className="placeholder:text-lg"
                         />
                       </div>
 

@@ -1,34 +1,34 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Outlet, useParams, NavLink } from "react-router-dom";
-import { fetchCity } from "../../stores/actions/actionCreator";
-import Loader from "../Loader";
+import { Outlet, useParams, NavLink } from "react-router-dom"
+import { fetchCity } from "../../stores/actions/actionCreator"
+import Loader from "../Loader"
 
 export default function FindDestination() {
+  const city = useSelector((state) => state.cities.city)
+  const { citySlug, type } = useParams()
+  const [active, setActive] = useState(null)
+  const [load, setLoad] = useState(true)
+  const dispatch = useDispatch()
 
-  const city = useSelector((state) => state.cities.city);
-  const { citySlug, type } = useParams();
-  const [active, setActive] = useState(null);
-  const [load, setLoad] = useState(true);
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    dispatch(fetchCity(citySlug))
-      .then(_=>{
-        setLoad(false);
-      })
+  useEffect(() => {
+    dispatch(fetchCity(citySlug)).then((_) => {
+      setLoad(false)
+    })
   }, [])
 
   function handleSort() {
     setActive("bg-white text-black")
   }
 
-  if(load){
-    return <Loader/>
+  if (load) {
+    return <Loader />
   }
   return (
     <div className="bg-stone-50 mt-20">
-      <div style={{backgroundImage: `url(${city.city.image})`}} className="h-96 px-16 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-cover ">
+      <div
+        style={{ backgroundImage: `url(${city.city.image})` }}
+        className="h-96 px-16 flex flex-col justify-end bg-zinc-400 bg-blend-multiply bg-cover ">
         <h1 className="text-white font-semibold text-6xl pb-10">
           Find The next <br /> Destination in {city.city.name}
         </h1>
@@ -48,12 +48,10 @@ export default function FindDestination() {
             to="hotel">
             Hotel
           </NavLink>
-          
         </div>
       </div>
-      
-        <Outlet/>
-      
+
+      <Outlet />
     </div>
   )
 }
