@@ -84,12 +84,12 @@ export default function ({ toggleModal, showModal }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button
+          <button
             id="pay-button"
             onClick={paymentHandler}
-            className={`${yellowButton}`}>
+            className={`${yellowButton} px-5 py-2`}>
             Proceed Payment
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </React.Fragment>

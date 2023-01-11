@@ -41,6 +41,11 @@ export default function ForumDetail() {
       setCurrentMessage("")
     }
   }
+
+  useEffect(() => {
+    console.log(messages)
+  })
+
   useEffect(() => {
     if (!id) navigate("/forum/")
   })
@@ -66,7 +71,7 @@ export default function ForumDetail() {
           {topic.title}
         </h1>
 
-        <div className="container px-10 mt-32 flex gap-5 h-fit overflow-hidden w-1/2">
+        <div className="container px-10 mt-32 flex gap-5 h-fit overflow-hidden w-1/2" id="scrollStyle">
           <ScrollToBottom className="w-full bg-stone-900 bg-opacity-75 backdrop-blur-sm overflow-auto mb-2 p-5">
             {messages.map((messageContent) => {
               const newDate = new Date(messageContent.createdAt).toLocaleDateString(
@@ -82,9 +87,22 @@ export default function ForumDetail() {
                   className="px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
                   id={messageContent.id}>
                   <div className="flex justify-between">
-                    <p id="author" className="text-xl text-yelloku capitalize">
-                      {messageContent.User.fullName}
-                    </p>
+                    <div className="flex gap-3">
+                      <p id="author" className="text-xl text-yelloku capitalize">
+                        {messageContent.User.fullName}
+                      </p>
+                      {messageContent.User.isPremium ? (
+                        <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                            className="-ml-1 mr-1.5 h-4 w-4"
+                          />
+                          <p className="whitespace-nowrap text-sm">Premium</p>
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                     <p id="time" className="text-lg font-light text-gray-400">
                       {newDate}
                     </p>
