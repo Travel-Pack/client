@@ -24,8 +24,8 @@ export default function ({ toggleModal, showModal }) {
             .then((_) => {
               if (generatedTravelStepCriteria.budget) {
                 dispatch(generateTravelStep(generatedTravelStepCriteria))
-                  toggleModal()
               }
+              toggleModal()
               setLoad(false)
             })
         })
