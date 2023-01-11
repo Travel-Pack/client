@@ -19,6 +19,7 @@ import {
   FETCH_TOPIC_BY_ID,
   FETCH_NEED_PREMIUM,
   FETCH_WEATHER_DATA,
+  SAVE_TRAVELSTEPS_CRITERIA,
 } from "./actionType"
 export const baseUrl = "http://localhost:3000"
 
@@ -507,6 +508,15 @@ export function insertMessage(message) {
     dispatch({
       type: FETCH_NEW_MESSAGE,
       payload: message,
+    })
+  }
+}
+
+export function saveTravelStepCriteria(data) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SAVE_TRAVELSTEPS_CRITERIA,
+      payload: data,
     })
   }
 }
