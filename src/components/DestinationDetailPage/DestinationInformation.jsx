@@ -208,6 +208,10 @@ export function DestinationInformation() {
               {dayStatus === "rainy" ? (
                 <>
                   <WiDayRain className="w-36 h-36 text-sky-600" />
+                  <div className="flex">
+                    {/* <h1>{weatherData.humidity}</h1> */}
+                    <h1>{weatherData.temp}°C</h1>
+                  </div>
                   <h1 className="text-xl text-center">
                     Today Will be rainy! dont forget coat for travel!
                   </h1>
@@ -218,6 +222,10 @@ export function DestinationInformation() {
               {dayStatus === "sunny" ? (
                 <>
                   <WiDaySunny className="w-36 h-36 text-sky-600" />
+                  <div className="flex text-3xl font-light gap-5 mb-5">
+                    {/* <h1>{weatherData.humidity}°C</h1> */}
+                    <h1>{weatherData.temp}°C</h1>
+                  </div>
                   <h1 className="text-xl text-center">
                     Today Will be sunny! Enjoy the trip
                   </h1>
@@ -251,7 +259,9 @@ export function DestinationInformation() {
                     }
                   )
                   return (
-                    <div className="w-full h-full shadow-md p-3 border-b-2 border-black mb-3" key={index}>
+                    <div
+                      className="w-full h-full shadow-md p-3 border-b-2 border-black mb-3"
+                      key={index}>
                       <div className="flex items-center justify-between mb-1">
                         <h1 className="font-semibold text-xl">
                           {type === "destination" ? el.user : el.User.fullName}

@@ -94,7 +94,7 @@ export default function ForumDetail() {
                   </div>
 
                   <div className="message-content pt-7">
-                    <p className="text-lg text-gray-400 whitespace-normal focus:ring-0 focus:border-0 focus:outline-0">
+                    <p className="text-lg text-gray-400 whitespace-normal break-words focus:ring-0 focus:border-0 focus:outline-0">
                       {messageContent.text}
                     </p>
                   </div>

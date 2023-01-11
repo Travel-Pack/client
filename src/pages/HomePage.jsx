@@ -12,6 +12,7 @@ import {
 } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
+import { yellowButton } from "../helpers/buttonStyle"
 
 export function HomePage() {
   const [load, setLoad] = useState(true)
@@ -55,7 +56,7 @@ export function HomePage() {
             Join Global community to list all worth destination in Nusantara
           </h1>
           <a href="#cities">
-            <button className="bg-yelloku py-3 px-11 block mx-auto mt-2 lowercase tracking-wider">
+            <button className={` py-2.5 px-11 block mx-auto mt-2 lowercase font-medium text-xl ${yellowButton}`}>
               Let's Go!
             </button>
           </a>
@@ -135,7 +136,7 @@ export function HomePage() {
             </h1>
             <button
               onClick={navToStep}
-              className="bg-yelloku text-lg font-medium py-2.5 px-16 block mt-5 lowercase tracking-wider">
+              className={`${yellowButton} text-xl font-medium py-2.5 px-16 block mt-5 lowercase`}>
               Generate Travel Step
             </button>
           </div>
