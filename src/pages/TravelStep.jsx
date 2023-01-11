@@ -11,6 +11,7 @@ import {
   generateTravelStep,
 } from "../stores/actions/actionCreator"
 import { yellowButton } from "../helpers/buttonStyle"
+import { NumericFormat } from 'react-number-format';
 
 export default function TravelStep() {
   const [citySelected, setCitySelected] = useState("")
@@ -29,8 +30,8 @@ export default function TravelStep() {
   const [showDest, setShowDest] = useState(false)
   const nav = useNavigate()
   function handleSubmit(e) {
-    e.preventDefault()
-    setLoad(true)
+    e.preventDefault();
+    setLoad(true);
     dispatch(generateTravelStep(travelStepData)).then((res) => {
       setLoad(false)
       if (res === "ok") {
@@ -44,7 +45,8 @@ export default function TravelStep() {
       ...travelStepData,
       [e.target.name]: e.target.value,
     }
-    setTravelStepData(updatedTravelStepData)
+    setTravelStepData(updatedTravelStepData);
+    console.log(updatedTravelStepData);
   }
 
   useEffect(() => {
@@ -106,9 +108,8 @@ export default function TravelStep() {
     <div className="md:overflow-hidden">
       <div className="flex flex-col xl:flex-row ease-in-out md:h-screen">
         <div
-          className={`duration-100 ease-in-out min-h-screen md:h-auto relative ${
-            topText ? "md:w-1/4" : "w-full"
-          }`}>
+          className={`duration-100 ease-in-out min-h-screen md:h-auto relative ${topText ? "md:w-1/4" : "w-full"
+            }`}>
           <div className="md:h-full">
             <img
               src="https://images.unsplash.com/photo-1611918126831-0a8352d6196f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
@@ -130,20 +131,22 @@ export default function TravelStep() {
               </div>
             </div>
             <div
-              className={`flex flex-col text-center bg-black h-fit bg-opacity-60 py-10 px-5 ${
-                topText ? "gap-4" : " gap-7 "
-              }`}>
+              className={`flex flex-col text-center bg-black h-fit bg-opacity-60 py-10 px-5 ${topText ? "gap-4" : " gap-7 "
+                }`}>
               <div>
                 <label
                   htmlFor="inputBudget"
                   className="xl:text-2xl background text-white">
                   Desired Budget :
                 </label>
-                <input
-                  type="number"
-                  id="inputBudget"
-                  onChange={onChangeHandler}
+                <NumericFormat
                   value={travelStepData.budget}
+                  prefix="Rp "
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  onValueChange={(values, sourceInfo) => {
+                    setTravelStepData({...travelStepData, budget: values.floatValue})
+                  }}
                   name="budget"
                   className="w-3/4 mx-auto shadow-md border-x-0 border-t-0 border-b-2 border-b-yelloku bg-transparent text-white text-center focus:ring-0 focus:border-b-yellow-100 font-medium xl:text-2xl placeholder:text-xl"
                   placeholder="ex. 25000000"
@@ -215,13 +218,11 @@ export default function TravelStep() {
           </div>
         </div>
         <div
-          className={`mx-auto pl-2 pt-2 duration-200 ease-in-out bg-gray-50 ${
-            topText ? "block md:w-3/4 w-full" : "hidden w-0"
-          }`}>
+          className={`mx-auto pl-2 pt-2 duration-200 ease-in-out bg-gray-50 ${topText ? "block md:w-3/4 w-full" : "hidden w-0"
+            }`}>
           <div
-            className={`md:h-screen ${
-              showDest ? "w-0 hidden" : "w-full block overflow-y-auto"
-            }`}
+            className={`md:h-screen ${showDest ? "w-0 hidden" : "w-full block overflow-y-auto"
+              }`}
             id="scrollStyle">
             <div className="flex flex-wrap gap-2 justify-center mt-20 pb-10 ">
               {cities.map((el) => {
@@ -294,9 +295,8 @@ export default function TravelStep() {
         </div>
       </div>
       <span
-        className={`fixed bottom-3 flex items-center gap-1 text-white right-3 bg-black z-50 duration-200 cursor-pointer ${
-          showDest ? "opacity-100" : "opacity-0"
-        }`}
+        className={`fixed bottom-3 flex items-center gap-1 text-white right-3 bg-black z-50 duration-200 cursor-pointer ${showDest ? "opacity-100" : "opacity-0"
+          }`}
         onClick={resetAll}>
         <FaAngleDoubleLeft className="w-6 h-6 text-yelloku" />
         <h1 className="block text-xl font-semibold text-yelloku pr-2">Back</h1>
