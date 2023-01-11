@@ -246,11 +246,14 @@ export function ProfilePage() {
                 </button>
               </div>
             </form>
-            <button
-              className={`w-full flex rounded-md mx-auto gap justify-center py-3 font-medium mt-6 ${blackButton}`}
-              onClick={toggleModal}>
-              <h1>Upgrade to premium!</h1>
-            </button>
+            {user.isPremium ? <></>
+              :
+              <button
+                className={`w-full flex rounded-md mx-auto gap justify-center py-3 font-medium mt-6 ${blackButton}`}
+                onClick={toggleModal}>
+                <h1>Upgrade to premium!</h1>
+              </button>
+            }
           </div>
         </main>
       </div>
