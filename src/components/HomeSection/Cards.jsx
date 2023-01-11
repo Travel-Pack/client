@@ -17,7 +17,7 @@ export default function Cards({ type, cities, destinations }) {
       <section className="grid px-2 mt-3 xl:grid-cols-4 gap-2">
         {cities.map((el) => {
           return (
-            <div className="overflow-hidden group" key={el.id}>
+            <div className="cursor-pointer overflow-hidden group" key={el.id}>
               <div
                 key={el.id}
                 className="aspect-square duration-300 ease-out overflow-hidden cursor-pointer relative"
@@ -43,7 +43,7 @@ export default function Cards({ type, cities, destinations }) {
   }
   if (type === "destination") {
     return (
-      <section className="grid px-2 mt-3 md:grid-cols-5 gap-7 overflow-hidden py-3">
+      <section className="cursor-pointer grid px-2 mt-3 md:grid-cols-5 gap-7 overflow-hidden py-3">
         {destinations.map((el) => {
           const currencyFormat = el.cost.toLocaleString("id-ID", {
             style: "currency",
