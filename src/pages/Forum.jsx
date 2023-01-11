@@ -51,7 +51,7 @@ export default function Forum() {
                   </div>
                   <div
                     className={`border-l-2 border-gray-400 w-1/5 justify-evenly items-center flex flex-col `}>
-                    <h1 className="text-2xl">560</h1>
+                    <h1 className="text-2xl">{el.Messages.length}</h1>
                   </div>
                 </div>
               )
