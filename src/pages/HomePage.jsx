@@ -22,7 +22,7 @@ export function HomePage() {
   const reviews = useSelector((state) => state.others.reviews)
 
   const filteredCity = cities.map((el)=>{
-    return el.name.includes("")
+    return el.name.includes("Bali", "")
   })
   
   function navToStep() {
