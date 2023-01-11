@@ -48,7 +48,6 @@ export function DestinationInformation() {
       description: ""
     }
   }
-console.log(data);
   const destGeocoding = data.geocoding
   async function fetchWeather(geocoding) {
     try {
@@ -83,31 +82,16 @@ console.log(data);
       <section className="gap-10 flex flex-col-reverse md:flex-row detail-inside mt-20 py-5 md:px-32 container mx-auto">
         <div className="left-side w-11/12">
           <h1 className="font-bold font-caveat text-6xl">
-            {/* edit */}
             {data.name}, {data.city}
           </h1>
+          <h1 className="text-xl my-3">
+          Estimated: {data.price? `${data.price.toLocaleString("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            })}` : "Free"}
+          </h1>
           <p className="text-justify text-xl mt-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit
-            pharetra, pulvinar lacus non, rutrum magna. Vestibulum quis elit lacinia,
-            dignissim elit iaculis, efficitur massa. Ut aliquam purus sed tincidunt
-            pulvinar. Duis eget neque ac risus iaculis sagittis. Mauris viverra, sem at
-            placerat laoreet, libero augue tristique purus, quis dictum mauris nisl at
-            lectus. Pellentesque nec tincidunt ante. Maecenas euismod euismod sapien ac
-            bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada
-            fames ac turpis egestas. Sed laoreet ex in cursus placerat. Curabitur ac nunc
-            quis purus porttitor cursus vitae sit amet orci. Aliquam lacinia est vitae
-            risus pellentesque, vel venenatis ipsum sodales. Aliquam erat volutpat.
-            Vivamus quis lacinia enim, ut mollis ex. Nullam quis felis nulla. Curabitur
-            sollicitudin mi at ex commodo, ac tempus tellus bibendum. Quisque eu enim
-            vestibulum, elementum dolor placerat, venenatis purus. In metus metus, laoreet
-            et ex vitae, laoreet egestas eros. Suspendisse maximus sodales accumsan. Fusce
-            sit amet consequat quam. Nullam vehicula arcu neque. Nunc ut accumsan sapien.
-            Aenean bibendum tincidunt enim ut vestibulum. Fusce a magna consequat, blandit
-            tortor at, rhoncus turpis. Suspendisse at lorem ac ante tincidunt dictum quis
-            at metus. Fusce scelerisque enim sit amet enim pharetra ultrices. Vestibulum
-            sem tellus, facilisis et egestas vel, imperdiet consequat tellus. Etiam vel
-            dui pulvinar, aliquet ex quis, varius sapien. Duis pellentesque velit sit amet
-            efficitur blandit.
+            {data.description}
           </p>
           {/*Gallery*/}
           <section className="gallery">
@@ -249,24 +233,24 @@ console.log(data);
                         </h1>
                         <h1 className=" text-gray-400">{formatDate}</h1>
                       </div>
-                        {type === "destination" ? el.isPremium ?
+                      {type === "destination" ? el.isPremium ?
+                        <div className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                            className="-ml-1 mr-1.5 h-4 w-4"
+                          />
+                          <p className="whitespace-nowrap text-sm">Premium</p>
+                        </div> : <></> :
+                        el.User.isPremium ?
                           <div className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
                             <img
                               src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
                               className="-ml-1 mr-1.5 h-4 w-4"
                             />
                             <p className="whitespace-nowrap text-sm">Premium</p>
-                          </div> : <></> :
-                          el.User.isPremium ?
-                            <div className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
-                              <img
-                                src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
-                                className="-ml-1 mr-1.5 h-4 w-4"
-                              />
-                              <p className="whitespace-nowrap text-sm">Premium</p>
-                            </div> : <></>
-                        }
-                      <h1 className="font-light text-lg mb-5">{el.comment.length > 40? `${el.comment.slice(0, 40)}...` : el.comment}</h1>
+                          </div> : <></>
+                      }
+                      <h1 className="font-light text-lg mb-5">{el.comment.length > 40 ? `${el.comment.slice(0, 40)}...` : el.comment}</h1>
                     </div>
                   )
                 })}
