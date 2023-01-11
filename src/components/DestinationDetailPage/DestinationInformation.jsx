@@ -34,6 +34,7 @@ export function DestinationInformation() {
       geocoding: destination.destination.geocoding,
       Images: destination.destination.Images,
       city: destination.destination.City.name,
+      description: destination.destination.description
     }
   } else {
     data = {
@@ -44,9 +45,10 @@ export function DestinationInformation() {
       geocoding: hotel.geocoding,
       Images: hotel.Images,
       city: hotel.City.name,
+      description: ""
     }
   }
-
+console.log(data);
   const destGeocoding = data.geocoding
   async function fetchWeather(geocoding) {
     try {
@@ -146,14 +148,14 @@ export function DestinationInformation() {
                   <h2>Open on Google Maps</h2>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="ml-3 h-8 w-8 transform transition-transform group-hover:translate-x-3"
+                    className="ml-3 h-8 w-8 transform transition-transform group-hover:translate-x-3"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M17 8l4 4m0 0l-4 4m4-4H3"
                     />
                   </svg>
