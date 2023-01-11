@@ -12,7 +12,6 @@ export default function NavbarTravel() {
   const loggedIn = localStorage.getItem("access_token")
 
   function handleLogout() {
-    console.log("masuk click")
     navigate("/login")
     notifySuccess("Signed out")
     return localStorage.clear()

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import { FaMapMarker } from "react-icons/fa"
+import { BsPinMapFill } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import ScrollToTopBtn from "../ScrollToTopBtn"
@@ -91,8 +91,8 @@ export default function TravelCards() {
 
                 </h1>
               </div>
-              <div className="flex bg-yelloku w-full gap-10 px-5 py-4">
-                <FaMapMarker />
+              <div className="flex bg-yelloku w-full gap-2 items-center px-5 py-4">
+                <BsPinMapFill />
                 <h1>
                   {type === "destination" || type === "hotel"
                     ? city.city.name

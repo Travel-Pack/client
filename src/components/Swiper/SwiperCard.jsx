@@ -37,10 +37,6 @@ export default function SwiperCard() {
     swiperRef.slideTo(index - 1, 0)
   }
 
-  function handleClickCity(index){
-    console.log("mana ni indexnya:"+ index)
-  }
-
   return (
     <div className="w-full py-2 h-fit shadow-md mb-5 select-none">
       <Swiper

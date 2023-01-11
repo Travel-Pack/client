@@ -57,7 +57,7 @@ export function HomePage() {
 
   if (load) return <Loader />
   return (
-    <div className="bg-stone-50">
+    <div className="bg-stone-100">
       <ScrollToTopBtn />
       <div className="flex-col flex h-screen items-center justify-evenly bg-cover bg-[url('./assets/images/giliTrawangan.jpg')]">
         <div>
@@ -96,9 +96,9 @@ export function HomePage() {
         </section>
         <Cards type="city" cities={filteredCity} />
         <button
-          className={`${blackButton} py-2 text-2xl font-medium w-fit self-end px-6 mr-5`}
+          className={`${blackButton} py-2 text-2xl w-fit mt-2 ml-2 px-6`}
           onClick={() => setDefaultLength(!defaultLength)}>
-          {defaultLength ? "Show all" : "hide cities"}
+          {defaultLength ? "Show all" : "show less"}
         </button>
         <div className="container mx-auto my-4">
           <div className="max-w-3xl">
