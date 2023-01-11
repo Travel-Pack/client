@@ -29,7 +29,7 @@ export default function CouponModal() {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 grid grid-cols-2">
+                <div className="relative p-6 grid grid-cols-2 mt-20">
                   {/* <div className="flex justify-center w-auto"> */}
                   {[1,2,3,4,5,6,7,8,9,10].map((el) => {
                     return <CouponCard />
