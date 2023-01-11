@@ -6,7 +6,6 @@ import ScrollToTopBtn from "../ScrollToTopBtn"
 
 export default function TravelCards() {
   const { type } = useParams()
-  const [isPremium, setIsPremium] = useState(false)
   // const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
   // const hotelsByCity = useSelector((state) => state.destinations.hotelsByCity);
   const destinations = useSelector((state) => state.destinations.destinations)
