@@ -10,22 +10,23 @@ import { blackButton } from "../helpers/buttonStyle"
 const socket = io.connect("http://localhost:3000/")
 
 export default function ForumDetail() {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-  const [isShow, setIsShow] = useState(false)
   let navigate = useNavigate()
   let { slug } = useParams()
   let { id } = useSelector((state) => state.forums)
   let { messages, topic } = useSelector((state) => state.forums)
   let dispatch = useDispatch()
+  const [showReply, setShowReply] = useState(false)
+  const [replyUser, setReplyUser] = useState("")
+  const [replyMsg, setReplyMsg] = useState("")
+
+  function reply(show, user, msg) {
+    setShowReply(show)
+    setReplyUser(user)
+    setReplyMsg(msg)
+  }
 
   // Edit Start
   const [currentMessage, setCurrentMessage] = useState("")
-
-  const dateConvert = (daten) => {
-    const event = new Date(daten)
-    const options = { weekday: "long", year: "numeric", month: "long" }
-    return event.toLocaleDateString("de-DE", options)
-  }
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -50,7 +51,7 @@ export default function ForumDetail() {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      dispatch(insertMessage(data))
+      dispatch(fetchMessages(id))
       // setMessageList((list) => [...list, data]);
     })
   }, [socket])
@@ -58,34 +59,30 @@ export default function ForumDetail() {
   // Edit End
   if (topic)
     return (
-      <div className="flex flex-col bg-gray-100 h-screen">
+      <div className="flex flex-col relative bg-cover bg-gray-100 h-screen bg-[url('https://ik.imagekit.io/marQofy034/psychedelic-paper-shapes-with-copy-space.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1673449846277')]">
         <ScrollToTopBtn />
-        <div className="w-full xl:h-72 relative">
-          <img
-            src="https://img.freepik.com/free-photo/travel-concept-with-landmarks_23-2149153256.jpg?w=2000&t=st=1672978137~exp=1672978737~hmac=6fe7322da5662ae038075362c74d87c92080674444aa7b8a15486de3918fd6d3"
-            alt=""
-            className="object-cover w-full xl:h-full brightness-50"
-          />
-          <h1 className="absolute bottom-[10%] left-5 text-3xl font-medium text-white">
-            {topic.title}
-          </h1>
-        </div>
-        <div className="container mx-auto mt-10 flex justify-evenly h-fit overflow-hidden">
-          <ScrollToBottom className="message-container max-h-[600px] w-[700px] bg-white overflow-auto mb-2 p-5">
+
+        <h1 className="fixed bottom-10 left-5 text-4xl font-medium text-black backdrop-opacity-10 px-2 py-2">
+          {topic.title}
+        </h1>
+
+        <div className="container px-10 mt-32 flex gap-5 h-fit overflow-hidden w-1/2">
+          <ScrollToBottom className="w-full bg-stone-900 bg-opacity-75 backdrop-blur-sm overflow-auto mb-2 p-5">
             {messages.map((messageContent) => {
-              const newDate = new Date(
-                messageContent.createdAt
-              ).toLocaleDateString("id-ID", {
-                year: "numeric",
-                month: "long",
-                weekday: "long",
-              })
+              const newDate = new Date(messageContent.createdAt).toLocaleDateString(
+                "en-CA",
+                {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                }
+              )
               return (
                 <div
-                  className="message px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
+                  className="px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
                   id={messageContent.id}>
-                  <div className="message-meta flex justify-between">
-                    <p id="author" className="text-xl capitalize">
+                  <div className="flex justify-between">
+                    <p id="author" className="text-xl text-yelloku capitalize">
                       {messageContent.User.fullName}
                     </p>
                     <p id="time" className="text-lg font-light text-gray-400">
@@ -93,8 +90,8 @@ export default function ForumDetail() {
                     </p>
                   </div>
 
-                  <div className="message-content pt-7">
-                    <p className="text-lg text-gray-400 whitespace-normal break-words focus:ring-0 focus:border-0 focus:outline-0">
+                  <div className="pt-7 flex flex-col">
+                    <p className="text-lg text-white whitespace-normal break-words focus:ring-0 focus:border-0 focus:outline-0">
                       {messageContent.text}
                     </p>
                   </div>
@@ -102,9 +99,10 @@ export default function ForumDetail() {
               )
             })}
           </ScrollToBottom>
-
-          {localStorage.email ? (
-            <div className="forum-footer mb-10 p-5 w-full flex">
+        </div>
+        {localStorage.email ? (
+          <div className="flex flex-col px-10 container w-1/2">
+            <div className=" h-fit flex full mb-40">
               <input
                 type="text"
                 value={currentMessage}
@@ -120,8 +118,8 @@ export default function ForumDetail() {
                 Send Message
               </button>
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     )
 }

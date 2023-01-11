@@ -2,16 +2,10 @@ import { Carousel } from "flowbite-react"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import {
-  WiDayCloudyWindy,
-  WiDayRain,
-  WiDaySunny,
-  WiDayWindy,
-} from "react-icons/wi"
+import { WiDayCloudyWindy, WiDayRain, WiDaySunny, WiDayWindy } from "react-icons/wi"
 import { useCallback, useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
-import Skeleton from "../Skeleton"
 import { yellowButton } from "../../helpers/buttonStyle"
 // import { fetchWeatherData } from "../../stores/actions/actionCreator"
 
@@ -27,8 +21,6 @@ export function DestinationInformation() {
   }
   const destination = useSelector((state) => state.destinations.destination)
   const hotel = useSelector((state) => state.destinations.hotel)
-  const weatherLatLong = useSelector((state) => state.others.weatherData)
-  const dispatch = useDispatch()
 
   let data
 
@@ -72,7 +64,6 @@ export function DestinationInformation() {
   }
   useEffect(() => {
     fetchWeather(destGeocoding)
-    //  dispatch(fetchWeatherData(destGeocoding))
   }, [destGeocoding, dayStatus])
 
   useEffect(() => {
@@ -94,38 +85,33 @@ export function DestinationInformation() {
             {data.name}, {data.city}
           </h1>
           <p className="text-justify text-xl mt-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a
-            elit pharetra, pulvinar lacus non, rutrum magna. Vestibulum quis
-            elit lacinia, dignissim elit iaculis, efficitur massa. Ut aliquam
-            purus sed tincidunt pulvinar. Duis eget neque ac risus iaculis
-            sagittis. Mauris viverra, sem at placerat laoreet, libero augue
-            tristique purus, quis dictum mauris nisl at lectus. Pellentesque nec
-            tincidunt ante. Maecenas euismod euismod sapien ac bibendum.
-            Pellentesque habitant morbi tristique senectus et netus et malesuada
-            fames ac turpis egestas. Sed laoreet ex in cursus placerat.
-            Curabitur ac nunc quis purus porttitor cursus vitae sit amet orci.
-            Aliquam lacinia est vitae risus pellentesque, vel venenatis ipsum
-            sodales. Aliquam erat volutpat. Vivamus quis lacinia enim, ut mollis
-            ex. Nullam quis felis nulla. Curabitur sollicitudin mi at ex
-            commodo, ac tempus tellus bibendum. Quisque eu enim vestibulum,
-            elementum dolor placerat, venenatis purus. In metus metus, laoreet
-            et ex vitae, laoreet egestas eros. Suspendisse maximus sodales
-            accumsan. Fusce sit amet consequat quam. Nullam vehicula arcu neque.
-            Nunc ut accumsan sapien. Aenean bibendum tincidunt enim ut
-            vestibulum. Fusce a magna consequat, blandit tortor at, rhoncus
-            turpis. Suspendisse at lorem ac ante tincidunt dictum quis at metus.
-            Fusce scelerisque enim sit amet enim pharetra ultrices. Vestibulum
-            sem tellus, facilisis et egestas vel, imperdiet consequat tellus.
-            Etiam vel dui pulvinar, aliquet ex quis, varius sapien. Duis
-            pellentesque velit sit amet efficitur blandit.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a elit
+            pharetra, pulvinar lacus non, rutrum magna. Vestibulum quis elit lacinia,
+            dignissim elit iaculis, efficitur massa. Ut aliquam purus sed tincidunt
+            pulvinar. Duis eget neque ac risus iaculis sagittis. Mauris viverra, sem at
+            placerat laoreet, libero augue tristique purus, quis dictum mauris nisl at
+            lectus. Pellentesque nec tincidunt ante. Maecenas euismod euismod sapien ac
+            bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada
+            fames ac turpis egestas. Sed laoreet ex in cursus placerat. Curabitur ac nunc
+            quis purus porttitor cursus vitae sit amet orci. Aliquam lacinia est vitae
+            risus pellentesque, vel venenatis ipsum sodales. Aliquam erat volutpat.
+            Vivamus quis lacinia enim, ut mollis ex. Nullam quis felis nulla. Curabitur
+            sollicitudin mi at ex commodo, ac tempus tellus bibendum. Quisque eu enim
+            vestibulum, elementum dolor placerat, venenatis purus. In metus metus, laoreet
+            et ex vitae, laoreet egestas eros. Suspendisse maximus sodales accumsan. Fusce
+            sit amet consequat quam. Nullam vehicula arcu neque. Nunc ut accumsan sapien.
+            Aenean bibendum tincidunt enim ut vestibulum. Fusce a magna consequat, blandit
+            tortor at, rhoncus turpis. Suspendisse at lorem ac ante tincidunt dictum quis
+            at metus. Fusce scelerisque enim sit amet enim pharetra ultrices. Vestibulum
+            sem tellus, facilisis et egestas vel, imperdiet consequat tellus. Etiam vel
+            dui pulvinar, aliquet ex quis, varius sapien. Duis pellentesque velit sit amet
+            efficitur blandit.
           </p>
           {/*Gallery*/}
           <section className="gallery">
             {data.Images.length ? (
               <div>
-                <h1 className="font-bold font-caveat mt-10 text-6xl">
-                  Gallery
-                </h1>
+                <h1 className="font-bold font-caveat mt-10 text-6xl">Gallery</h1>
                 <div className="my-10">
                   <div className="h-30 sm:h-64 xl:h-64 2xl:h-[500px]">
                     <Carousel slideInterval={5000} className="overflow-hidden">
@@ -151,13 +137,11 @@ export function DestinationInformation() {
           {data.geocoding.split(", ").length === 2 ? (
             <section className="location">
               <div className="flex items-center">
-                <h1 className="font-bold font-caveat my-10 text-5xl">
-                  Location
-                </h1>
+                <h1 className="font-bold font-caveat my-10 text-5xl">Location</h1>
                 <a
-                  href={`https://maps.google.com/?q=${
-                    data.geocoding.split(", ")[0]
-                  },${data.geocoding.split(", ")[1]}`}
+                  href={`https://maps.google.com/?q=${data.geocoding.split(", ")[0]},${
+                    data.geocoding.split(", ")[1]
+                  }`}
                   target="_blank"
                   className={`group flex items-center ml-10 ${yellowButton} p-4 rounded-2xl text-lg hover:font-bold`}>
                   <h2>Open on Google Maps</h2>
@@ -236,7 +220,7 @@ export function DestinationInformation() {
                 <>
                   <WiDayWindy className="w-36 h-36 text-sky-600" />
                   <h1 className="text-xl text-center">
-                    Today Will be windy! Prepare urself for the wind!
+                    Today Will be windy! Prepare yourself for the wind!
                   </h1>
                 </>
               ) : (
@@ -249,14 +233,11 @@ export function DestinationInformation() {
             {data.Reviews.length ? (
               <>
                 {data.Reviews?.map((el, index) => {
-                  const formatDate = new Date(el.createdAt).toLocaleDateString(
-                    "id-ID",
-                    {
-                      month: "long",
-                      day: "2-digit",
-                      year: "numeric",
-                    }
-                  )
+                  const formatDate = new Date(el.createdAt).toLocaleDateString("id-ID", {
+                    month: "long",
+                    day: "2-digit",
+                    year: "numeric",
+                  })
                   return (
                     <div
                       className="w-full h-full shadow-md p-3 border-b-2 border-black mb-3"

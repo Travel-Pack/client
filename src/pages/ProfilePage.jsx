@@ -6,6 +6,7 @@ import Loader from "../components/Loader"
 import { VscEdit } from "react-icons/vsc"
 import { blackButton } from "../helpers/buttonStyle"
 import PremiumModal from "../components/PremiumModal"
+import CouponModal from "../components/Coupon/CouponModal"
 
 export function ProfilePage() {
   const dispatch = useDispatch()
