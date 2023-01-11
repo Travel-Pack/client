@@ -16,38 +16,30 @@ import { blackButton, yellowButton } from "../helpers/buttonStyle"
 
 export function HomePage() {
   const [load, setLoad] = useState(true)
+  const [defaultLength, setDefaultLength] = useState(true)
   const nav = useNavigate()
   const dispatch = useDispatch()
   const cities = useSelector((state) => state.cities.cities)
   const reviews = useSelector((state) => state.others.reviews)
-  let tofilterCity = undefined
- 
-  useEffect(()=>{
-    if(cities){
-      tofilterCity = cities.filter((el, index)=>{
-        index < 8
-      })
+  const [filteredCity, setFilteredCity] = useState([])
+
+  useEffect(() => {
+    if (cities.length) {
+      const newCities = [...cities]
+      if (defaultLength) {
+        newCities?.splice(8, newCities.length - 1)
+      } else {
+        newCities.map((el) => {
+          return el
+        })
+      }
+      setFilteredCity(newCities)
     }
-  }, [])
-
-
-
-  useEffect(()=>{
-    console.log(tofilterCity)
-  }, [])
-
-
-  const filteredCity = cities.map((el) => {
-    return el.name.includes("Bali", "")
-  })
+  }, [cities, defaultLength])
 
   function navToStep() {
     nav("/travel-step")
   }
-
-  useEffect(() => {
-    console.log(cities)
-  }, [cities])
 
   /* Fetch data from API */
   const destinations = useSelector((state) => state.destinations.highlightedDestinations)
@@ -101,10 +93,11 @@ export function HomePage() {
             </div>
           </div>
         </section>
-        <Cards type="city" cities={cities} />
+        <Cards type="city" cities={filteredCity} />
         <button
-          className={`${blackButton} py-2 text-2xl font-medium w-fit self-end px-6 mr-5`}>
-          {/* {cities > 8 ? "Show all" : "hide cities"} */}
+          className={`${blackButton} py-2 text-2xl font-medium w-fit self-end px-6 mr-5`}
+          onClick={() => setDefaultLength(!defaultLength)}>
+          {defaultLength ? "Show all" : "hide cities"}
         </button>
         <div className="container mx-auto my-4">
           <div className="max-w-3xl">
@@ -132,26 +125,11 @@ export function HomePage() {
         <div className="xl:w-1/2">
           <div className={`h-96 xl:h-full w-full bg-black px-5 xl:px-24 text-white`}>
             <Carousel slideInterval={5000}>
-              {reviews.slice(0,10).map((el, index) => {
+              {reviews.map((el, index) => {
                 return (
                   <div className="bg-opacity-20" key={index}>
-                    <p className="xl:text-3xl text-lg mb-10">
-                      {el.comment}
-                    </p>
-                    <div className="flex gap-3">
-                      <h3 className="text-xl">By {el.user}</h3>
-                      {el.isPremium ? (
-                        <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
-                          <img
-                            src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
-                            className="-ml-1 mr-1.5 h-4 w-4"
-                          />
-                          <p className="whitespace-nowrap text-sm">Premium</p>
-                        </span>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
+                    <p className="xl:text-3xl text-lg mb-10">{el.comment}</p>
+                    <h3 className="text-xl">By {el.user}</h3>
                   </div>
                 )
               })}
