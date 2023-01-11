@@ -39,13 +39,7 @@ export default function TravelStep() {
   const nav = useNavigate()
   function handleSubmit(e) {
     e.preventDefault();
-    setLoad(true);console.log(travelStepCriteria);
-    setTravelStepCriteria({...travelStepCriteria,
-      budget: travelStepData.budget,
-      numberOfDestination: travelStepData.numberOfDestination,
-      allocationDestination: travelStepData.allocationDestination,
-      CityId: travelStepData.CityId
-    })
+    setLoad(true);
     dispatch(saveTravelStepCriteria(travelStepCriteria))
     dispatch(generateTravelStep(travelStepData)).then((res) => {
       setLoad(false)
@@ -108,6 +102,15 @@ export default function TravelStep() {
     setTravelStepData(updatedTravelStepData);
     setTravelStepCriteria(updatedTravelStepCriteria);
   }
+
+  useEffect(()=>{
+    const updatedTravelStepCriteria = {...travelStepCriteria,
+      budget: travelStepData.budget,
+      CityId: travelStepData.CityId,
+      numberOfDestination: travelStepData.numberOfDestination,
+      allocationDestination: travelStepData.allocationDestination,}
+    setTravelStepCriteria(updatedTravelStepCriteria);
+  }, [travelStepData])
 
   function resetAll() {
     setTopText(false),

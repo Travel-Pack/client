@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useNavigate } from "react-router-dom"
-import { fetchTravelSteps, saveTravelStep } from "../../stores/actions/actionCreator"
+import { fetchTravelSteps, generateTravelStep, saveTravelStep } from "../../stores/actions/actionCreator"
 import Loader from "../Loader"
 import { Button, Label, Modal, TextInput } from "flowbite-react"
 
@@ -23,15 +23,6 @@ export default function IteneraryCards({ type }) {
       dispatch(fetchTravelSteps()).then((_) => {
         setLoad(false)
       })
-    }
-    else {
-      if (generatedTravelStepCriteria.length > 0) {
-        setLoad(true)
-        dispatch(generateTravelStep())
-          .then(_ => {
-            setLoad(false)
-          })
-      }
     }
   }, [])
   const generatedTravelSteps = useSelector(
@@ -87,7 +78,6 @@ export default function IteneraryCards({ type }) {
       DestinationIds: savedData.destination,
     })
   }
-console.log(generatedTravelStepCriteria);
   if (load) {
     return <Loader />
   }
@@ -99,7 +89,17 @@ console.log(generatedTravelStepCriteria);
         </h1>
       ) : (
         <>
-          {type === "wishlist"? <></>: <h1>Travel Step for trip in {generatedTravelStepCriteria.City}</h1>}
+          {type === "wishlist" ? <></> :
+            <div className="px-10 pt-5 pb-8">
+              <h1 className="text-3xl font-bold">Let's Pack and Travel!</h1>
+              <h1 className="pt-4 text-xl">Travel Step for trip in {generatedTravelStepCriteria.City}</h1>
+              <h1 className="text-lg">Budget
+                {" " + generatedTravelStepCriteria.budget.toLocaleString("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                })} and budget allocation {generatedTravelStepCriteria.allocationDestination}%</h1>
+            </div>
+          }
           <div className="grid grid-cols-2 gap-20 px-10">
             {data.map((el, index) => {
               let total = el.hotel.price
