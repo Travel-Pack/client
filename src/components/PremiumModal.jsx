@@ -27,9 +27,9 @@ export default function ({ toggleModal, showModal }) {
                   .then(_ => {
                     toggleModal()
                   })
-                }
-                setLoad(false)
-              })
+              }
+              setLoad(false)
+            })
         })
       },
       onPending: function (result) {
@@ -73,6 +73,13 @@ export default function ({ toggleModal, showModal }) {
               </ul>
               <li className="mt-4">Premium badge</li>
               <p>- User can get a special premium badge on forum, profile page, and review page</p>
+              <span className="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/2545/2545603.png"
+                  className="-ml-1 mr-1.5 h-4 w-4"
+                />
+                <p className="whitespace-nowrap text-sm">Premium</p>
+              </span>
             </ul>
           </div>
         </Modal.Body>
