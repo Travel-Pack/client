@@ -6,6 +6,7 @@ import ScrollToTopBtn from "../ScrollToTopBtn"
 
 export default function TravelCards() {
   const { type } = useParams()
+  const [isPremium, setIsPremium] = useState(false)
   // const destinationsByCity = useSelector((state) => state.destinations.destinationsByCity);
   // const hotelsByCity = useSelector((state) => state.destinations.hotelsByCity);
   const destinations = useSelector((state) => state.destinations.destinations)
@@ -32,9 +33,7 @@ export default function TravelCards() {
     }
   }
 
-  const wordCount = hRef.current
-    ? hRef.current.textContent.split(" ").length
-    : 0
+  const wordCount = hRef.current ? hRef.current.textContent.split(" ").length : 0
 
   // useEffect(() => {
   //   window.clamp(moduleRef.current, { clamp: 3 })
@@ -85,12 +84,12 @@ export default function TravelCards() {
                 <h1
                   className="text-stone-500 font-light py-5 line-clamp overflow-ellipsis"
                   ref={hRef}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-                  fuga provident animi quae doloremque esse sit
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae fuga
+                  provident animi quae doloremque esse sit
                 </h1>
               </div>
               <div className="flex bg-yelloku w-full gap-10 px-5 py-4">
-                <FaMapMarker/>
+                <FaMapMarker />
                 <h1>
                   {type === "destination" || type === "hotel"
                     ? city.city.name
