@@ -67,7 +67,7 @@ export function fetchHighlightedDestination() {
       .then((res) => {
         dispatch({
           type: FETCH_HIGHLIGHTED_DESTINATION,
-          payload: res.data.slice(0, 6),
+          payload: res.data,
         })
       })
       .catch((error) => {

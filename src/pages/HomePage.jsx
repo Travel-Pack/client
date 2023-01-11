@@ -21,7 +21,7 @@ export function HomePage() {
   const reviews = useSelector((state) => state.others.reviews)
 
   function navToStep() {
-    nav("/travelItenerary")
+    nav("/travel-step")
   }
 
   /* Fetch data from API */
@@ -54,27 +54,27 @@ export function HomePage() {
           <h1 className="xl:text-5xl text-3xl font-light text-white space px-16 text-center xl:px-0 xl:text-left">
             Join Global community to list all worth destination in Nusantara
           </h1>
-          <button className="bg-yelloku py-3 px-11 block mx-auto mt-2 lowercase tracking-wider">
-            Learn More
-          </button>
+          <a href="#cities">
+            <button className="bg-yelloku py-3 px-11 block mx-auto mt-2 lowercase tracking-wider">
+              Let's Go!
+            </button>
+          </a>
         </div>
       </div>
       <div className="flex-col flex pb-10">
         <div className="bg-yelloku flex flex-col xl:flex-row items-center justify-center py-10 xl:gap-14 gap-3 h-10">
         </div>
-        <section className="destination-text bg-white w-full">
+        <section className="destination-text bg-white w-full" id="cities">
           <div className="container mx-auto py-4">
             <div className="max-w-3xl">
               <div className="py-10">
                 <h1 className="xl:text-5xl text-3xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
                   Choose The
-                  <span className="font-light"> Destinations Just Right </span>
+                  <span className="font-light"> Cities Just Right </span>
                   For Your Vacation
                 </h1>
                 <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Minima dolorem placeat atque ad! Eaque, ratione totam? Ad
-                  placeat laborum
+                  View destinations or hotels in the city of your choice. Click a city to see available destinations and hotels.
                 </p>
               </div>
             </div>
@@ -92,9 +92,7 @@ export function HomePage() {
                 Waiting For You
               </h1>
               <p className="mt-4 pl-7 font-light text-lg text-gray-500  ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima
-                dolorem placeat atque ad! Eaque, ratione totam? Ad placeat
-                laborum
+                Best destinations based on users reviews.
               </p>
             </div>
           </div>
@@ -132,13 +130,13 @@ export function HomePage() {
           <div className="py-10">
             <h1 className="xl:text-5xl text-3xl tracking-wide border-l-4 border-zinc-900 pl-7 font-bold">
               Lets go
-              <span className="font-light"> Book the Destination wanted </span>
+              <span className="font-light"> create your travel step </span>
               right now!
             </h1>
             <button
               onClick={navToStep}
               className="bg-yelloku text-lg font-medium py-2.5 px-16 block mt-5 lowercase tracking-wider">
-              Go to Book
+              Generate Travel Step
             </button>
           </div>
         </div>

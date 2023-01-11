@@ -35,7 +35,7 @@ export default function TravelItenerary() {
                       Join travel pack family for more travel steps and many more!
                     </p>
                     <button
-                      onClick={setShowModal(!showModal)}
+                      onClick={()=>{setShowModal(!showModal)}}
                       className={`mt-8 inline-flex items-center rounded border px-8 py-3 ${blackButton}`}>
                       <span className="text-sm font-medium"> Upgrade now </span>
                       <svg
