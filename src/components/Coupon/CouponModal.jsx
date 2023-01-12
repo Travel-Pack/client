@@ -97,6 +97,10 @@ export default function CouponModal({ point }) {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">My Coupons</h3>
+                  <span className="ml-4 flex gap-2 items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5078/5078644.png" className="h-8" alt="point" title="point" />
+                    <p className="text-2xl font-semibold">{point} point(s)</p>
+                  </span>
                 </div>
                 {/*body*/}
                 <div

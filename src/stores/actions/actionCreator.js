@@ -21,7 +21,7 @@ import {
   FETCH_WEATHER_DATA,
   SAVE_TRAVELSTEPS_CRITERIA,
 } from "./actionType"
-export const baseUrl = "http://localhost:3000"
+export const baseUrl = "https://travel-pack-server.foxhub.space"
 
 export function fetchCities() {
   return (dispatch, getState) => {

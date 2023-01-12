@@ -40,7 +40,10 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <ProfilePage />,
+        element:
+          <Protect>
+            <ProfilePage />
+          </Protect>,
       },
       {
         path: "find-byCity/:citySlug/",

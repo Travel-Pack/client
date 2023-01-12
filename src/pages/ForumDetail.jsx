@@ -7,7 +7,7 @@ import { fetchMessages, insertMessage } from "../stores/actions/actionCreator"
 import io from "socket.io-client"
 import { blackButton } from "../helpers/buttonStyle"
 
-const socket = io.connect("http://localhost:3000/")
+const socket = io.connect("https://travel-pack-server.foxhub.space")
 
 export default function ForumDetail() {
   let navigate = useNavigate()
