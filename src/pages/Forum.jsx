@@ -14,6 +14,7 @@ export default function Forum() {
   const [showInput, setShowInput] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const navToSection = (slug, id) => {
+    localStorage.setItem("TopicId", id)
     dispatch(fetchForumId(id))
     nav(`/forum/${slug}`)
   }
