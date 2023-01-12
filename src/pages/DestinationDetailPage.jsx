@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useParams } from "react-router-dom"
+import { Outlet, NavLink, useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Loader from "../components/Loader"
@@ -15,6 +15,7 @@ export function DestinationDetailPage() {
     data = hotel
   }
   const [load, setLoad] = useState(true)
+  const na = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,16 +49,16 @@ export function DestinationDetailPage() {
           </div>
           <div className="mt-14 sm:mt-6">
             <div className="flex gap-6" id="NavDetail">
-              <NavLink
-                to={""}
+              <button
+               onClick={()=> na("")}
                 className="font-nunito cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
                 Information
-              </NavLink>
-              <NavLink
-                to="review"
+              </button>
+              <button
+                onClick={()=> na("review")}
                 className="font-nunito cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
                 Review
-              </NavLink>
+              </button>
               {/* <NavLink
                   to="covid"
                   className="font-nunito hover:underline hover:decoration-8 hover:decoration-yellow-200 cursor-pointer font-medium hover:bg-white w-32 py-2 text-center text-white hover:text-black duration-200">
