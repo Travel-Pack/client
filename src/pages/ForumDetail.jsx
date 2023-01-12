@@ -13,11 +13,16 @@ export default function ForumDetail() {
   let navigate = useNavigate()
   let { slug } = useParams()
   let { id } = useSelector((state) => state.forums)
+  const { topics } = useSelector((state) => state.forums)
   let { messages, topic } = useSelector((state) => state.forums)
   let dispatch = useDispatch()
   const [showReply, setShowReply] = useState(false)
   const [replyUser, setReplyUser] = useState("")
   const [replyMsg, setReplyMsg] = useState("")
+  const [load, setLoad] = useState(true);
+
+  const [selectedTopic, setSelectedTopic] = useState({})
+  const [selectedMessages, setSelectedMessages] = useState([])
 
   function reply(show, user, msg) {
     setShowReply(show)
@@ -68,15 +73,36 @@ export default function ForumDetail() {
   useEffect(() => {
     if (!id) navigate("/forum/")
   })
+
+  useEffect(() => {
+    topics.forEach(el => {
+      if (el.slug == slug){
+        setSelectedTopic(el)
+        setSelectedMessages(el.Messages)
+      }
+    })
+  }, [])
   useEffect(() => {
     socket.emit("join_room", slug)
-    dispatch(fetchMessages(id))
+    dispatch(fetchMessages(localStorage.TopicId))
+      .then(_=>{
+        setLoad(false)
+      })
   }, [])
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      dispatch(fetchMessages(id))
-      // setMessageList((list) => [...list, data]);
+      setLoad(true);
+      console.log(`Local Id ${localStorage.TopicId}, ${data.id}`);
+      let flag = true
+      messages.forEach(el => {
+        if (el.id == data.id) flag = false
+      })
+      if (flag) {
+        console.log("insert message", data.id);
+        dispatch(insertMessage(data))
+        setLoad(false)
+      }
     })
   }, [socket])
 
@@ -98,7 +124,7 @@ export default function ForumDetail() {
               return (
                 <div
                   className="px-1 py-2 border-b-2 border-black flex flex-col gap-5 rounded-sm my-1"
-                  id={messageContent.id}>
+                  id={messageContent.id} key={messageContent.id}>
                   <div className="flex justify-between">
                     <div className="flex gap-3">
                       <p id="author" className="text-2xl text-yelloku capitalize">
