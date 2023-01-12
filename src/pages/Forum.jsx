@@ -47,7 +47,7 @@ export default function Forum() {
             <div className="md:mr-96">
               <button
                 onClick={() => setShowInput(!showInput)}
-                className={`${blackButton} py-3 w-full mb-7`}>
+                className={`${blackButton} py-3 w-full mb-2`}>
                 Add Topic
               </button>
               <form
@@ -69,24 +69,24 @@ export default function Forum() {
             {topics.map((el, index) => {
               return (
                 <div
-                  className={`flex md:mr-96 items-center border hover:bg-yelloku bg-white shadow-md py-5 px-6 gap-10 justify-between ${
+                  className={`flex md:mr-96 items-center border hover:bg-yelloku bg-white shadow-md  gap-10 justify-between ${
                     (index + 1) % 2 === 0 ? "bg-blue-100" : ""
                   }`}
                   key={el.id}
                   onClick={() => navToSection(el.slug, el.id)}>
-                  <div className={`div flex flex-col`}>
+                  <div className={`div flex flex-col py-5 px-6`}>
                     <h1 className="text-xl font-medium">{el.title}</h1>
                     <p className="font-light text-lg text-gray-500 capitalize">
                       Author: {el.User.fullName}
                     </p>
                   </div>
                   <div
-                    className={`border-l-2 border-gray-400 w-1/4 justify-center gap-2 items-center flex`}>
+                    className={`border-l-2 border-gray-400 w-1/4 justify-center gap-2 items-center flex py-2`}>
                     <h1 className="text-2xl">{el.Messages.length}</h1>
                     <HiOutlineChatAlt className="w-6 h-6" />
                     <div className="w-24 h-24 ml-6">
                       <img
-                        src={`https://source.unsplash.com/random/?id=${index}`}
+                        src={`https://source.unsplash.com/random/?Nature&id=${index}`}
                         alt=""
                         className="w-full h-full object-cover"
                       />
