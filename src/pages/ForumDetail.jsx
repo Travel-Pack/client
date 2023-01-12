@@ -18,6 +18,7 @@ export default function ForumDetail() {
   const [showReply, setShowReply] = useState(false)
   const [replyUser, setReplyUser] = useState("")
   const [replyMsg, setReplyMsg] = useState("")
+  const [load, setLoad] = useState(true);
 
   function reply(show, user, msg) {
     setShowReply(show)
@@ -71,11 +72,18 @@ export default function ForumDetail() {
   useEffect(() => {
     socket.emit("join_room", slug)
     dispatch(fetchMessages(id))
+      .then(_=>{
+        setLoad(false)
+      })
   }, [])
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
+      setLoad(true);
       dispatch(fetchMessages(id))
+        .then(_=>{
+          setLoad(false);
+        })
       // setMessageList((list) => [...list, data]);
     })
   }, [socket])
