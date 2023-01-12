@@ -3,11 +3,11 @@ import ScrollToTopBtn from "../components/ScrollToTopBtn"
 import ScrollToBottom from "react-scroll-to-bottom"
 import { useNavigate, useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchMessages, insertMessage } from "../stores/actions/actionCreator"
+import { baseUrl, fetchMessages, insertMessage } from "../stores/actions/actionCreator"
 import io from "socket.io-client"
 import { blackButton } from "../helpers/buttonStyle"
 
-const socket = io.connect("https://travel-pack-server.foxhub.space")
+const socket = io.connect(baseUrl)
 
 export default function ForumDetail() {
   let navigate = useNavigate()

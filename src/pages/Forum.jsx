@@ -12,6 +12,7 @@ export default function Forum() {
   const dispatch = useDispatch()
   const { topics } = useSelector((state) => state.forums)
   const [showInput, setShowInput] = useState(false)
+  const [inputValue, setInputValue] = useState("")
   const navToSection = (slug, id) => {
     dispatch(fetchForumId(id))
     nav(`/forum/${slug}`)
@@ -20,6 +21,15 @@ export default function Forum() {
   useEffect(() => {
     dispatch(fetchTopics())
   }, [])
+
+  const onChangeHandler = (e) => {
+    setInputValue(e.target.value)
+  }
+  const postTopic = (e) => {
+    e.preventDefault()
+    console.log("submitted");
+    console.log(inputValue);
+  }
 
   if (topics)
     return (
@@ -38,13 +48,16 @@ export default function Forum() {
                 className={`${blackButton} py-3 w-full`}>
                 Add Topic
               </button>
+              <form onSubmit={postTopic}>
               <input
+                onChange={onChangeHandler}
                 type="text"
                 className={`${
                   showInput ? "h-11" : "h-0 hidden"
                 } transition-transform w-full flex`}
                 placeholder="write your forum title here..."
               />
+              </form>
             </div>
             {topics.map((el, index) => {
               return (
