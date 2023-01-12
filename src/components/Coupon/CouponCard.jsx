@@ -23,7 +23,7 @@ export default function CouponCard({ promo }) {
         }}>
         <div className="flex justify-center items-center">
           <img
-            src="../assets/travelPack.png"
+            src="/images/travelPack.png"
             alt="travelPack-Logo"
             className="h-16 sm:h-16 bg-white rounded-full p-1"
           />

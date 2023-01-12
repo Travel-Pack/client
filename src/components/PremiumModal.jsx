@@ -56,7 +56,7 @@ export default function ({ toggleModal, showModal }) {
             className="h-48 w-full object-cover"
           />
           <div className="flex items-center gap-3">
-            <img src="/assets/travelPack.ico" alt="logo" className="h-12 mt-5" />
+            <img src="/images/travelPack.png" alt="logo" className="h-12 mt-5" />
             <h1 className="mt-4 text-2xl">
               Travel <span className="font-bold">Pack</span>
             </h1>

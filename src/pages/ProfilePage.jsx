@@ -81,7 +81,7 @@ export function ProfilePage() {
             <NavLink to={"/"} className="block text-white" href="/">
               <span className="sr-only">Home</span>
               <img
-                src="/assets/travelPack.png"
+                src="/images/travelPack.png"
                 alt="travelPack-Logo"
                 className="h-24 sm:h-24 bg-white rounded-full p-2"
               />
