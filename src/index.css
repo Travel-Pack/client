@@ -1,13 +1,183 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input[type="number"] {
+  -moz-appearance: textfield !important;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 26px !important; /* Set a specific slider handle width */
+  height: 26px !important; /* Slider handle height */
+  background: #ffe500 !important; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 26px !important; /* Set a specific slider handle width */
+  height: 26px !important; /* Slider handle height */
+  background: #ffe500 !important; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.font-raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+.font-lucky-guy {
+  font-family: "Luckiest Guy", "cursive";
+}
+
+.font-caramel {
+  font-family: "Caramel", "cursive";
+}
+
+.font-nunito {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.font-caveat {
+  font-family: "Caveat", "cursive";
+}
+
+#map {
+  height: 600px;
+}
+
+/* #NavDetail > .active {
+  text-decoration: underline;
+  text-decoration-thickness: 8px;
+  text-decoration-color: #ffe500;
+  background-color: white;
+  color: black !important;
+}
+
+#navbarLink > div > .active {
+  border-bottom: 4px solid #ffe500;
+} */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-bottom: 50px;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+}
+.append-buttons {
+  text-align: center;
+}
+
+.append-buttons button {
+  display: inline-block;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border: 1px solid black;
+  font-weight: 300;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.append-buttons button:hover {
+  background-color: white;
+  color: black;
+  transition-duration: 300ms ease-in-out;
+}
+
+.font-caramel {
+  font-family: "Caramel", "cursive";
+}
+
+.font-nunito {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.font-caveat {
+  font-family: "Caveat", "cursive";
+}
+
+#map {
+  height: 400px;
+}
+
+/* scollbar Style */
+#scrollStyle::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+#scrollStyle::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+#scrollStyle::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border: 2px solid #555555;
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.active {
+  border-bottom: 6px solid #ffe500;
 }
