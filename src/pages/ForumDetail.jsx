@@ -99,7 +99,7 @@ export default function ForumDetail() {
         if (el.id == data.id) flag = false
       })
       if (flag) {
-        console.log("insert message", data.id);
+        // console.log("insert message", data.id);
         dispatch(insertMessage(data))
         setLoad(false)
       }
