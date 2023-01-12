@@ -312,11 +312,7 @@ export function fetchHotel(slug) {
   return (dispatch, getState) => {
     return axios({
       method: "GET",
-      url: `${baseUrl}/hotels/${slug}`,
-      //nanti hapus
-      headers: {
-        access_token: localStorage.access_token,
-      },
+      url: `${baseUrl}/publics/hotels/${slug}`
     })
       .then((res) => {
         dispatch({
