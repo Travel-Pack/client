@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import { HiOutlineChatAlt } from  "react-icons/hi";;
+import { HiOutlineChatAlt } from "react-icons/hi"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
-import { blackButton } from "../helpers/buttonStyle"
+import { blackButton, yellowButton } from "../helpers/buttonStyle"
 import { fetchForumId, fetchTopics } from "../stores/actions/actionCreator"
 
 export default function Forum() {
@@ -27,8 +27,8 @@ export default function Forum() {
   }
   const postTopic = (e) => {
     e.preventDefault()
-    console.log("submitted");
-    console.log(inputValue);
+    console.log("submitted")
+    console.log(inputValue)
   }
 
   if (topics)
@@ -37,7 +37,9 @@ export default function Forum() {
         <div className="flex-col flex gap-5 xl:mt-20">
           <section id="forumHero" className="bg-yelloku py-10 sticky top-0">
             <div className="container mx-auto">
-              <h1 className="text-4xl font-bold mb-3 text-center">Travel Pack Forum</h1>
+              <h1 className="text-4xl font-bold mb-3 text-center">
+                Travel Pack Forum
+              </h1>
             </div>
           </section>
 
@@ -45,18 +47,23 @@ export default function Forum() {
             <div className="md:mr-96">
               <button
                 onClick={() => setShowInput(!showInput)}
-                className={`${blackButton} py-3 w-full`}>
+                className={`${blackButton} py-3 w-full mb-7`}>
                 Add Topic
               </button>
-              <form onSubmit={postTopic}>
-              <input
-                onChange={onChangeHandler}
-                type="text"
-                className={`${
-                  showInput ? "h-11" : "h-0 hidden"
-                } transition-transform w-full flex`}
-                placeholder="write your forum title here..."
-              />
+              <form
+                onSubmit={postTopic}
+                className={`flex items-center gap-2 ${showInput ? "h-11" : "h-0 hidden"}`}>
+                <input
+                  onChange={onChangeHandler}
+                  type="text"
+                  className={`transition-transform w-full flex h-full relative`}
+                  placeholder="write your forum title here..."
+                />
+                <button
+                  type="submit"
+                  className={`${yellowButton} h-full px-7 text-xl text-center block mx-auto py-1`}>
+                  Submit
+                </button>
               </form>
             </div>
             {topics.map((el, index) => {
@@ -76,12 +83,16 @@ export default function Forum() {
                   <div
                     className={`border-l-2 border-gray-400 w-1/4 justify-center gap-2 items-center flex`}>
                     <h1 className="text-2xl">{el.Messages.length}</h1>
-                    <HiOutlineChatAlt className="w-6 h-6"/>
-                  <div className="w-24 ml-6">
-                  <img src="https://img.freepik.com/free-vector/summer-landscape-background-zoom_52683-41032.jpg?w=1800&t=st=1673476492~exp=1673477092~hmac=05271ee5d7f2edafcb0c9c0514906bffe905466a554a1c4c2ba1e1bfbfc12b46" alt="" className="w-full h-full" />
+                    <HiOutlineChatAlt className="w-6 h-6" />
+                    <div className="w-24 h-24 ml-6">
+                      <img
+                        src={`https://source.unsplash.com/random/?id=${index}`}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
-                  </div>
               )
             })}
           </div>
