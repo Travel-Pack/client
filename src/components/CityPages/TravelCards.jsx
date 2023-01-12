@@ -89,7 +89,7 @@ export default function TravelCards() {
                   {el.description?.length >= 175
                     ? el.description.slice(0, 175) + "..."
                     : el.description} 
-                  {type === "hotel" ? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum iusto vitae ea necessitatibus eveniet itaque numquam dolores totam, corrupti vel omnis libero " : ""}
+                  {/* {type === "hotel" ? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum iusto vitae ea necessitatibus eveniet itaque numquam dolores totam, corrupti vel omnis libero " : ""} */}
                 </h1>
               </div>
               </div>
