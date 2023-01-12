@@ -18,7 +18,7 @@ export function ProfilePage() {
   const [inputActive1, setInputActive1] = useState(false)
   const [inputActive2, setInputActive2] = useState(false)
   const [inputActive3, setInputActive3] = useState(false)
-  const [inputActive4, setInputActive4] = useState(false)
+  // const [inputActive4, setInputActive4] = useState(false)
 
   const onChangeHandler = (e) => {
     const updatedupdateData = {
@@ -206,10 +206,10 @@ export function ProfilePage() {
                     className="block font-medium text-gray-700">
                     Password
                   </label>
-                  <VscEdit
+                  {/* <VscEdit
                     onClick={() => setInputActive4(!inputActive4)}
                     className="cursor-pointer w-5 h-5"
-                  />
+                  /> */}
                 </div>
 
                 <input
@@ -220,7 +220,8 @@ export function ProfilePage() {
                   name="password"
                   placeholder="Enter password"
                   className="p-3 mt-1 w-full rounded-sm border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300"
-                  disabled={inputActive4 ? false : true}
+                  required
+                  // disabled={inputActive4 ? false : true}
                 />
               </div>
               <div className="col-span-6 sm:col-span-3">
@@ -237,7 +238,8 @@ export function ProfilePage() {
                   name="passwordConfirmation"
                   placeholder="Confirm password"
                   className="p-3 mt-1 w-full rounded-md border-gray-200 bg-white text-gray-700 shadow-sm disabled:bg-gray-300"
-                  disabled={inputActive4 ? false : true}
+                  required
+                  // disabled={inputActive4 ? false : true}
                 />
               </div>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
