@@ -15,7 +15,7 @@ export default function CouponCard({ promo }) {
             "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 33%, rgba(0,212,255,1) 100%)",
           color: "#fff",
           "text-align": "center",
-          padding: "40px 80px",
+          padding: "20px 80px",
           "border-radius": "15px",
           "box-shadow": "0 10px 10px 0 rgba(0,0,0,0.15)",
           position: "relative",
