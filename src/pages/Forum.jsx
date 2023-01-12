@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
 import { blackButton, yellowButton } from "../helpers/buttonStyle"
-import { fetchForumId, fetchTopics } from "../stores/actions/actionCreator"
+import { fetchForumId, fetchTopics, postTopic } from "../stores/actions/actionCreator"
 
 export default function Forum() {
   const nav = useNavigate()
@@ -25,10 +25,13 @@ export default function Forum() {
   const onChangeHandler = (e) => {
     setInputValue(e.target.value)
   }
-  const postTopic = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("submitted")
-    console.log(inputValue)
+    dispatch(postTopic({ title: inputValue, type: "Forum" }))
+      .then(res => {
+        if (res == 'ok') dispatch(fetchTopics())
+        setInputValue("")
+      })
   }
 
   if (topics)
@@ -51,7 +54,7 @@ export default function Forum() {
                 Add Topic
               </button>
               <form
-                onSubmit={postTopic}
+                onSubmit={handleSubmit}
                 className={`flex items-center gap-2 ${showInput ? "h-11" : "h-0 hidden"}`}>
                 <input
                   onChange={onChangeHandler}

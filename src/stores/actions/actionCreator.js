@@ -517,6 +517,34 @@ export function saveTravelStepCriteria(data) {
   }
 }
 
+export function postTopic(data) {
+  return (dispatch, getState) => {
+    try {
+      let { title, type } = data
+      return axios({
+        method: "POST",
+        url: `${baseUrl}/topic`,
+        data: { title, type },
+        headers: { access_token: localStorage.access_token }
+      })
+        .then((res) => {
+          //ganti ke swal
+          notifySuccess("Successfully Create Topic!")
+          return "ok"
+        })
+        .catch((error) => {
+          //ganti ke swal
+          if (error.message === "Network Error") {
+            return notifyError(error.message)
+          }
+          notifyError(error.response.data?.msg)
+          return "error"
+        })
+    } catch (error) {
+      notifyError(error.msg)
+    }
+  }
+}
 // export function fetchWeatherData(geocoding) {
   // return async (dispatch, getState) => {
   //   try {
