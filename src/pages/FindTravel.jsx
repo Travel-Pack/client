@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { fetcDestinations } from "../stores/actions/actionCreator"
 import Loader from "../components/Loader"
 import ScrollToTopBtn from "../components/ScrollToTopBtn"
+import FooterTeam from "./FooterTeam"
 export default function FindTravel() {
   const [active, setActive] = useState(null)
   const dispatch = useDispatch()
@@ -58,6 +59,7 @@ export default function FindTravel() {
 
         <SearchForm />
       </div>
+      <FooterTeam/>
     </div>
   )
 }
