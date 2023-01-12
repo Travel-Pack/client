@@ -102,7 +102,7 @@ export function DestinationInformation() {
                 })}`
               : "Free"}
           </h1>
-          <p className="text-justify text-xl mt-8">{data.description}</p>
+          <p className="text-justify text-gray-600 text-xl mt-8">{data.description}</p>
           {/*Gallery*/}
           <section className="gallery">
             {data.Images.length ? (
@@ -289,7 +289,7 @@ export function DestinationInformation() {
               </>
             ) : (
               <>
-                <h1 className="text-center text-xl">No review from user yet</h1>
+                <h1 className="text-center text-xl py-2">No review from user yet</h1>
               </>
             )}
           </div>
